@@ -8,7 +8,6 @@ use Symfony\Component\Translation\Loader\LoaderInterface;
 
 class MemcachedLoader extends ArrayLoader implements LoaderInterface
 {
-
     private $memcached;
 
     /**
