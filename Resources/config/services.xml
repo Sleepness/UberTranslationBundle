@@ -9,8 +9,12 @@
         <service id="origin.memcached" class="Memcached"/>
 
         <service id="uber.memcached" class="Sleepness\UberTranslationBundle\Cache\UberMemcached">
-            <call method="setMemcached">
-                <argument type="service" id="origin.memcached"/>
+            <argument type="service" id="origin.memcached" />
+        </service>
+
+        <service id="uber.translations.loader" class="Sleepness\UberTranslationBundle\Translation\Loader\MemcachedLoader">
+            <call method="setUberMemcached">
+                <argument type="service" id="uber.memcached" />
             </call>
         </service>
 

@@ -6,15 +6,13 @@ use \Memcached;
 
 class UberMemcached
 {
+
     private $memcached;
 
-    /**
-     * @param Memcached $memcached
-     * @return void
-     */
-    public function setMemcached(\Memcached $memcached)
+    public function __construct(\Memcached $memcached)
     {
         $this->memcached = $memcached;
+        $this->memcached->addServer('localhost', 11211);
     }
 
     /**

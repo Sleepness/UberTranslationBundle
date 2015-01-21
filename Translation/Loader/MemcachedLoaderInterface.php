@@ -2,16 +2,11 @@
 
 namespace Sleepness\UberTranslationBundle\Translation\Loader;
 
-use Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
-
 interface MemcachedLoaderInterface
 {
     /**
-     * @param $resource
      * @param $locale
-     * @param string $domain
-     * @return MemcachedMessageCatalogue
+     * @return mixed
      */
-    public function load($resource, $locale, $domain = 'messages');
-
-} 
+    public function load($locale);
+}

@@ -7,4 +7,4 @@ use Symfony\Component\Translation\MessageCatalogue as BaseMessageCatalogue;
 class MemcachedMessageCatalogue extends BaseMessageCatalogue
 {
 
-} 
+}
