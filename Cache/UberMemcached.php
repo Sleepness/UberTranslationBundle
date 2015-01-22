@@ -6,7 +6,6 @@ use \Memcached;
 
 class UberMemcached
 {
-
     private $memcached;
 
     public function __construct(\Memcached $memcached)
@@ -50,7 +49,7 @@ class UberMemcached
     }
 
     /**
-     * Getting item from cache
+     * Getting item from memcached
      *
      * @param $key
      * @return mixed
@@ -61,7 +60,7 @@ class UberMemcached
     }
 
     /**
-     * Check if item with given key exists in cache
+     * Check if item with given key exists in memcached
      *
      * @param $key
      * @return bool
@@ -72,7 +71,7 @@ class UberMemcached
     }
 
     /**
-     * Delete item from memcache
+     * Delete item from memcached
      *
      * @param $key
      * @return bool
@@ -83,7 +82,7 @@ class UberMemcached
     }
 
     /**
-     * Remove all items from memcache(invalidate)
+     * Remove all items from memcached(invalidate)
      *
      * @param int $delay
      * @return bool
