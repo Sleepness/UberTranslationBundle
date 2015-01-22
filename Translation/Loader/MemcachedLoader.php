@@ -24,14 +24,27 @@ class MemcachedLoader extends ArrayLoader implements LoaderInterface
     public function load($resource, $locale, $domain = 'messages')
     {
         if (null == $resource) {
-            $resource = $this->memcached;
+            $resource = 'localhost:11211';
         }
+        $data = explode(":", $resource);
+        $host = $data[0];
+        $port = $data[1];
+
+        if (!$this->memcached->setConnection($host, $port)) {
+            throw new NotFoundResourceException(sprintf('Resource "%s" not found.', $resource));
+        }
+
         $messages = $resource->getItem($locale);
         // no messages in cache
         if (null === $messages) {
             $messages = array();
         }
+
+        if (!is_array($messages)) {
+            throw new InvalidResourceException(sprintf('The resource "%s" must contain an array.', $resource));
+        }
         $catalogue = parent::load($messages, $locale, $domain);
+        $catalogue->addResource($this->memcached);
 
         return $catalogue;
     }

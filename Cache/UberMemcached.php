@@ -25,11 +25,13 @@ class UberMemcached
     /**
      * Set the connection with memcached server
      *
-     * @return void
+     * @param string $host
+     * @param int $port
+     * @return bool TRUE on success or FALSE failure.
      */
-    public function setConnection()
+    public function setConnection($host, $port)
     {
-        $this->getMemcached()->addServer('localhost', 11211);
+        $this->getMemcached()->addServer($host, $port);
     }
 
     /**
