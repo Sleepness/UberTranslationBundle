@@ -8,15 +8,22 @@
         <tr>
             <th>Domain</th>
             <th>Key</th>
-            <th>Loacle</th>
+            <th>Message[locale]</th>
         </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>messages</td>
-                <td>trans.id</td>
-                <td>locale</td>
-            </tr>
+        {% for domain, domainMess in messages %}
+            {% for message, messageKey in domainMess %}
+                <tr>
+                    <td>{{ domain }}</td>
+                    <td>{{ messageKey }}</td>
+                    <td>
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        {{ message }}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
         </tbody>
     </table>
 </div>

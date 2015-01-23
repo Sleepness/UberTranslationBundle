@@ -11,7 +11,7 @@ class UberMemcached
     public function __construct(\Memcached $memcached)
     {
         $this->memcached = $memcached;
-        $this->memcached->addServer('localhost', 11211);
+        $this->memcached->addServer('localhost', 11211); // need to be removed or param agnostic
     }
 
     /**

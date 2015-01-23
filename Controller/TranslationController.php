@@ -8,6 +8,11 @@ class TranslationController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig');
+        $memcached = $this->get('uber.memcached');
+        $messages = $memcached->getItem('en');
+
+        return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig', array(
+            'messages' => $messages,
+        ));
     }
 } 
