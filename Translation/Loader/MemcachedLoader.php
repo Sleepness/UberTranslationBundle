@@ -7,6 +7,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Symfony\Component\Translation\MessageCatalogue;
 
 class MemcachedLoader extends ArrayLoader implements LoaderInterface
 {
@@ -26,17 +27,12 @@ class MemcachedLoader extends ArrayLoader implements LoaderInterface
     public function load($resource, $locale, $domain = 'messages')
     {
         if (null == $resource) {
-            $resource = 'localhost:11211';
-        }
-        $data = explode(":", $resource);
-        $host = $data[0];
-        $port = $data[1];
-
-        if (!$this->memcached->setConnection($host, $port)) {
-            throw new NotFoundResourceException(sprintf('Resource "%s" not found.', $resource));
+            $resource = $this->memcached;
         }
 
-        $messages = $this->memcached->getItem($locale);
+        $messagesOfDomain = $resource->getItem($locale);
+        $messages = $messagesOfDomain[$domain];
+
         // no messages in cache
         if (null === $messages) {
             $messages = array();
@@ -45,8 +41,10 @@ class MemcachedLoader extends ArrayLoader implements LoaderInterface
         if (!is_array($messages)) {
             throw new InvalidResourceException(sprintf('The resource "%s" must contain an array.', $resource));
         }
-        $catalogue = parent::load($messages, $locale, $domain);
-        $catalogue->addResource($this->memcached);
+
+        $catalogue = new MessageCatalogue($locale);
+        $catalogue->add($messages, $domain);
+        $catalogue->addResource($resource);
 
         return $catalogue;
     }
