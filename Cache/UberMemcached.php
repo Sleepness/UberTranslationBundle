@@ -6,7 +6,6 @@ use \Memcached;
 
 class UberMemcached
 {
-
     private $memcached;
 
     public function __construct(\Memcached $memcached)
@@ -26,11 +25,13 @@ class UberMemcached
     /**
      * Set the connection with memcached server
      *
-     * @return void
+     * @param string $host
+     * @param int $port
+     * @return bool TRUE on success or FALSE failure.
      */
-    public function setConnection()
+    public function setConnection($host, $port)
     {
-        $this->getMemcached()->addServer('localhost', 11211);
+        $this->getMemcached()->addServer($host, $port);
     }
 
     /**
@@ -50,7 +51,7 @@ class UberMemcached
     }
 
     /**
-     * Getting item from cache
+     * Getting item from memcached
      *
      * @param $key
      * @return mixed
@@ -61,7 +62,7 @@ class UberMemcached
     }
 
     /**
-     * Check if item with given key exists in cache
+     * Check if item with given key exists in memcached
      *
      * @param $key
      * @return bool
@@ -72,7 +73,7 @@ class UberMemcached
     }
 
     /**
-     * Delete item from memcache
+     * Delete item from memcached
      *
      * @param $key
      * @return bool
@@ -83,7 +84,7 @@ class UberMemcached
     }
 
     /**
-     * Remove all items from memcache(invalidate)
+     * Remove all items from memcached(invalidate)
      *
      * @param int $delay
      * @return bool
