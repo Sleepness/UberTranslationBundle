@@ -36,7 +36,7 @@ class MemcachedLoader extends ArrayLoader implements LoaderInterface
             throw new NotFoundResourceException(sprintf('Resource "%s" not found.', $resource));
         }
 
-        $messages = $resource->getItem($locale);
+        $messages = $this->memcached->getItem($locale);
         // no messages in cache
         if (null === $messages) {
             $messages = array();
