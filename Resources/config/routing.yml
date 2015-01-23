@@ -1,0 +1,3 @@
+sleepness_translation_dashboard:
+  pattern: /translations
+  defaults: { _controller: SleepnessUberTranslationBundle:Translation:index }

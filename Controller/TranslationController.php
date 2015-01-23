@@ -2,7 +2,12 @@
 
 namespace Sleepness\UberTranslationBundle\Controller;
 
-class TranslationController
-{
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+class TranslationController extends Controller
+{
+    public function indexAction()
+    {
+        return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig');
+    }
 } 
