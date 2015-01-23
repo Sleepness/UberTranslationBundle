@@ -5,6 +5,8 @@ namespace Sleepness\UberTranslationBundle\Translation\Loader;
 use Sleepness\UberTranslationBundle\Cache\UberMemcached;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Loader\LoaderInterface;
+use Symfony\Component\Translation\Exception\InvalidResourceException;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class MemcachedLoader extends ArrayLoader implements LoaderInterface
 {
