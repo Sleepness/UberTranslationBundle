@@ -9,10 +9,13 @@ class TranslationController extends Controller
     public function indexAction()
     {
         $memcached = $this->get('uber.memcached');
-        $messages = $memcached->getItem('en');
+
+        $messagesEN = $memcached->getItem('en');
+        $messagesUk = $memcached->getItem('uk');
+        $messages = array_merge_recursive($messagesEN, $messagesUk);
 
         return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig', array(
             'messages' => $messages,
         ));
     }
-} 
+}
