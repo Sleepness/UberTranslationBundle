@@ -69,7 +69,7 @@ class UberMemcached
      */
     public function hasItem($key)
     {
-        return (true === $this->getMemcached()->get($key));
+        return (false != $this->getMemcached()->get($key));
     }
 
     /**
