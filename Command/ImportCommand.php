@@ -19,12 +19,22 @@ class ImportCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('uber:import')
+            ->setName('uber:translations:import')
             ->setDefinition(array(
-                new InputArgument('locales', InputArgument::REQUIRED, 'import locales e.g. en,fr,uk'),
-                new InputArgument('bundle', InputArgument::REQUIRED, 'The bundle name'),
+                new InputArgument('locales', InputArgument::REQUIRED, 'Locales of translations (e.g. en,fr,uk)'),
+                new InputArgument('bundle', InputArgument::REQUIRED, 'Name of the bundle'),
             ))
-            ->setDescription('Import translations into memcached');
+            ->setDescription('Import translations into memcached')
+            ->setHelp("
+The <info>uber:translations:import</info> command import translations of your bundle into memcache:
+
+  <info>./app/console uber:translations:import locales VendorNameYourBundle</info>
+
+For example text in command line may look like
+
+  <info>./app/console uber:translations:import en,uk AcmeDemoBundle</info>
+
+            ");
     }
 
     /**
@@ -40,11 +50,17 @@ class ImportCommand extends ContainerAwareCommand
         $uberMemcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
         $catalogues = array(); // prepare array for catalogues
         foreach ($parsedLocales as $key => $locale) { // run through locales
-            $currentCatalogue = new MessageCatalogue($locale); // Load defined messages for given locale
-            if (is_dir($bundle->getPath() . '/Resources/translations')) {
-                $loader->loadMessages($bundle->getPath() . '/Resources/translations', $currentCatalogue); // load messages from catalogue
-                $catalogues[$locale] = $currentCatalogue; // pass MessageCatalogue instance into $catalogues array
+            if (!preg_match('/^[a-z]{2}$/', $locale)) {
+                $output->writeln("\033[37;41m Make sure you define all locales properly \033[0m   \n");
+                return;
             }
+            $currentCatalogue = new MessageCatalogue($locale); // Load defined messages for given locale
+            if (!is_dir($bundle->getPath() . '/Resources/translations')) {
+                $output->writeln("\033[37;41m There is not folder with translations in " . $input->getArgument('bundle') . " \033[0m   \n");
+                return;
+            }
+            $loader->loadMessages($bundle->getPath() . '/Resources/translations', $currentCatalogue); // load messages from catalogue
+            $catalogues[$locale] = $currentCatalogue; // pass MessageCatalogue instance into $catalogues array
         }
         foreach ($catalogues as $locale => $catalogue) { // run over all catalogues
             $catalogueMessages = $catalogue->all(); // get messages from current catalogue
@@ -69,5 +85,6 @@ class ImportCommand extends ContainerAwareCommand
                 $uberMemcached->addItem($locale, $mergedMessages); // set merged messages to memcache
             }
         }
+        $output->writeln("\033[37;42m Translations for " . $input->getArgument('bundle') . " successful! \033[0m");
     }
 }
