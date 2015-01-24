@@ -8,14 +8,28 @@ class TranslationController extends Controller
 {
     public function indexAction()
     {
-        $memcached = $this->get('uber.memcached');
+        $mem = $this->get('uber.memcached');
+        $locales = array('uk', 'en');
+        $preparedTranslations = array();
+        foreach ($locales as $key => $locale) {
+            $translations = $mem->getItem($locale);
+            foreach ($translations as $domain => $messages) {
+                foreach ($messages as $key => $message) {
+                    $preparedTranslations[] = array(
+                        'domain' => $domain,
+                        'key' => $key,
+                        'message' => array(
+                            'messageText' => $message,
+                            'locale' => $locale,
+                        ),
+                    );
+                }
+            }
+        }
 
-        $messagesEN = $memcached->getItem('en');
-        $messagesUk = $memcached->getItem('uk');
-        $messages = array_merge_recursive($messagesEN, $messagesUk);
 
         return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig', array(
-            'messages' => $messages,
+            'messages' => $preparedTranslations,
         ));
     }
 }
