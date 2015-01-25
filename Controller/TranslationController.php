@@ -4,6 +4,7 @@ namespace Sleepness\UberTranslationBundle\Controller;
 
 use Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class TranslationController extends Controller
 {
@@ -20,6 +21,17 @@ class TranslationController extends Controller
 
         return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig', array(
             'messages' => $messages,
+        ));
+    }
+
+    public function editAction($_locale, $_domain, $_key)
+    {
+        $mem = $this->get('uber.memcached');
+        $translations = $mem->getItem($_locale);
+        $message = $translations[$_domain][$_key];
+
+        return $this->render('SleepnessUberTranslationBundle:Translation:edit.html.twig', array(
+            'message' => $message
         ));
     }
 }

@@ -1,3 +1,7 @@
 sleepness_translation_dashboard:
   pattern: /translations
   defaults: { _controller: SleepnessUberTranslationBundle:Translation:index }
+
+sleepness_translation_edit:
+  pattern: /translation/edit/{_locale}/{_domain}/{_key}
+  defaults: { _controller: SleepnessUberTranslationBundle:Translation:edit, _locale: en, _domain: messages, _key: none_key }
