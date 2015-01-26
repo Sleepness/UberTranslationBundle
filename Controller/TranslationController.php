@@ -2,6 +2,8 @@
 
 namespace Sleepness\UberTranslationBundle\Controller;
 
+use Sleepness\UberTranslationBundle\Form\Model\TranslationModel;
+use Sleepness\UberTranslationBundle\Form\Type\TranslationMessageType;
 use Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,14 +26,22 @@ class TranslationController extends Controller
         ));
     }
 
-    public function editAction($_locale, $_domain, $_key)
+    public function editAction(Request $request, $_locale, $_domain, $_key)
     {
         $mem = $this->get('uber.memcached');
         $translations = $mem->getItem($_locale);
         $message = $translations[$_domain][$_key];
+        $model = new TranslationModel();
+        $model->setTranslation($message);
+        $form = $this->createForm(new TranslationMessageType(), $model);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            // do something
+        }
 
         return $this->render('SleepnessUberTranslationBundle:Translation:edit.html.twig', array(
-            'message' => $message
+            'message' => $message,
+            'form' => $form->createView()
         ));
     }
 }
