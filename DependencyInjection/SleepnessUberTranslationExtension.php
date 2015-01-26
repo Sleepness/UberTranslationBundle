@@ -17,6 +17,9 @@ class SleepnessUberTranslationExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('sleepness_uber_translation.memcache_host', $config['memcache_host']);
+        $container->setParameter('sleepness_uber_translation.memcache_port', $config['memcache_port']);
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
     }
