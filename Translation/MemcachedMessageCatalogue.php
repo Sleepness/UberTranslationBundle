@@ -1,7 +1,6 @@
 <?php
 
 namespace Sleepness\UberTranslationBundle\Translation;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Prepare messages for output
