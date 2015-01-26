@@ -8,8 +8,15 @@ use Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Controller responsive for managing translations
+ */
 class TranslationController extends Controller
 {
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         $messageCatalogue = new MemcachedMessageCatalogue();
@@ -26,6 +33,13 @@ class TranslationController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @param $_locale
+     * @param $_domain
+     * @param $_key
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function editAction(Request $request, $_locale, $_domain, $_key)
     {
         $mem = $this->get('uber.memcached');

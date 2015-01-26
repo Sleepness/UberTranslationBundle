@@ -5,6 +5,10 @@ namespace Sleepness\UberTranslationBundle\Cache;
 use \Memcached;
 use Symfony\Component\Config\Resource\ResourceInterface;
 
+/**
+ * Wrapper under standart Memcached class,
+ * what allow easy to work with memcache
+ */
 class UberMemcached implements ResourceInterface
 {
     private $memcached;
@@ -14,6 +18,9 @@ class UberMemcached implements ResourceInterface
         $this->memcached = $memcached;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function __toString()
     {
         return 'uberMemcached';
@@ -100,20 +107,14 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
-     * Returns true if the resource has not been updated since the given timestamp.
-     *
-     * @param int $timestamp The last time the resource was loaded
-     *
-     * @return bool True if the resource has not been updated, false otherwise
+     * {@inheritdoc}
      */
     public function isFresh($timestamp)
     {
     }
 
     /**
-     * Returns the tied resource.
-     *
-     * @return mixed The resource
+     * {@inheritdoc}
      */
     public function getResource()
     {

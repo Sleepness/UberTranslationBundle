@@ -6,8 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class for translation message form edit
+ */
 class TranslationMessageType extends AbstractType
 {
+    /**
+     * {@inheritDoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('translation', 'text', array(
@@ -15,6 +21,9 @@ class TranslationMessageType extends AbstractType
         ));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -22,6 +31,9 @@ class TranslationMessageType extends AbstractType
         ));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getName()
     {
         return 'translation_form';
