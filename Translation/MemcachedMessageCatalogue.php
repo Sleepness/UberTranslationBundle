@@ -1,6 +1,7 @@
 <?php
 
 namespace Sleepness\UberTranslationBundle\Translation;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Prepare messages for output
@@ -17,6 +18,9 @@ class MemcachedMessageCatalogue
      */
     public function add($locale, $translations)
     {
+        if (!$translations) {
+            return;
+        }
         foreach ($translations as $domain => $messages) {
             foreach ($messages as $key => $message) {
                 $this->preparedTranslations[] = array(
