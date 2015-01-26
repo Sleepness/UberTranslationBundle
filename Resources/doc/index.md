@@ -3,11 +3,9 @@ Getting Started With SleepnessUberTranslationBundle
 
 ## Installation
 
-Installation is a quick (I promise!) 7 step process:
-
 ### Step 1: Download bundle using composer
 
-Add FOSUserBundle by running the command:
+Add SleepnessUberTranslationBundle by running the command:
 
 ``` bash
 $ php composer.phar require sleepness/uber-translation-bundle "@dev"

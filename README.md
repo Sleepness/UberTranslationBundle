@@ -18,7 +18,7 @@ This Bundle is under construction to be "storage agnostic".
 Documentation
 -------------
 
-The bulk of the documentation is stored in the `Resources/doc/index.rst` file in this bundle.
+The bulk of the documentation is stored in the `Resources/doc/index.md` file in this bundle.
 
 
 Installation
