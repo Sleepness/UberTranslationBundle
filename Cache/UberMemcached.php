@@ -3,8 +3,9 @@
 namespace Sleepness\UberTranslationBundle\Cache;
 
 use \Memcached;
+use Symfony\Component\Config\Resource\ResourceInterface;
 
-class UberMemcached
+class UberMemcached implements ResourceInterface
 {
     private $memcached;
 
@@ -12,6 +13,11 @@ class UberMemcached
     {
         $this->memcached = $memcached;
         $this->memcached->addServer('localhost', 11211); // need to be removed or param agnostic
+    }
+
+    public function __toString()
+    {
+        return 'uberMemcached';
     }
 
     /**
@@ -92,5 +98,25 @@ class UberMemcached
     public function dropCache($delay = 0)
     {
         return $this->getMemcached()->flush($delay);
+    }
+
+    /**
+     * Returns true if the resource has not been updated since the given timestamp.
+     *
+     * @param int $timestamp The last time the resource was loaded
+     *
+     * @return bool True if the resource has not been updated, false otherwise
+     */
+    public function isFresh($timestamp)
+    {
+    }
+
+    /**
+     * Returns the tied resource.
+     *
+     * @return mixed The resource
+     */
+    public function getResource()
+    {
     }
 }
