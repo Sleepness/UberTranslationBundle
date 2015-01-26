@@ -50,7 +50,8 @@ class TranslationController extends Controller
         $form = $this->createForm(new TranslationMessageType(), $model);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            // do something
+            $translations[$_domain][$_key] = $model->getTranslation();
+            $mem->addItem($_locale, $translations);
         }
 
         return $this->render('SleepnessUberTranslationBundle:Translation:edit.html.twig', array(
