@@ -4,12 +4,19 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="sleepness_uber_translation.memcached.host" />
+        <parameter key="sleepness_uber_translation.memcached.port" />
+    </parameters>
+
     <services>
 
         <service id="origin.memcached" class="Memcached"/>
 
         <service id="uber.memcached" class="Sleepness\UberTranslationBundle\Cache\UberMemcached">
             <argument type="service" id="origin.memcached" />
+            <argument>%sleepness_uber_translation.memcached.host%</argument>
+            <argument>%sleepness_uber_translation.memcached.port%</argument>
         </service>
 
         <service id="uber.translation.loader" class="Sleepness\UberTranslationBundle\Translation\Loader\MemcachedLoader">

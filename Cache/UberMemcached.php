@@ -9,10 +9,10 @@ class UberMemcached implements ResourceInterface
 {
     private $memcached;
 
-    public function __construct(\Memcached $memcached)
+    public function __construct(\Memcached $memcached, $host, $port)
     {
         $this->memcached = $memcached;
-        $this->memcached->addServer('localhost', 11211); // need to be removed or param agnostic
+        $this->memcached->addServer($host, $port);
     }
 
     public function __toString()

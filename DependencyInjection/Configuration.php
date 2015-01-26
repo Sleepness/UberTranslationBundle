@@ -13,12 +13,24 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritDoc}
+     * Generates the configuration tree.
+     *
+     * @return TreeBuilder
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('uber_translation');
+        $rootNode = $treeBuilder->root('sleepness_uber_translation');
+        $rootNode
+            ->children()
+                ->arrayNode('memcached')
+                    ->children()
+                        ->scalarNode('host')->end()
+                        ->integerNode('port')->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }
