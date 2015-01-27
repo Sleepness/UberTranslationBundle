@@ -22,6 +22,10 @@ class Configuration implements ConfigurationInterface
             ->children()
             ->scalarNode('memcache_host')->isRequired()->cannotBeEmpty()->end()
             ->integerNode('memcache_port')->isRequired()->cannotBeEmpty()->end()
+            ->arrayNode('supported_locales')
+                ->defaultValue(array('en'))
+                ->prototype('scalar')->end()
+            ->end()
         ;
 
         return $treeBuilder;

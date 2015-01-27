@@ -19,6 +19,7 @@ class TranslationController extends Controller
      */
     public function indexAction()
     {
+        var_dump($this->container->getParameter('sleepness_uber_translation.supported_locales'));die;
         $messageCatalogue = new MemcachedMessageCatalogue();
         $mem = $this->get('uber.memcached');
         $locales = array('uk', 'en');
