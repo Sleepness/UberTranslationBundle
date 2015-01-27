@@ -11,21 +11,26 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritDoc}
+     * Generates the configuration tree.
+     *
+     * @return TreeBuilder
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('sleepness_uber_translation');
-
         $rootNode
             ->children()
-            ->scalarNode('memcache_host')->isRequired()->cannotBeEmpty()->end()
-            ->integerNode('memcache_port')->isRequired()->cannotBeEmpty()->end()
-            ->arrayNode('supported_locales')
-                ->defaultValue(array('en'))
-                ->prototype('scalar')->end()
-            ->end()
+                ->arrayNode('memcached')
+                    ->children()
+                        ->scalarNode('host')->end()
+                        ->integerNode('port')->end()
+                    ->end()
+                ->end()
+                ->arrayNode('supported_locales')
+                    ->defaultValue(array('en'))
+                    ->prototype('scalar')
+                ->end()
         ;
 
         return $treeBuilder;

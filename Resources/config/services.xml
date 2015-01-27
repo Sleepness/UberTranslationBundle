@@ -10,10 +10,12 @@
 
         <service id="uber.memcached" class="Sleepness\UberTranslationBundle\Cache\UberMemcached">
             <argument type="service" id="origin.memcached" />
+
             <call method="setConnection">
-                <argument>%sleepness_uber_translation.memcache_host%</argument>
-                <argument>%sleepness_uber_translation.memcache_port%</argument>
+                <argument>%sleepness_uber_translation.memcached.host%</argument>
+                <argument>%sleepness_uber_translation.memcached.port%</argument>
             </call>
+
         </service>
 
         <service id="uber.translation.loader" class="Sleepness\UberTranslationBundle\Translation\Loader\MemcachedLoader">
