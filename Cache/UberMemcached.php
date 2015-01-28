@@ -74,6 +74,16 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
+     * Gets all keys stored on all the memcached storages
+     *
+     * @return array
+     */
+    public function getAllKeys()
+    {
+        return $this->getMemcached()->getAllKeys();
+    }
+
+    /**
      * Check if item with given key exists in memcached
      *
      * @param $key
