@@ -15,9 +15,10 @@ class TranslationController extends Controller
 {
 
     /**
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $messageCatalogue = new MemcachedMessageCatalogue();
         $mem = $this->get('uber.memcached');
@@ -27,6 +28,8 @@ class TranslationController extends Controller
             $messageCatalogue->add($locale, $translations);
         }
         $messages = $messageCatalogue->getAll();
+        $paginator = $this->get('knp_paginator');
+        $messages = $paginator->paginate($messages, $request->query->get('page', 1), 5);
 
         return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig', array(
             'messages' => $messages,
