@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class for translation message form edit
+ * Class for form edit message translation
  */
 class TranslationMessageType extends AbstractType
 {

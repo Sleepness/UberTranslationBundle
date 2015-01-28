@@ -6,12 +6,12 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This class respond for building configuration of this bundle
+ * Respond for building configuration of bundle
  */
 class Configuration implements ConfigurationInterface
 {
     /**
-     * Generates the configuration tree.
+     * Generate the configuration tree.
      *
      * @return TreeBuilder
      */

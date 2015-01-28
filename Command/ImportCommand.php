@@ -26,11 +26,11 @@ class ImportCommand extends ContainerAwareCommand
             ))
             ->setDescription('Import translations into memcached')
             ->setHelp("
-The <info>uber:translations:import</info> command import translations of your bundle into memcache:
+The <info>uber:translations:import</info> command imports translations of given bundle into memcache:
 
   <info>./app/console uber:translations:import locales VendorNameYourBundle</info>
 
-For example text in command line may look like
+Command example:
 
   <info>./app/console uber:translations:import en,uk AcmeDemoBundle</info>
 
@@ -42,7 +42,6 @@ For example text in command line may look like
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $locales = $input->getArgument('locales');
         $parsedLocales = explode(',', $locales); // prepare locales from parameters
         $bundle = $this->getContainer()->get('kernel')->getBundle($input->getArgument('bundle')); // get bundle props
@@ -56,7 +55,7 @@ For example text in command line may look like
             }
             $currentCatalogue = new MessageCatalogue($locale); // Load defined messages for given locale
             if (!is_dir($bundle->getPath() . '/Resources/translations')) {
-                $output->writeln("\033[37;41m There is not folder with translations in " . $input->getArgument('bundle') . " \033[0m   \n");
+                $output->writeln("\033[37;41m There is no folder with translations in " . $input->getArgument('bundle') . " \033[0m   \n");
                 return;
             }
             $loader->loadMessages($bundle->getPath() . '/Resources/translations', $currentCatalogue); // load messages from catalogue
@@ -65,7 +64,7 @@ For example text in command line may look like
         foreach ($catalogues as $locale => $catalogue) { // run over all catalogues
             $catalogueMessages = $catalogue->all(); // get messages from current catalogue
             $memcacheMessages = $uberMemcached->getItem($locale); // get existing messages from the memcache by locale
-            if ($memcacheMessages == false) { // if for now no messages in memcache
+            if (!$memcacheMessages) { // if for now no messages in memcache
                 $uberMemcached->addItem($locale, $catalogueMessages); // just upload them
             } else {
                 foreach ($memcacheMessages as $domain => $messagesArray) { // run over messages in cache
@@ -85,6 +84,6 @@ For example text in command line may look like
                 $uberMemcached->addItem($locale, $mergedMessages); // set merged messages to memcache
             }
         }
-        $output->writeln("\033[37;42m Translations for " . $input->getArgument('bundle') . " successful! \033[0m");
+        $output->writeln("\033[37;42m Translations from " . $input->getArgument('bundle') . " imported successfully! \033[0m");
     }
 }

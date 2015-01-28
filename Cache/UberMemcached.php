@@ -6,8 +6,8 @@ use \Memcached;
 use Symfony\Component\Config\Resource\ResourceInterface;
 
 /**
- * Wrapper under standart Memcached class,
- * what allow easy to work with memcache
+ * Wrapper under standard Memcached class,
+ * which ease work with memcached
  */
 class UberMemcached implements ResourceInterface
 {
@@ -47,7 +47,7 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
-     * Adds the item into memcached
+     * Add the item into memcached
      *
      * @param $key
      * @param $value
@@ -63,7 +63,7 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
-     * Getting item from memcached
+     * Get item from memcached
      *
      * @param $key
      * @return mixed
@@ -74,24 +74,13 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
-     * Gets all keys stored on all the memcached storages
+     * Get all keys stored on all the memcached storages
      *
      * @return array
      */
     public function getAllKeys()
     {
         return $this->getMemcached()->getAllKeys();
-    }
-
-    /**
-     * Check if item with given key exists in memcached
-     *
-     * @param $key
-     * @return bool
-     */
-    public function hasItem($key)
-    {
-        return (false != $this->getMemcached()->get($key));
     }
 
     /**
@@ -106,7 +95,7 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
-     * Remove all items from memcached(invalidate)
+     * Remove all items from memcached (invalidate)
      *
      * @param int $delay
      * @return bool

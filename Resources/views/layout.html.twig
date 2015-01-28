@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>UberTranslationBundle</title>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
-</head>
-<body>
+    <head>
+        <title>UberTranslationBundle</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+    </head>
+    <body>
 
-<nav class="navbar navbar-default" role="navigation">
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav">
-            <li><a href="{{ path('sleepness_translation_dashboard') }}">Translations Dashboard</a></li>
-        </ul>
-    </div>
-</nav>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ path('sleepness_translation_dashboard') }}">Translations Dashboard</a></li>
+                </ul>
+            </div>
+        </nav>
 
-<div class="container">
-    {% block uber_translation_bundle_content %}
-    {% endblock %}
-</div>
-
-<script src="//code.jquery.com/jquery.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-</body>
+        <div class="container">
+            {% block uber_translation_bundle_content %}
+            {% endblock %}
+        </div>
+    
+        <script src="//code.jquery.com/jquery.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    </body>
 </html>

@@ -5,7 +5,7 @@ namespace Sleepness\UberTranslationBundle\Form\Model;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Model class for wrapping translation message, into
+ * Model class for wrapping message translations
  */
 class TranslationModel
 {
