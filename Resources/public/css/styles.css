@@ -1,0 +1,5 @@
+/* Hide locale filter button styles */
+.uber-locale-filter-form button {
+    background: none;
+    border: none;
+}

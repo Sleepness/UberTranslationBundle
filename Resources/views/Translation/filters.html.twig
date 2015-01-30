@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-3">
+        <form action="#" method="get">
+            <div class="input-group">
+                <input class="form-control" id="system-search" name="q" placeholder="Search by key" required>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-3">
+        <form action="#" method="get">
+            <div class="input-group">
+                <input class="form-control" id="system-search" name="q" placeholder="Search by text" required>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-expanded="true">
+                Locales
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                {% for locale in locales %}
+                    <form method="get" class="uber-locale-filter-form">
+                        <div class="input-group">
+                            <input type="hidden" value="{{ locale }}" name="locale" required>
+                            <button type="submit">{{ locale }}</button>
+                        </div>
+                    </form>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

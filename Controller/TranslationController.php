@@ -22,15 +22,21 @@ class TranslationController extends Controller
         $messageCatalogue = new MemcachedMessageCatalogue();
         $mem = $this->get('uber.memcached');
         $locales = $this->container->getParameter('sleepness_uber_translation.supported_locales');
-        foreach ($locales as $key => $locale) {
-            $translations = $mem->getItem($locale);
-            $messageCatalogue->add($locale, $translations);
+        $locale = $request->query->get('locale');
+        if (null != $locale) {
+            $messageCatalogue->add($locale, $mem->getItem($locale));
+        } else {
+            foreach ($locales as $key => $locale) {
+                $translations = $mem->getItem($locale);
+                $messageCatalogue->add($locale, $translations);
+            }
         }
         $messages = $messageCatalogue->getAll();
         $paginator = $this->get('knp_paginator');
         $messages = $paginator->paginate($messages, $request->query->get('page', 1), 5);
 
         return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig', array(
+            'locales' => $locales,
             'messages' => $messages,
         ));
     }
