@@ -23,6 +23,8 @@ class TranslationController extends Controller
         $mem = $this->get('uber.memcached');
         $locales = $this->container->getParameter('sleepness_uber_translation.supported_locales');
         $locale = $request->query->get('locale');
+        $domain = $request->query->get('domain');
+
         if (null != $locale) {
             $messageCatalogue->add($locale, $mem->getItem($locale));
         } else {
@@ -32,6 +34,9 @@ class TranslationController extends Controller
             }
         }
         $messages = $messageCatalogue->getAll();
+        if (null != $domain) {
+            $messages = $mem->getAllByDomain($domain);
+        }
         $paginator = $this->get('knp_paginator');
         $messages = $paginator->paginate($messages, $request->query->get('page', 1), 5);
 

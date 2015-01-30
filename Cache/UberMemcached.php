@@ -84,6 +84,39 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
+     * Get all messages by domain
+     *
+     * @param $domain
+     * @return array
+     */
+    public function getAllByDomain($domain)
+    {
+        $translationsByDomain = array();
+        $locales = $this->getAllKeys();
+        foreach ($locales as $key => $locale) {
+            $translations = $this->getItem($locale);
+            foreach ($translations as $memcacheDomain => $messages) {
+                if ($domain == $memcacheDomain) {
+                    foreach ($messages as $ymlKey => $value) {
+                        $translationsByDomain[]= array(
+                            'domain' => $domain,
+                            'keyYml' => $ymlKey,
+                            'messages' => array(
+                                array(
+                                    'messageText' => $value,
+                                    'locale' => $locale,
+                                )
+                            ),
+                        );
+                    }
+                }
+            }
+        }
+
+        return $translationsByDomain;
+    }
+
+    /**
      * Delete item from memcached
      *
      * @param $key

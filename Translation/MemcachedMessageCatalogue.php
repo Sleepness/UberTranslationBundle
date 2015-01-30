@@ -37,6 +37,17 @@ class MemcachedMessageCatalogue
     }
 
     /**
+     * Build message catalog by domain
+     *
+     * @param $domain
+     * @param $messages
+     */
+    public function buildByDomain($domain, $messages)
+    {
+        // will added build by domain functional
+    }
+
+    /**
      * Get array of translations prepared for output
      *
      * @return array
