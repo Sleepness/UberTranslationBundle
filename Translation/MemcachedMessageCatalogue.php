@@ -21,13 +21,15 @@ class MemcachedMessageCatalogue
             return;
         }
         foreach ($translations as $domain => $messages) {
-            foreach ($messages as $key => $message) {
+            foreach ($messages as $keyYml => $message) {
                 $this->preparedTranslations[] = array(
                     'domain' => $domain,
-                    'key' => $key,
-                    'message' => array(
-                        'messageText' => $message,
-                        'locale' => $locale,
+                    'keyYml' => $keyYml,
+                    'messages' => array(
+                        array(
+                            'messageText' => $message,
+                            'locale' => $locale,
+                        )
                     ),
                 );
             }

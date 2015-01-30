@@ -15,17 +15,19 @@
         {% for message in messages %}
             <tr>
                 <td>{{ message.domain }}</td>
-                <td>{{ message.key }}</td>
-                <td>
-                    <a href="{{ path('sleepness_translation_edit', {
-                        '_locale': message.message.locale,
+                <td>{{ message.keyYml }}</td>
+                {% for part in message.messages %}
+                    <td>
+                        <a href="{{ path('sleepness_translation_edit', {
+                        '_locale': part.locale,
                         '_domain': message.domain,
-                        '_key': message.key  }) }}" class="glyphicon glyphicon-pencil">
-                        Edit
-                    </a>
-                    {{ message.message.messageText }}
-                    {{ message.message.locale }}
-                </td>
+                        '_key': message.keyYml  }) }}" class="glyphicon glyphicon-pencil">
+                            Edit
+                        </a>
+                        {{ part.messageText }}
+                        {{ part.locale }}
+                    </td>
+                {% endfor %}
             </tr>
         {% endfor %}
         </tbody>
