@@ -1,6 +1,17 @@
 {% extends 'SleepnessUberTranslationBundle::layout.html.twig' %}
 
 {% block uber_translation_bundle_content %}
-    {{ message }}
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Key: </td>
+                <td>"{{ key }}"</td>
+            </tr>
+            <tr>
+                <td>Defined translation: </td>
+                <td>"{{ message }}"</td>
+            </tr>
+        </tbody>
+    </table>
     {% include 'SleepnessUberTranslationBundle:Translation:form.html.twig' %}
 {% endblock %}

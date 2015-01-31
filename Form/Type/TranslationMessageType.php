@@ -17,7 +17,7 @@ class TranslationMessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('translation', 'text', array(
-            'label' => 'Tranlsation',
+            'label' => 'Translation:',
         ));
     }
 
