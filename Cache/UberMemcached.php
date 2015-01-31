@@ -150,6 +150,8 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
+     * Search translation in memcache by given text value
+     *
      * @param $text - text to be matched with existing values
      * @return array
      */

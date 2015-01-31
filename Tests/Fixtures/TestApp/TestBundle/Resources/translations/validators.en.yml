@@ -1,0 +1,3 @@
+validator:
+  invalid_value1: this_invalid_value1
+  invalid_value2: this_invalid_value2
