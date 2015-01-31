@@ -60,8 +60,7 @@ class TranslationController extends Controller
      * @param $_key
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public
-    function editAction(Request $request, $_locale, $_domain, $_key)
+    public function editAction(Request $request, $_locale, $_domain, $_key)
     {
         $mem = $this->get('uber.memcached');
         $translations = $mem->getItem($_locale);
@@ -76,6 +75,7 @@ class TranslationController extends Controller
         }
 
         return $this->render('SleepnessUberTranslationBundle:Translation:edit.html.twig', array(
+            'key' => $_key,
             'message' => $message,
             'form' => $form->createView()
         ));
