@@ -36,12 +36,12 @@ public function registerBundles()
 In `app/config/config.yml` you must to add some configuration for make bundle works as expected.
 Here is how you config might look:
 
-`
+``` yml
 sleepness_uber_translation:
   memcached:
       host: localhost
       port: 11211
   supported_locales: [en, uk]
-`
+```
 
 To be continue...
