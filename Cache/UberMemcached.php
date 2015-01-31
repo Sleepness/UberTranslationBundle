@@ -98,7 +98,7 @@ class UberMemcached implements ResourceInterface
             foreach ($translations as $memcacheDomain => $messages) {
                 if ($domain == $memcacheDomain) {
                     foreach ($messages as $ymlKey => $value) {
-                        $translationsByDomain[]= array(
+                        $translationsByDomain[] = array(
                             'domain' => $domain,
                             'keyYml' => $ymlKey,
                             'messages' => array(
@@ -114,6 +114,39 @@ class UberMemcached implements ResourceInterface
         }
 
         return $translationsByDomain;
+    }
+
+    /**
+     * Get all messages by key
+     *
+     * @param $keyYml - key of message
+     * @return array - return array of messages matched by search
+     */
+    public function getAllByKey($keyYml)
+    {
+        $translationsByKey = array();
+        $locales = $this->getAllKeys();
+        foreach ($locales as $key => $locale) {
+            $translations = $this->getItem($locale);
+            foreach ($translations as $memcacheDomain => $messages) {
+                foreach ($messages as $ymlKey => $value) {
+                    if ($ymlKey == $keyYml) {
+                        $translationsByKey[] = array(
+                            'domain' => $memcacheDomain,
+                            'keyYml' => $ymlKey,
+                            'messages' => array(
+                                array(
+                                    'messageText' => $value,
+                                    'locale' => $locale,
+                                )
+                            ),
+                        );
+                    }
+                }
+            }
+        }
+
+        return $translationsByKey;
     }
 
     /**

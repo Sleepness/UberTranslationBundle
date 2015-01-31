@@ -24,18 +24,20 @@ class TranslationController extends Controller
         $locales = $this->container->getParameter('sleepness_uber_translation.supported_locales');
         $locale = $request->query->get('locale');
         $domain = $request->query->get('domain');
-
+        $key = $request->query->get('key');
         if (null != $locale) {
             $messageCatalogue->add($locale, $mem->getItem($locale));
+            $messages = $messageCatalogue->getAll();
+        } else if (null != $key) {
+            $messages = $mem->getAllByKey($key);
+        } else if (null != $domain) {
+            $messages = $mem->getAllByDomain($domain);
         } else {
             foreach ($locales as $key => $locale) {
                 $translations = $mem->getItem($locale);
                 $messageCatalogue->add($locale, $translations);
             }
-        }
-        $messages = $messageCatalogue->getAll();
-        if (null != $domain) {
-            $messages = $mem->getAllByDomain($domain);
+            $messages = $messageCatalogue->getAll();
         }
         $paginator = $this->get('knp_paginator');
         $messages = $paginator->paginate($messages, $request->query->get('page', 1), 5);
