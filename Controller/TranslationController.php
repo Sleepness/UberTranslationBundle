@@ -22,16 +22,21 @@ class TranslationController extends Controller
         $messageCatalogue = new MemcachedMessageCatalogue();
         $mem = $this->get('uber.memcached');
         $locales = $this->container->getParameter('sleepness_uber_translation.supported_locales');
-        $locale = $request->query->get('locale');
+
+        $locale = $request->query->get('locale'); // get parameters for filtering
         $domain = $request->query->get('domain');
         $key = $request->query->get('key');
-        if (null != $locale) {
+        $text = $request->query->get('text');
+
+        if (null != $locale) { // check if exists some condidtions
             $messageCatalogue->add($locale, $mem->getItem($locale));
             $messages = $messageCatalogue->getAll();
         } else if (null != $key) {
             $messages = $mem->getAllByKey($key);
         } else if (null != $domain) {
             $messages = $mem->getAllByDomain($domain);
+        } else if (null != $text) {
+            $messages = $mem->getAllByText($text);
         } else {
             foreach ($locales as $key => $locale) {
                 $translations = $mem->getItem($locale);
@@ -39,7 +44,7 @@ class TranslationController extends Controller
             }
             $messages = $messageCatalogue->getAll();
         }
-        $paginator = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator'); // paginating results
         $messages = $paginator->paginate($messages, $request->query->get('page', 1), 5);
 
         return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig', array(
@@ -55,7 +60,8 @@ class TranslationController extends Controller
      * @param $_key
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, $_locale, $_domain, $_key)
+    public
+    function editAction(Request $request, $_locale, $_domain, $_key)
     {
         $mem = $this->get('uber.memcached');
         $translations = $mem->getItem($_locale);
