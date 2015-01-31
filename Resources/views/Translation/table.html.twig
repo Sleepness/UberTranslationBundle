@@ -6,6 +6,7 @@
     <table class="table">
         <thead>
         <tr>
+            <th>Locale</th>
             <th>Domain</th>
             <th>Key</th>
             <th>Messages</th>
@@ -14,9 +15,10 @@
         <tbody>
         {% for message in messages %}
             <tr>
+                {% for part in message.messages %}
+                <td>{{ part.locale }}</td>
                 <td>{{ message.domain }}</td>
                 <td>{{ message.keyYml }}</td>
-                {% for part in message.messages %}
                     <td>
                         <a href="{{ path('sleepness_translation_edit', {
                         '_locale': part.locale,
@@ -25,7 +27,6 @@
                             Edit
                         </a>
                         {{ part.messageText }}
-                        {{ part.locale }}
                     </td>
                 {% endfor %}
             </tr>
