@@ -21,11 +21,11 @@ class ImportCommandTest extends KernelTestCase
         $commandTester->execute(
             array(
                 'locales' => 'en,uk',
-                'bundle' => 'AcmeDemoBundle',
+                'bundle' => 'TestBundle',
             )
         );
         $this->assertTrue(is_string($commandTester->getDisplay()));
-        $this->assertEquals("\033[37;42m Translations from AcmeDemoBundle imported successfully! \033[0m", trim($commandTester->getDisplay()));
+        $this->assertEquals("\033[37;42m Translations from TestBundle imported successfully! \033[0m", trim($commandTester->getDisplay()));
     }
 
     /**
@@ -37,7 +37,7 @@ class ImportCommandTest extends KernelTestCase
         $commandTester->execute(
             array(
                 'locales' => 'eqwewqeqwe12341241',
-                'bundle' => 'AcmeDemoBundle',
+                'bundle' => 'TestBundle',
             )
         );
         $this->assertTrue(is_string($commandTester->getDisplay()));

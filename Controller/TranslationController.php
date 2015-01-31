@@ -80,4 +80,22 @@ class TranslationController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * Delete translation from memcache
+     *
+     * @param $_locale
+     * @param $_domain
+     * @param $_key
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction($_locale, $_domain, $_key)
+    {
+        $mem = $this->get('uber.memcached');
+        $translations = $mem->getItem($_locale);
+        unset($translations[$_domain][$_key]);
+        $mem->addItem($_locale, $translations);
+
+        return $this->redirect($this->generateUrl('sleepness_translation_dashboard'));
+    }
 }
