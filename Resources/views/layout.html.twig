@@ -9,11 +9,11 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ path('sleepness_translation_dashboard') }}">Translations Dashboard</a></li>
-                </ul>
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ path('sleepness_translation_dashboard') }}">Translations Dashboard</a>
+                </div>
             </div>
         </nav>
 
@@ -21,7 +21,7 @@
             {% block uber_translation_bundle_content %}
             {% endblock %}
         </div>
-    
+
         <script src="//code.jquery.com/jquery.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     </body>

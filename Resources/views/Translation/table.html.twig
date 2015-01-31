@@ -10,6 +10,7 @@
             <th>Domain</th>
             <th>Key</th>
             <th>Messages</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -19,15 +20,19 @@
                 <td>{{ part.locale }}</td>
                 <td>{{ message.domain }}</td>
                 <td>{{ message.keyYml }}</td>
-                    <td>
-                        <a href="{{ path('sleepness_translation_edit', {
-                        '_locale': part.locale,
-                        '_domain': message.domain,
-                        '_key': message.keyYml  }) }}" class="glyphicon glyphicon-pencil">
-                            Edit
-                        </a>
-                        {{ part.messageText }}
-                    </td>
+                <td>{{ part.messageText }}</td>
+                <td>
+                    <a href="{{ path('sleepness_translation_edit', {
+                    '_locale': part.locale,
+                    '_domain': message.domain,
+                    '_key': message.keyYml  }) }}" class="glyphicon glyphicon-pencil">
+                    </a>
+                    <a href="{{ path('sleepness_translation_delete', {
+                    '_locale': part.locale,
+                    '_domain': message.domain,
+                    '_key': message.keyYml  }) }}" class="glyphicon glyphicon-trash">
+                    </a>
+                </td>
                 {% endfor %}
             </tr>
         {% endfor %}
