@@ -60,7 +60,7 @@ class MemcachedMessageCatalogue
     /**
      * Build message catalog by domain
      *
-     * @param $domain
+     * @param $domain - domain of messages set to be found and displayed
      * @return array
      */
     public function buildByDomain($domain)
@@ -83,7 +83,7 @@ class MemcachedMessageCatalogue
     /**
      * Build message catalog by message key
      *
-     * @param $keyYml
+     * @param $keyYml - key of messages to be displayed
      * @return array
      */
     public function buildByKey($keyYml)
