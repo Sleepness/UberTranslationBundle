@@ -1,6 +1,6 @@
 logo_text: Translations Dashboard
 
-form:
+translation_form:
     save: Save
     label: Translation
 
