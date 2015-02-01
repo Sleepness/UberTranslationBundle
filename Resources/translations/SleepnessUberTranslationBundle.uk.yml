@@ -1,0 +1,28 @@
+logo_text: Керування перекладами
+
+form:
+    save: Зберегти
+    label: Переклад
+
+table:
+    translations: Переклади
+    credentials: Поля перекладу
+    locale: Локаль
+    domain: Домен
+    key: Ключ
+    messages: Повідомлення
+    actions: Дії
+
+filters:
+    search:
+        by_key: Пошук по ключу
+        by_domain: Пошук по домену
+        by_text: Пошук по тексту
+    locales: Локалі
+
+delete_modal:
+    approve: Так
+    reject: Ні
+    title: Видалити переклад
+    alert_message: Обережно! Якщо ви видалите даний переклад, деякі сторінки можуть припинити працювати!
+    confirm_message: Ви впевнені що хочете видалити даний переклад?

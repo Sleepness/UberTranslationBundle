@@ -1,0 +1,28 @@
+logo_text: Управление перводами
+
+form:
+    save: Сохранить
+    label: Перевод
+
+table:
+    translations: Перевод
+    credentials: Свойства перевода
+    locale: Локаль
+    domain: Домен
+    key: Ключ
+    messages: Сообщения
+    actions: Действия
+
+filters:
+    search:
+        by_key: Поиск по ключу
+        by_domain: Поиск по домену
+        by_text: Поиск по тексту
+    locales: Локали
+
+delete_modal:
+    approve: Да
+    reject: Нет
+    title: Удалить перевод
+    alert_message: Внимание! Если вы удалите переврд, некоторые страницы перестанут работать!
+    confirm_message: Вы уверены что хотите удалить перевод?

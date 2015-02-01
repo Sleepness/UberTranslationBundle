@@ -1,0 +1,28 @@
+logo_text: Translations Dashboard
+
+form:
+    save: Save
+    label: Translation
+
+table:
+    translations: Translations
+    credentials: Translation credentials
+    locale: Locale
+    domain: Domain
+    key: Key
+    messages: Messages
+    actions: Actions
+
+filters:
+    search:
+        by_key: Search by key
+        by_domain: Search by domain
+        by_text: Search by text
+    locales: Locales
+
+delete_modal:
+    approve: Yes
+    reject: No
+    title: Delete translation
+    alert_message: Warning! If you delete this translation, some of your pages could be broken!
+    confirm_message: Are you sure you want to delete this translation?
