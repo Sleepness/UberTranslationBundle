@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 class TranslationController extends Controller
 {
     /**
+     * Output all translations
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -31,11 +33,11 @@ class TranslationController extends Controller
         if (null != $locale) { // check if exists some condidtions
             $messageCatalogue->add($locale, $mem->getItem($locale));
             $messages = $messageCatalogue->getAll();
-        } else if (null != $key) {
+        } elseif (null != $key) {
             $messages = $mem->getAllByKey($key);
-        } else if (null != $domain) {
+        } elseif (null != $domain) {
             $messages = $mem->getAllByDomain($domain);
-        } else if (null != $text) {
+        } elseif (null != $text) {
             $messages = $mem->getAllByText($text);
         } else {
             foreach ($locales as $key => $locale) {
@@ -48,12 +50,14 @@ class TranslationController extends Controller
         $messages = $paginator->paginate($messages, $request->query->get('page', 1), 5);
 
         return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig', array(
-            'locales' => $locales,
+            'locales'  => $locales,
             'messages' => $messages,
         ));
     }
 
     /**
+     * Edit translation
+     *
      * @param Request $request
      * @param $_locale
      * @param $_domain
@@ -75,9 +79,11 @@ class TranslationController extends Controller
         }
 
         return $this->render('SleepnessUberTranslationBundle:Translation:edit.html.twig', array(
-            'key' => $_key,
+            'key'     => $_key,
+            'locale'  => $_locale,
+            'domain'  => $_domain,
             'message' => $message,
-            'form' => $form->createView()
+            'form'    => $form->createView()
         ));
     }
 
