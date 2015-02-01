@@ -21,33 +21,25 @@ class TranslationController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $messageCatalogue = new MemcachedMessageCatalogue();
-        $mem = $this->get('uber.memcached');
-        $locales = $this->container->getParameter('sleepness_uber_translation.supported_locales');
-
+        $messageCatalogue = $this->get('memcached.message.catalogue');
         $locale = $request->query->get('locale'); // get parameters for filtering
         $domain = $request->query->get('domain');
         $key = $request->query->get('key');
         $text = $request->query->get('text');
-
-        if (null != $locale) { // check if exists some condidtions
-            $messageCatalogue->add($locale, $mem->getItem($locale));
-            $messages = $messageCatalogue->getAll();
+        if (null != $locale) { // check if exists some conditions
+            $messages = $messageCatalogue->buildByLocale($locale);
         } elseif (null != $key) {
-            $messages = $mem->getAllByKey($key);
+            $messages = $messageCatalogue->buildByKey($key);
         } elseif (null != $domain) {
-            $messages = $mem->getAllByDomain($domain);
+            $messages = $messageCatalogue->buildByDomain($domain);
         } elseif (null != $text) {
-            $messages = $mem->getAllByText($text);
+            $messages = $messageCatalogue->buildByText($text);
         } else {
-            foreach ($locales as $key => $locale) {
-                $translations = $mem->getItem($locale);
-                $messageCatalogue->add($locale, $translations);
-            }
             $messages = $messageCatalogue->getAll();
         }
         $paginator = $this->get('knp_paginator'); // paginating results
         $messages = $paginator->paginate($messages, $request->query->get('page', 1), 5);
+        $locales = $this->container->getParameter('sleepness_uber_translation.supported_locales');
 
         return $this->render('SleepnessUberTranslationBundle:Translation:index.html.twig', array(
             'locales'  => $locales,
