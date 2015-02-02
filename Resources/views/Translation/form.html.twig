@@ -1,6 +1,7 @@
 {{ form_errors(form) }}
 
 <form method="post" {{ form_enctype(form) }} role="form">
+
     <div class="form-group">
         <div style="margin-bottom: 25px" class="input-group">
 
@@ -9,8 +10,32 @@
             <div class="input-group">
                 {{ form_widget(form.translation, {'attr': {'class': 'form-control'} } ) }}
             </div>
-
-            <input type="submit" value="Save" class="btn btn-success" name="submit">
+            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#save" data-placement="top">Save</a>
         </div>
     </div>
+
+    <div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title custom_align" id="Heading">Edit translation</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <span class="glyphicon glyphicon-warning-sign"></span>
+                        Are you sure you want to edit this translation?
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="submit" value="Yes" class="btn btn-success" name="submit">
+                        <i class="glyphicon glyphicon-ok-sign"></i> Yes
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_row(form._token) }}
+
 </form>

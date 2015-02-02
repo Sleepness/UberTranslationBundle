@@ -68,6 +68,8 @@ class TranslationController extends Controller
         if ($form->isValid()) {
             $translations[$_domain][$_key] = $model->getTranslation();
             $mem->addItem($_locale, $translations);
+
+            return $this->redirect($this->generateUrl('sleepness_translation_dashboard'));
         }
 
         return $this->render('SleepnessUberTranslationBundle:Translation:edit.html.twig', array(
