@@ -6,7 +6,7 @@ translation_form:
 
 table:
     translations: Переклади
-    credentials: Поля перекладу
+    credentials: Властивості перекладу
     locale: Локаль
     domain: Домен
     key: Ключ
@@ -24,5 +24,11 @@ delete_modal:
     approve: Так
     reject: Ні
     title: Видалити переклад
-    alert_message: Обережно! Якщо ви видалите даний переклад, деякі сторінки можуть припинити працювати!
+    alert_message: Увага! Якщо ви видалите даний переклад, деякі сторінки можуть припинити працювати!
     confirm_message: Ви впевнені що хочете видалити даний переклад?
+
+edit_modal:
+    approve: Так
+    reject: Ні
+    title: Змінити переклад
+    confirm_message: Ви впевнені що хочете змінити даний переклад?
