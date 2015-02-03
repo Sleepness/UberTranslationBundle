@@ -2,10 +2,9 @@
 
 namespace Sleepness\UberTranslationBundle\Tests\Translation;
 
-require_once dirname(__DIR__).'/../../../../app/AppKernel.php';
+require_once dirname(__DIR__) . '/../../../../app/AppKernel.php';
 
 use Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
-
 
 class MemcachedMessageCatalogueTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,17 +14,17 @@ class MemcachedMessageCatalogueTest extends \PHPUnit_Framework_TestCase
     protected $kernel;
 
     /**
-     * @var Symfony\Component\DependencyInjection\Container
+     * @var \Symfony\Component\DependencyInjection\Container
      */
     protected $container;
 
-    /*
-     * @var Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
+    /**
+     * @var \Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
      */
     protected $messageCatalogue;
 
-    /*
-     * @var Sleepness\UberTranslationBundle\Cache\UberMemcached;
+    /**
+     * @var \Sleepness\UberTranslationBundle\Cache\UberMemcached;
      */
     protected $uberMemcached;
 
@@ -86,16 +85,16 @@ class MemcachedMessageCatalogueTest extends \PHPUnit_Framework_TestCase
         $this->container = $this->kernel->getContainer();
 
         $this->uberMemcached = $this->container->get('uber.memcached');
-        $values = [
-            'messages' => [
+        $values = array(
+            'messages' => array(
                 'key.hello' => 'value.Hello',
-                'key.foo' => 'value.Foo',
-            ],
-            'validators' => [
-                 'key.not.blank' => 'value.NotBlank',
-                 'key.max.length' => 'value.MaxLength',
-            ],
-        ];
+                'key.foo'   => 'value.Foo',
+            ),
+            'validators' => array(
+                'key.not.blank'  => 'value.NotBlank',
+                'key.max.length' => 'value.MaxLength',
+            ),
+        );
         $this->uberMemcached->addItem('en', $values);
         $this->messageCatalogue = $this->container->get('memcached.message.catalogue');
     }
