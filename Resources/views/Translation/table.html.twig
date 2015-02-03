@@ -4,13 +4,13 @@
     <!-- Table -->
     <table class="table">
         <thead>
-        <tr>
-            <th>Locale</th>
-            <th>Domain</th>
-            <th>Key</th>
-            <th>Messages</th>
-            <th>Actions</th>
-        </tr>
+            <tr>
+                <th>Locale</th>
+                <th>Domain</th>
+                <th>Key</th>
+                <th>Messages</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
         {% for message in messages %}
@@ -52,7 +52,9 @@
                                     '_key': message.keyYml  }) }}" class="btn btn-success">
                                         <span class="glyphicon glyphicon-ok-sign"></span> Yes
                                     </a>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        <span class="glyphicon glyphicon-remove"></span> No
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +65,6 @@
         {% endfor %}
         </tbody>
     </table>
-
 </div>
 
 {# display navigation #}
