@@ -6,7 +6,7 @@ translation_form:
 
 table:
     translations: Translations
-    credentials: Translation credentials
+    credentials: Translation properties
     locale: Locale
     domain: Domain
     key: Key
@@ -26,3 +26,9 @@ delete_modal:
     title: Delete translation
     alert_message: Warning! If you delete this translation, some of your pages could be broken!
     confirm_message: Are you sure you want to delete this translation?
+
+edit_modal:
+    approve: Yes
+    reject: No
+    title: Edit translation
+    confirm_message: Are you sure you want to edit this translation?
