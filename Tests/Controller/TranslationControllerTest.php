@@ -4,6 +4,9 @@ namespace Sleepness\UberTranslationBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Test TranslationController action
+ */
 class TranslationControllerTest extends WebTestCase
 {
     public function testIndexAction()
