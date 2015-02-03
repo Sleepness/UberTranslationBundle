@@ -47,7 +47,8 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
-     * Add the item into memcached
+     * Add the item into memcached. If value with given keys exist,
+     * it will only replace the value.
      *
      * @param $key
      * @param $value
@@ -74,9 +75,9 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
-     * Get all keys stored on all the memcached storages
+     * Get all keys(locales identifiers) stored on all the memcached storages
      *
-     * @return array
+     * @return array - locales identifiers
      */
     public function getAllKeys()
     {
