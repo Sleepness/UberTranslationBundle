@@ -5,7 +5,7 @@ namespace Sleepness\UberTranslationBundle\Tests\Translation;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * Testing MemcachedMessageCatalogue method and cases
+ * Test MemcachedMessageCatalogue methods and cases
  */
 class MemcachedMessageCatalogueTest extends WebTestCase
 {
@@ -24,14 +24,11 @@ class MemcachedMessageCatalogueTest extends WebTestCase
      */
     public function testBuildByLocale()
     {
-        $values = $this->getMessagesArray();
-        $this->uberMemcached->addItem('en_US', $values);
         $preparedTranslations = $this->messageCatalogue->buildByLocale('en_US');
 
         $this->assertEquals('key.hello', $preparedTranslations[0]['keyYml']);
         $this->assertEquals('value.Hello', $preparedTranslations[0]['messages'][0]['messageText']);
         $this->assertEquals('en_US', $preparedTranslations[0]['messages'][0]['locale']);
-        $this->uberMemcached->deleteItem('en_US');
     }
 
     /**
@@ -39,62 +36,50 @@ class MemcachedMessageCatalogueTest extends WebTestCase
      */
     public function testBuildByDomain()
     {
-        $values = $this->getMessagesArray();
-        $this->uberMemcached->addItem('en_US', $values);
         $preparedTranslations = $this->messageCatalogue->buildByDomain('messages');
 
         $this->assertEquals('key.hello', $preparedTranslations[0]['keyYml']);
         $this->assertEquals('value.Hello', $preparedTranslations[0]['messages'][0]['messageText']);
         $this->assertArrayNotHasKey('validators', $preparedTranslations);
-        $this->uberMemcached->deleteItem('en_US');
     }
 
     /**
-     * Testing build catalogue by translation key
+     * Test building catalogue by translation key
      */
     public function testBuildByKey()
     {
-        $values = $this->getMessagesArray();
-        $this->uberMemcached->addItem('en_US', $values);
         $preparedTranslations = $this->messageCatalogue->buildByKey('key.not.blank');
 
         $this->assertEquals('key.not.blank', $preparedTranslations[0]['keyYml']);
         $this->assertEquals('value.NotBlank', $preparedTranslations[0]['messages'][0]['messageText']);
         $this->assertArrayNotHasKey('messages', $preparedTranslations);
-        $this->uberMemcached->deleteItem('en_US');
     }
 
     /**
-     * Test build catalogue by given text to compare and search
+     * Test building catalogue by given text
      */
     public function testBuildByText()
     {
-        $values = $this->getMessagesArray();
-        $this->uberMemcached->addItem('en_US', $values);
         $preparedTranslations = $this->messageCatalogue->buildByText('value.MaxLength');
 
         $this->assertEquals('key.max.length', $preparedTranslations[0]['keyYml']);
         $this->assertEquals('value.MaxLength', $preparedTranslations[0]['messages'][0]['messageText']);
         $this->assertArrayNotHasKey('messages', $preparedTranslations);
-        $this->uberMemcached->deleteItem('en_US');
     }
 
     /**
-     * Test catalogue to build all messages from memcached
+     * Test catalogue to get all messages from memcached
      */
     public function testGetAll()
     {
-        $values = $this->getMessagesArray();
-        $this->uberMemcached->addItem('en_US', $values);
         $preparedTranslations = $this->messageCatalogue->getAll();
 
         $this->assertEquals('key.max.length', $preparedTranslations[3]['keyYml']);
         $this->assertEquals('value.MaxLength', $preparedTranslations[3]['messages'][0]['messageText']);
-        $this->uberMemcached->deleteItem('en_US');
     }
 
     /**
-     * Boot the Kernel to get the container
+     * Set up fixtures for testing
      */
     public function setUp()
     {
@@ -102,6 +87,16 @@ class MemcachedMessageCatalogueTest extends WebTestCase
         $container = static::$kernel->getContainer();
         $this->uberMemcached = $container->get('uber.memcached');
         $this->messageCatalogue = $container->get('memcached.message.catalogue');
+        $values = $this->getMessagesArray();
+        $this->uberMemcached->addItem('en_US', $values);
+    }
+
+    /**
+     * Tear down fixtures after testing
+     */
+    public function tearDown()
+    {
+        $this->uberMemcached->deleteItem('en_US');
     }
 
     /**
