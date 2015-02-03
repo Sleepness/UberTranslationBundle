@@ -2,25 +2,13 @@
 
 namespace Sleepness\UberTranslationBundle\Tests\Translation;
 
-require_once dirname(__DIR__) . '/../../../../app/AppKernel.php';
-
-use Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * Testing MemcachedMessageCatalogue method and cases
  */
-class MemcachedMessageCatalogueTest extends \PHPUnit_Framework_TestCase
+class MemcachedMessageCatalogueTest extends WebTestCase
 {
-    /**
-     * @var \AppKernel
-     */
-    protected $kernel;
-
-    /**
-     * @var \Symfony\Component\DependencyInjection\Container
-     */
-    protected $container;
-
     /**
      * @var \Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
      */
@@ -30,7 +18,6 @@ class MemcachedMessageCatalogueTest extends \PHPUnit_Framework_TestCase
      * @var \Sleepness\UberTranslationBundle\Cache\UberMemcached;
      */
     protected $uberMemcached;
-
 
     /**
      * Test building catalogue by locale
@@ -111,11 +98,10 @@ class MemcachedMessageCatalogueTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->kernel = new \AppKernel('test', true);
-        $this->kernel->boot();
-        $this->container = $this->kernel->getContainer();
-        $this->uberMemcached = $this->container->get('uber.memcached');
-        $this->messageCatalogue = $this->container->get('memcached.message.catalogue');
+        static::bootKernel(array());
+        $container = static::$kernel->getContainer();
+        $this->uberMemcached = $container->get('uber.memcached');
+        $this->messageCatalogue = $container->get('memcached.message.catalogue');
     }
 
     /**
