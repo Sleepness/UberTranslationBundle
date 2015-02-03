@@ -48,6 +48,9 @@ class MemcachedMessageCatalogue
     public function buildByLocale($locale)
     {
         $translations = $this->memcached->getItem($locale);
+        if (!$translations) {
+            return array();
+        }
         foreach ($translations as $memcacheDomain => $messages) {
             foreach ($messages as $ymlKey => $value) {
                 $this->add($memcacheDomain, $ymlKey, $value, $locale);
