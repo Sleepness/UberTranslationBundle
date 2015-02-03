@@ -68,6 +68,9 @@ class TranslationController extends Controller
         if ($form->isValid()) {
             $translations[$_domain][$_key] = $model->getTranslation();
             $mem->addItem($_locale, $translations);
+            $this->get('session')->getFlashBag()->add('translation_edited', 'Translation edited successfully');
+
+            return $this->redirect($this->generateUrl('sleepness_translation_dashboard'));
         }
 
         return $this->render('SleepnessUberTranslationBundle:Translation:edit.html.twig', array(
@@ -93,6 +96,7 @@ class TranslationController extends Controller
         $translations = $mem->getItem($_locale);
         unset($translations[$_domain][$_key]);
         $mem->addItem($_locale, $translations);
+        $this->get('session')->getFlashBag()->add('translation_deleted', 'Translation deleted successfully');
 
         return $this->redirect($this->generateUrl('sleepness_translation_dashboard'));
     }
