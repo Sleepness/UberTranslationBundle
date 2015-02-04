@@ -44,4 +44,13 @@ sleepness_uber_translation:
   supported_locales: [en, uk]
 ```
 
+### Step 4: Routing configuration
+
+In `app/config/routing.yml` you must to include bundle routes:
+
+``` yml
+uber:
+    resource: "@SleepnessUberTranslationBundle/Resources/config/routing.yml"]
+```
+
 To be continue...
