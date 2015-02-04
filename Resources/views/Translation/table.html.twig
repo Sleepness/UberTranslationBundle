@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for message in messages %}
+        {% for key, message in messages %}
             <tr>
                 {% for part in message.messages %}
                 <td>{{ part.locale }}</td>
@@ -26,9 +26,9 @@
                     '_domain': message.domain,
                     '_key': message.keyYml  }) }}" class="glyphicon glyphicon-pencil">
                     </a>
-                    <a href="#" class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#delete" data-placement="top">
+                    <a href="#" class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#delete{{ key }}" data-placement="top">
                     </a>
-                    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                    <div class="modal fade" id="delete{{ key }}" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
