@@ -13,7 +13,7 @@ class TranslationControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/uber/translations');
+        $crawler = $client->request('GET', '/translations');
         $response = $client->getResponse();
 
         // some crawler usage
