@@ -9,6 +9,9 @@ use Sleepness\UberTranslationBundle\Command\PurgeCommand;
 
 /**
  * Test memcached purging command
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
+ * @author Alexandr Zhulev
  */
 class PurgeCommandTest extends KernelTestCase
 {

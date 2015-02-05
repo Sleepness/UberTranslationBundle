@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * Test MemcachedMessageCatalogue methods and cases
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
 class MemcachedMessageCatalogueTest extends WebTestCase
 {

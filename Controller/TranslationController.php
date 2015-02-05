@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Controller responsive for managing translations
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
+ * @author Alexandr Zhulev
  */
 class TranslationController extends Controller
 {

@@ -10,6 +10,8 @@ use Symfony\Component\Translation\MessageCatalogue;
 
 /**
  * Upload all translations for specified locales from given bundle to memcache
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
 class ImportCommand extends ContainerAwareCommand
 {

@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * Test TranslationController action
+ *
+ * @author Alexandr Zhulev
  */
 class TranslationControllerTest extends WebTestCase
 {

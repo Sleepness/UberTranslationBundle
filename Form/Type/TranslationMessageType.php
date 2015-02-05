@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class for form edit message translation
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
 class TranslationMessageType extends AbstractType
 {

@@ -9,6 +9,9 @@ use Sleepness\UberTranslationBundle\Command\ImportCommand;
 
 /**
  * Test ImportCommand executing cases
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
+ * @author Alexandr Zhulev
  */
 class ImportCommandTest extends KernelTestCase
 {

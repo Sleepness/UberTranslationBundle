@@ -6,6 +6,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Model class for wrapping message translations
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
 class TranslationModel
 {

@@ -9,6 +9,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Purge memcached
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
 class PurgeCommand extends ContainerAwareCommand
 {

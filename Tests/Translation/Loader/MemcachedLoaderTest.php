@@ -5,6 +5,11 @@ namespace Sleepness\UberTranslationBundle\Tests\Translation\Loader;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Translation\MessageCatalogue;
 
+/**
+ * Test MemcacheLoader and cases
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
+ */
 class MemcachedLoaderTest extends WebTestCase
 {
     /**

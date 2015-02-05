@@ -8,6 +8,9 @@ use Symfony\Component\Config\Resource\ResourceInterface;
 /**
  * Wrapper under standard Memcached class,
  * which ease work with memcached
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
+ * @author Alexandr Zhulev
  */
 class UberMemcached implements ResourceInterface
 {

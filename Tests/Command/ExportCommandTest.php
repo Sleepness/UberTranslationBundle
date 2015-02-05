@@ -9,6 +9,8 @@ use Sleepness\UberTranslationBundle\Command\ExportCommand;
 
 /**
  * Test ExportCommand executing cases
+ *
+ * @author Alexandr Zhulev
  */
 class ExportCommandTest extends KernelTestCase
 {

@@ -4,6 +4,11 @@ namespace Sleepness\UberTranslationBundle\Translation;
 
 use Symfony\Bundle\FrameworkBundle\Translation\Translator as BaseTranslator;
 
+/**
+ * Custom translator class
+ *
+ * @author Alexandr Zhulev
+ */
 class Translator extends BaseTranslator
 {
     /**

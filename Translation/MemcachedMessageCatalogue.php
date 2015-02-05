@@ -6,6 +6,8 @@ use Sleepness\UberTranslationBundle\Cache\UberMemcached;
 
 /**
  * Prepare messages for output
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
 class MemcachedMessageCatalogue
 {

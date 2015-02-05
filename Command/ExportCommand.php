@@ -11,6 +11,8 @@ use Symfony\Component\Yaml\Dumper;
 
 /**
  * Export all translations from memcache into YAML files of given bundle
+ *
+ * @author Alexandr Zhulev
  */
 class ExportCommand extends ContainerAwareCommand
 {

@@ -9,6 +9,12 @@ use Symfony\Component\Translation\Exception\InvalidResourceException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Symfony\Component\Translation\MessageCatalogue;
 
+/**
+ * Load messages from memcache and push them into catalogue
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
+ * @author Alexandr Zhulev
+ */
 class MemcachedLoader extends ArrayLoader implements LoaderInterface
 {
     private $memcached;
