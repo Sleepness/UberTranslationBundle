@@ -50,7 +50,17 @@ In `app/config/routing.yml` you must to include bundle routes:
 
 ``` yml
 uber:
-    resource: "@SleepnessUberTranslationBundle/Resources/config/routing.yml"]
+    resource: "@SleepnessUberTranslationBundle/Resources/config/routing.yml"
 ```
 
-To be continue...
+### Step 5: Import translations into memcached by console command `uber:translations:import locale BundleName`
+
+Example:
+
+``` bash
+$ php app/console uber:translations:import
+```
+
+### Step 6: Go to translation dashboard panel, you URL may look like:
+
+ `www.examle.com/tanslations`
