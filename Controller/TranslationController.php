@@ -4,7 +4,6 @@ namespace Sleepness\UberTranslationBundle\Controller;
 
 use Sleepness\UberTranslationBundle\Form\Model\TranslationModel;
 use Sleepness\UberTranslationBundle\Form\Type\TranslationMessageType;
-use Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
