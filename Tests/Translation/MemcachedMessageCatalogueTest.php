@@ -12,12 +12,12 @@ class MemcachedMessageCatalogueTest extends WebTestCase
     /**
      * @var \Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue;
      */
-    protected $messageCatalogue;
+    private $messageCatalogue;
 
     /**
      * @var \Sleepness\UberTranslationBundle\Cache\UberMemcached;
      */
-    protected $uberMemcached;
+    private $uberMemcached;
 
     /**
      * Test building catalogue by locale
@@ -104,7 +104,7 @@ class MemcachedMessageCatalogueTest extends WebTestCase
      *
      * @return array - messages
      */
-    public function getMessagesArray()
+    private function getMessagesArray()
     {
         return array(
             'messages' => array(

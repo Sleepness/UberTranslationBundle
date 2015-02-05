@@ -31,7 +31,7 @@ class ImportCommandTest extends KernelTestCase
     /**
      * Test failure of the command
      */
-    public function testFailtureExecute()
+    public function testFailureExecute()
     {
         $commandTester = $this->bootCommandTestKernel();
         $commandTester->execute(
@@ -45,11 +45,11 @@ class ImportCommandTest extends KernelTestCase
     }
 
     /**
-     * Boot application for make testing import command
+     * Boot application for testing import command
      *
      * @return CommandTester
      */
-    public function bootCommandTestKernel()
+    private function bootCommandTestKernel()
     {
         $kernel = $this->createKernel();
         $kernel->boot();

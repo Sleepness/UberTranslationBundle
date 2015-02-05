@@ -13,7 +13,7 @@ use Sleepness\UberTranslationBundle\Command\PurgeCommand;
 class PurgeCommandTest extends KernelTestCase
 {
     /**
-     * Testing command execution
+     * Test purge command execution
      */
     public function testExecute()
     {
@@ -24,11 +24,11 @@ class PurgeCommandTest extends KernelTestCase
     }
 
     /**
-     * Boot application for make testing import command
+     * Boot application for testing purge command
      *
      * @return CommandTester
      */
-    public function bootCommandTestKernel()
+    private function bootCommandTestKernel()
     {
         $kernel = $this->createKernel();
         $kernel->boot();
