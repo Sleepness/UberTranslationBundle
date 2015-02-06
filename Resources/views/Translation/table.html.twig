@@ -41,11 +41,17 @@
                                         Warning! If you delete this translation, some of your pages could be broken!
                                     </div>
                                     <div class="alert alert-warning">
-                                        <span class="glyphicon glyphicon-warning-sign"></span>
-                                        Are you sure you want to delete this translation?
+                                        <p>
+                                            <span class="glyphicon glyphicon-warning-sign"></span>
+                                            Are you sure you want to delete this translation?
+                                        </p>
+                                        <p>Locale: "{{ part.locale }}"</p>
+                                        <p>Domain: "{{ message.domain }}"</p>
+                                        <p>Key: "{{ message.keyYml }}"</p>
+                                        <p>Translation: "{{ part.messageText }}"</p>
                                     </div>
                                 </div>
-                                <div class="modal-footer ">
+                                <div class="modal-footer">
                                     <a href="{{ path('sleepness_translation_delete', {
                                     '_locale': part.locale,
                                     '_domain': message.domain,

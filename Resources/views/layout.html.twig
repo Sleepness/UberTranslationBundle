@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="{{ asset('bundles/sleepnessubertranslation/css/styles.css') }}">
     </head>
     <body>
-
         <nav class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
@@ -18,13 +17,12 @@
                 </div>
             </div>
         </nav>
-
         <div class="container">
             {% block uber_translation_bundle_content %}
             {% endblock %}
         </div>
-
         <script src="//code.jquery.com/jquery.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="{{ asset('bundles/sleepnessubertranslation/js/jquery.ubertranslation.js') }}"></script>
     </body>
 </html>

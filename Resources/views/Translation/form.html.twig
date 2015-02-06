@@ -8,7 +8,7 @@
             <div class="input-group">
                 {{ form_widget(form.translation, {'attr': {'class': 'form-control'} } ) }}
             </div>
-            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#save" data-placement="top">Save</a>
+            <a href="#" class="btn btn-success" id="btn_edit_translation" data-toggle="modal" data-target="#save" data-placement="top">Save</a>
         </div>
     </div>
 
@@ -21,8 +21,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-warning">
-                        <span class="glyphicon glyphicon-warning-sign"></span>
-                        Are you sure you want to edit this translation?
+                        <p>
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            Are you sure you want to edit this translation?
+                        </p>
+                        <p>
+                            From: "{{ message }}"
+                        </p>
+                        <p>
+                            To: "<span id="edited_translation"></span>"
+                        </p>
                     </div>
                 </div>
                 <div class="modal-footer ">
