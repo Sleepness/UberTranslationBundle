@@ -15,7 +15,7 @@ use Symfony\Component\Translation\MessageCatalogue;
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  * @author Alexandr Zhulev
  */
-class MemcachedLoader extends ArrayLoader implements LoaderInterface
+class MemcachedLoader implements LoaderInterface
 {
     private $memcached;
 
@@ -32,10 +32,7 @@ class MemcachedLoader extends ArrayLoader implements LoaderInterface
      */
     public function load($resource, $locale, $domain = 'messages')
     {
-        if (null == $resource) {
-            $resource = $this->memcached;
-        }
-
+        $resource = $this->memcached;
         $messagesOfDomain = $resource->getItem($locale);
         $messages = $messagesOfDomain[$domain];
 
@@ -49,8 +46,10 @@ class MemcachedLoader extends ArrayLoader implements LoaderInterface
         }
 
         $catalogue = new MessageCatalogue($locale);
-        $catalogue->add($messages, $domain);
-        $catalogue->addResource($resource);
+
+        foreach($messages as $ymlKey => $translation){
+            $catalogue->set($ymlKey, $translation, $domain);
+        }
 
         return $catalogue;
     }

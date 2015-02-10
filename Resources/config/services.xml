@@ -20,6 +20,7 @@
             <call method="setUberMemcached">
                 <argument type="service" id="uber.memcached" />
             </call>
+            <tag name="translation.loader" alias="memcached_loader" />
         </service>
 
         <service
