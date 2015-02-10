@@ -1,3 +1,4 @@
+{% trans_default_domain 'SleepnessUberTranslationBundle' %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +14,7 @@
         <nav class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ path('sleepness_translation_dashboard') }}">Translations Dashboard</a>
+                    <a class="navbar-brand" href="{{ path('sleepness_translation_dashboard') }}">{{ 'logo_text'|trans }}</a>
                 </div>
             </div>
         </nav>

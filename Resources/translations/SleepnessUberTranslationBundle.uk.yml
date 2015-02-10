@@ -5,6 +5,7 @@ translation_form:
     label: Переклад
 
 table:
+    total: Загальна кількість перекладів
     translations: Переклади
     credentials: Властивості перекладу
     locale: Локаль
@@ -32,3 +33,5 @@ edit_modal:
     reject: Ні
     title: Змінити переклад
     confirm_message: Ви впевнені що хочете змінити даний переклад?
+    from: З
+    to: На

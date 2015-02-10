@@ -1,3 +1,5 @@
+{% trans_default_domain 'SleepnessUberTranslationBundle' %}
+
 {{ form_errors(form) }}
 
 <form method="post" {{ form_enctype(form) }} role="form">
@@ -8,7 +10,7 @@
             <div class="input-group">
                 {{ form_widget(form.translation, {'attr': {'class': 'form-control'} } ) }}
             </div>
-            <a href="#" class="btn btn-success" id="btn_edit_translation" data-toggle="modal" data-target="#save" data-placement="top">Save</a>
+            <a href="#" class="btn btn-success" id="btn_edit_translation" data-toggle="modal" data-target="#save" data-placement="top">{{ 'translation_form.save'|trans }}</a>
         </div>
     </div>
 
@@ -17,28 +19,28 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title custom_align" id="Heading">Edit translation</h4>
+                    <h4 class="modal-title custom_align" id="Heading">{{ 'edit_modal.title'|trans }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-warning">
                         <p>
                             <span class="glyphicon glyphicon-warning-sign"></span>
-                            Are you sure you want to edit this translation?
+                            {{ 'edit_modal.confirm_message'|trans }}
                         </p>
                         <p>
-                            From: "{{ message }}"
+                            {{ 'edit_modal.from'|trans }}: "{{ message }}"
                         </p>
                         <p>
-                            To: "<span id="edited_translation"></span>"
+                            {{ 'edit_modal.to'|trans }}: "<span id="edited_translation"></span>"
                         </p>
                     </div>
                 </div>
                 <div class="modal-footer ">
                     <button type="submit" value="Yes" class="btn btn-success" name="submit">
-                        <i class="glyphicon glyphicon-ok-sign"></i> Yes
+                        <i class="glyphicon glyphicon-ok-sign"></i>  {{ 'edit_modal.approve'|trans }}
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                        <span class="glyphicon glyphicon-remove"></span> No
+                        <span class="glyphicon glyphicon-remove"></span>  {{ 'edit_modal.reject'|trans }}
                     </button>
                 </div>
             </div>

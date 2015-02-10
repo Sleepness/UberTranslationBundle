@@ -5,6 +5,7 @@ translation_form:
     label: Translation
 
 table:
+    total: Total translations
     translations: Translations
     credentials: Translation properties
     locale: Locale
@@ -32,3 +33,5 @@ edit_modal:
     reject: No
     title: Edit translation
     confirm_message: Are you sure you want to edit this translation?
+    from: From
+    to: To

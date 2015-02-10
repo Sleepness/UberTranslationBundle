@@ -1,15 +1,17 @@
+{% trans_default_domain 'SleepnessUberTranslationBundle' %}
+
 <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">Total translations: {{ messages.getTotalItemCount }}</div>
+    <div class="panel-heading">{{ 'table.total'|trans }}: {{ messages.getTotalItemCount }}</div>
     <!-- Table -->
     <table class="table">
         <thead>
             <tr>
-                <th>Locale</th>
-                <th>Domain</th>
-                <th>Key</th>
-                <th>Messages</th>
-                <th>Actions</th>
+                <th>{{ 'table.locale'|trans }}</th>
+                <th>{{ 'table.domain'|trans }}</th>
+                <th>{{ 'table.key'|trans }}</th>
+                <th>{{ 'table.messages'|trans }}</th>
+                <th>{{ 'table.actions'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -33,22 +35,22 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h4 class="modal-title custom_align" id="Heading">Delete translation</h4>
+                                    <h4 class="modal-title custom_align" id="Heading">{{ 'delete_modal.title'|trans }}</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="alert alert-danger" role="alert">
                                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                        Warning! If you delete this translation, some of your pages could be broken!
+                                        {{ 'delete_modal.alert_message'|trans }}
                                     </div>
                                     <div class="alert alert-warning">
                                         <p>
                                             <span class="glyphicon glyphicon-warning-sign"></span>
-                                            Are you sure you want to delete this translation?
+                                            {{ 'delete_modal.confirm_message'|trans }}
                                         </p>
-                                        <p>Locale: "{{ part.locale }}"</p>
-                                        <p>Domain: "{{ message.domain }}"</p>
-                                        <p>Key: "{{ message.keyYml }}"</p>
-                                        <p>Translation: "{{ part.messageText }}"</p>
+                                        <p>{{ 'table.locale'|trans }}: "{{ part.locale }}"</p>
+                                        <p>{{ 'table.domain'|trans }}: "{{ message.domain }}"</p>
+                                        <p>{{ 'table.key'|trans }}: "{{ message.keyYml }}"</p>
+                                        <p>{{ 'table.messages'|trans }}: "{{ part.messageText }}"</p>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -56,10 +58,10 @@
                                     '_locale': part.locale,
                                     '_domain': message.domain,
                                     '_key': message.keyYml  }) }}" class="btn btn-success">
-                                        <span class="glyphicon glyphicon-ok-sign"></span> Yes
+                                        <span class="glyphicon glyphicon-ok-sign"></span> {{ 'delete_modal.approve'|trans }}
                                     </a>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                                        <span class="glyphicon glyphicon-remove"></span> No
+                                        <span class="glyphicon glyphicon-remove"></span> {{ 'delete_modal.reject'|trans }}
                                     </button>
                                 </div>
                             </div>
