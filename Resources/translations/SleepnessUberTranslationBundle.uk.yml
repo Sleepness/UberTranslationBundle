@@ -6,6 +6,7 @@ translation_form:
 
 table:
     total: Загальна кількість перекладів
+    credentials: Інформація про переклад
     translations: Переклади
     credentials: Властивості перекладу
     locale: Локаль

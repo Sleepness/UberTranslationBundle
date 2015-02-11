@@ -6,6 +6,7 @@ translation_form:
 
 table:
     total: Total translations
+    credentials: Translation credentials
     translations: Translations
     credentials: Translation properties
     locale: Locale
