@@ -3,10 +3,8 @@
 namespace Sleepness\UberTranslationBundle\Translation\Loader;
 
 use Sleepness\UberTranslationBundle\Cache\UberMemcached;
-use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Symfony\Component\Translation\MessageCatalogue;
 
 /**
