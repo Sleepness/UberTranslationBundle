@@ -29,8 +29,8 @@ class MemcachedMessageCatalogueTest extends WebTestCase
         $preparedTranslations = $this->messageCatalogue->buildByLocale('en_US');
 
         $this->assertEquals('key.hello', $preparedTranslations[0]['keyYml']);
-        $this->assertEquals('value.Hello', $preparedTranslations[0]['messages'][0]['messageText']);
-        $this->assertEquals('en_US', $preparedTranslations[0]['messages'][0]['locale']);
+        $this->assertEquals('value.Hello', $preparedTranslations[0]['messageProps']['messageText']);
+        $this->assertEquals('en_US', $preparedTranslations[0]['messageProps']['locale']);
     }
 
     /**
@@ -41,7 +41,7 @@ class MemcachedMessageCatalogueTest extends WebTestCase
         $preparedTranslations = $this->messageCatalogue->buildByDomain('messages');
 
         $this->assertEquals('key.hello', $preparedTranslations[0]['keyYml']);
-        $this->assertEquals('value.Hello', $preparedTranslations[0]['messages'][0]['messageText']);
+        $this->assertEquals('value.Hello', $preparedTranslations[0]['messageProps']['messageText']);
         $this->assertArrayNotHasKey('validators', $preparedTranslations);
     }
 
@@ -53,7 +53,7 @@ class MemcachedMessageCatalogueTest extends WebTestCase
         $preparedTranslations = $this->messageCatalogue->buildByKey('key.not.blank');
 
         $this->assertEquals('key.not.blank', $preparedTranslations[0]['keyYml']);
-        $this->assertEquals('value.NotBlank', $preparedTranslations[0]['messages'][0]['messageText']);
+        $this->assertEquals('value.NotBlank', $preparedTranslations[0]['messageProps']['messageText']);
         $this->assertArrayNotHasKey('messages', $preparedTranslations);
     }
 
@@ -65,7 +65,7 @@ class MemcachedMessageCatalogueTest extends WebTestCase
         $preparedTranslations = $this->messageCatalogue->buildByText('value.MaxLength');
 
         $this->assertEquals('key.max.length', $preparedTranslations[0]['keyYml']);
-        $this->assertEquals('value.MaxLength', $preparedTranslations[0]['messages'][0]['messageText']);
+        $this->assertEquals('value.MaxLength', $preparedTranslations[0]['messageProps']['messageText']);
         $this->assertArrayNotHasKey('messages', $preparedTranslations);
     }
 
@@ -77,7 +77,7 @@ class MemcachedMessageCatalogueTest extends WebTestCase
         $preparedTranslations = $this->messageCatalogue->getAll();
 
         $this->assertEquals('key.max.length', $preparedTranslations[3]['keyYml']);
-        $this->assertEquals('value.MaxLength', $preparedTranslations[3]['messages'][0]['messageText']);
+        $this->assertEquals('value.MaxLength', $preparedTranslations[3]['messageProps']['messageText']);
     }
 
     /**
