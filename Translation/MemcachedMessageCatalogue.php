@@ -30,13 +30,11 @@ class MemcachedMessageCatalogue
     public function add($domain, $keyYml, $message, $locale)
     {
         $this->preparedTranslations[] = array(
-            'domain' => $domain,
-            'keyYml' => $keyYml,
-            'messages' => array(
-                array(
-                    'messageText' => $message,
-                    'locale' => $locale,
-                )
+            'domain'       => $domain,
+            'keyYml'       => $keyYml,
+            'messageProps' => array(
+                'messageText' => $message,
+                'locale'      => $locale,
             ),
         );
     }

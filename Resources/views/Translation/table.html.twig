@@ -17,14 +17,13 @@
         <tbody>
         {% for key, message in messages %}
             <tr>
-                {% for part in message.messages %}
-                <td>{{ part.locale }}</td>
+                <td>{{ message.messageProps.locale }}</td>
                 <td>{{ message.domain }}</td>
                 <td>{{ message.keyYml }}</td>
-                <td>{{ part.messageText }}</td>
+                <td>{{ message.messageProps.messageText }}</td>
                 <td>
                     <a href="{{ path('sleepness_translation_edit', {
-                    '_locale': part.locale,
+                    '_locale': message.messageProps.locale,
                     '_domain': message.domain,
                     '_key': message.keyYml  }) }}" class="glyphicon glyphicon-pencil">
                     </a>
@@ -47,15 +46,15 @@
                                             <span class="glyphicon glyphicon-warning-sign"></span>
                                             {{ 'delete_modal.confirm_message'|trans }}
                                         </p>
-                                        <p>{{ 'table.locale'|trans }}: "{{ part.locale }}"</p>
+                                        <p>{{ 'table.locale'|trans }}: "{{ message.messageProps.locale }}"</p>
                                         <p>{{ 'table.domain'|trans }}: "{{ message.domain }}"</p>
                                         <p>{{ 'table.key'|trans }}: "{{ message.keyYml }}"</p>
-                                        <p>{{ 'table.messages'|trans }}: "{{ part.messageText }}"</p>
+                                        <p>{{ 'table.messages'|trans }}: "{{ message.messageProps.messageText }}"</p>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <a href="{{ path('sleepness_translation_delete', {
-                                    '_locale': part.locale,
+                                    '_locale': message.messageProps.locale,
                                     '_domain': message.domain,
                                     '_key': message.keyYml  }) }}" class="btn btn-success">
                                         <span class="glyphicon glyphicon-ok-sign"></span> {{ 'delete_modal.approve'|trans }}
@@ -68,7 +67,6 @@
                         </div>
                     </div>
                 </td>
-                {% endfor %}
             </tr>
         {% endfor %}
         </tbody>
