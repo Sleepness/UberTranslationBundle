@@ -36,3 +36,7 @@ edit_modal:
     confirm_message: Вы уверены, что хотите изменить данный перевод?
     from: Из
     to: На
+
+pagination:
+    next: Следующая
+    previous: Предыдущая

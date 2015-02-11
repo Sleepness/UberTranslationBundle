@@ -36,3 +36,7 @@ edit_modal:
     confirm_message: Sind Sie sicher, dass Sie diese Übersetzung bearbeiten möchten?
     from: Von
     to: Bis sur
+
+pagination:
+    next: Als Nächstes
+    previous: Früher

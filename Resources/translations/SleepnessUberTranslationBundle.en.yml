@@ -36,3 +36,7 @@ edit_modal:
     confirm_message: Are you sure you want to edit this translation?
     from: From
     to: To
+
+pagination:
+    next: Next
+    previous: Previous
