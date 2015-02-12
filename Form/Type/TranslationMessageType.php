@@ -18,8 +18,12 @@ class TranslationMessageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('translation', 'text', array(
+        $builder->add('translation', 'textarea', array(
             'label' => 'Translation:',
+            'attr'  => array(
+                'rows' => 4,
+                'cols' => 45,
+            )
         ));
     }
 
