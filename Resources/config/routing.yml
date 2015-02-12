@@ -3,9 +3,9 @@ sleepness_translation_dashboard:
   defaults: { _controller: SleepnessUberTranslationBundle:Translation:index }
 
 sleepness_translation_edit:
-  pattern: /translation/edit/{_locale}/{_domain}/{_key}
+  pattern: /translation/edit/{localeKey}/{_domain}/{_key}
   defaults: { _controller: SleepnessUberTranslationBundle:Translation:edit, _locale: en, _domain: messages, _key: none_key }
 
 sleepness_translation_delete:
-  pattern: /translation/delete/{_locale}/{_domain}/{_key}
+  pattern: /translation/delete/{localeKey}/{_domain}/{_key}
   defaults: { _controller: SleepnessUberTranslationBundle:Translation:delete, _locale: en, _domain: messages, _key: none_key }

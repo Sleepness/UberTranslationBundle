@@ -53,15 +53,15 @@ class TranslationController extends Controller
      * Edit translation
      *
      * @param Request $request
-     * @param $_locale
+     * @param $localeKey
      * @param $_domain
      * @param $_key
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, $_locale, $_domain, $_key)
+    public function editAction(Request $request, $localeKey, $_domain, $_key)
     {
         $mem = $this->get('uber.memcached');
-        $translations = $mem->getItem($_locale);
+        $translations = $mem->getItem($localeKey);
         $message = $translations[$_domain][$_key];
         $model = new TranslationModel();
         $model->setTranslation($message);
@@ -69,7 +69,7 @@ class TranslationController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $translations[$_domain][$_key] = $model->getTranslation();
-            $mem->addItem($_locale, $translations);
+            $mem->addItem($localeKey, $translations);
             $this->get('session')->getFlashBag()->add('translation_edited', 'Translation edited successfully');
 
             return $this->redirect($this->generateUrl('sleepness_translation_dashboard'));
@@ -77,7 +77,7 @@ class TranslationController extends Controller
 
         return $this->render('SleepnessUberTranslationBundle:Translation:edit.html.twig', array(
             'key'     => $_key,
-            'locale'  => $_locale,
+            'locale'  => $localeKey,
             'domain'  => $_domain,
             'message' => $message,
             'form'    => $form->createView()
@@ -87,17 +87,17 @@ class TranslationController extends Controller
     /**
      * Delete translation from memcache
      *
-     * @param $_locale
+     * @param $localeKey
      * @param $_domain
      * @param $_key
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction($_locale, $_domain, $_key)
+    public function deleteAction($localeKey, $_domain, $_key)
     {
         $mem = $this->get('uber.memcached');
-        $translations = $mem->getItem($_locale);
+        $translations = $mem->getItem($localeKey);
         unset($translations[$_domain][$_key]);
-        $mem->addItem($_locale, $translations);
+        $mem->addItem($localeKey, $translations);
         $this->get('session')->getFlashBag()->add('translation_deleted', 'Translation deleted successfully');
 
         return $this->redirect($this->generateUrl('sleepness_translation_dashboard'));

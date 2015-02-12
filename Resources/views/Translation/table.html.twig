@@ -23,7 +23,7 @@
                 <td>{{ message.messageProps.messageText }}</td>
                 <td>
                     <a href="{{ path('sleepness_translation_edit', {
-                    '_locale': message.messageProps.locale,
+                    'localeKey': message.messageProps.locale,
                     '_domain': message.domain,
                     '_key': message.keyYml  }) }}" class="glyphicon glyphicon-pencil">
                     </a>
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <a href="{{ path('sleepness_translation_delete', {
-                                    '_locale': message.messageProps.locale,
+                                    'localeKey': message.messageProps.locale,
                                     '_domain': message.domain,
                                     '_key': message.keyYml  }) }}" class="btn btn-success">
                                         <span class="glyphicon glyphicon-ok-sign"></span> {{ 'delete_modal.approve'|trans }}

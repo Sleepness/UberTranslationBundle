@@ -33,18 +33,14 @@ class MemcachedLoader implements LoaderInterface
         $resource = $this->memcached;
         $messagesOfDomain = $resource->getItem($locale);
         $messages = $messagesOfDomain[$domain];
-
         // no messages in cache
         if (null === $messages) {
             $messages = array();
         }
-
         if (!is_array($messages)) {
             throw new InvalidResourceException(sprintf('The resource "%s" must contain an array.', $resource));
         }
-
         $catalogue = new MessageCatalogue($locale);
-
         foreach($messages as $ymlKey => $translation){
             $catalogue->set($ymlKey, $translation, $domain);
         }
