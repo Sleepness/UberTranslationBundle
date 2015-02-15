@@ -4,7 +4,7 @@ main_text: Управляйте перекладами вашого додатк
 
 translation_form:
     save: Зберегти
-    label: Переклад
+    label: Переклад:
 
 table:
     total: Загальна кількість перекладів

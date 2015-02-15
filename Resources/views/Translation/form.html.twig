@@ -6,7 +6,7 @@
 
     <div class="form-group">
         <div style="margin-bottom: 25px" class="input-group">
-            <label for="TranslationInput">{{ form_label(form.translation) }}</label>
+            <label for="TranslationInput">{{ 'translation_form.label'|trans }}</label>
             <div class="input-group">
                 {{ form_widget(form.translation, {'attr': {'class': 'form-control'} } ) }}
             </div>

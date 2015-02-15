@@ -4,7 +4,7 @@ main_text: Übersetzungen Ihrer App verwalten!
 
 translation_form:
     save: Speichern
-    label: Übersetzung
+    label: Übersetzung:
 
 table:
     total: Insgesamt Übersetzungen

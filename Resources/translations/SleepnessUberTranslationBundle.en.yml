@@ -4,7 +4,7 @@ main_text: Manage translations of your app!
 
 translation_form:
     save: Save
-    label: Translation
+    label: Translation:
 
 table:
     total: Total translations
