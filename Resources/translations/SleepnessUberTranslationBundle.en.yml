@@ -1,5 +1,7 @@
 logo_text: Translations Dashboard
 
+main_text: Manage translations of your app!
+
 translation_form:
     save: Save
     label: Translation

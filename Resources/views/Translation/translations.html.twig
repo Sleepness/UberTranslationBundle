@@ -1,4 +1,6 @@
-<h1>Manage translations of your app!</h1>
+{% trans_default_domain 'SleepnessUberTranslationBundle' %}
+
+<h1>{{ 'main_text'|trans }}!</h1>
 
 {% for message_deleted in app.session.flashbag.get('translation_deleted') %}
     <div class="alert alert-success">
