@@ -39,6 +39,10 @@ edit_modal:
     from: Из
     to: На
 
+delete_success: Перевод удален успешно
+
+edit_success: Перевод отредактирован успешно
+
 pagination:
     next: Следующая
     previous: Предыдущая

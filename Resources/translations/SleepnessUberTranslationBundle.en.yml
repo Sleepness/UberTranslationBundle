@@ -39,6 +39,10 @@ edit_modal:
     from: From
     to: To
 
+delete_success: Translation deleted successfully
+
+edit_success: Translation edited successfully
+
 pagination:
     next: Next
     previous: Previous

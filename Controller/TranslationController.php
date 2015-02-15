@@ -70,7 +70,7 @@ class TranslationController extends Controller
         if ($form->isValid()) {
             $translations[$_domain][$_key] = $model->getTranslation();
             $mem->addItem($localeKey, $translations);
-            $this->get('session')->getFlashBag()->add('translation_edited', 'Translation edited successfully');
+            $this->get('session')->getFlashBag()->add('translation_edited', 'edit_success');
 
             return $this->redirect($this->generateUrl('sleepness_translation_dashboard'));
         }
@@ -98,7 +98,7 @@ class TranslationController extends Controller
         $translations = $mem->getItem($localeKey);
         unset($translations[$_domain][$_key]);
         $mem->addItem($localeKey, $translations);
-        $this->get('session')->getFlashBag()->add('translation_deleted', 'Translation deleted successfully');
+        $this->get('session')->getFlashBag()->add('translation_deleted', 'delete_success');
 
         return $this->redirect($this->generateUrl('sleepness_translation_dashboard'));
     }

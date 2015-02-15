@@ -1,11 +1,11 @@
 {% trans_default_domain 'SleepnessUberTranslationBundle' %}
 
-<h1>{{ 'main_text'|trans }}!</h1>
+<h1>{{ 'main_text'|trans }}</h1>
 
 {% for message_deleted in app.session.flashbag.get('translation_deleted') %}
     <div class="alert alert-success">
         <strong>
-            {{ message_deleted }}
+            {{ message_deleted|trans }}
         </strong>
     </div>
 {% endfor %}
@@ -13,7 +13,7 @@
 {% for message_edited in app.session.flashbag.get('translation_edited') %}
     <div class="alert alert-success">
         <strong>
-            {{ message_edited }}
+            {{ message_edited|trans }}
         </strong>
     </div>
 {% endfor %}

@@ -39,6 +39,10 @@ edit_modal:
     from: Von
     to: Bis sur
 
+delete_success: Übersetzung erfolgreich gelöscht
+
+edit_success: Übersetzung erfolgreich bearbeitet
+
 pagination:
     next: Als Nächstes
     previous: Früher
