@@ -43,7 +43,7 @@ class ExportCommandTest extends KernelTestCase
         $this->assertTrue(is_string($commandTester->getDisplay()));
         $this->assertFileExists(static::$bundlePath . '/Resources/translations/messages.en_US.yml');
         $this->assertRegExp(
-            '/key.not.blank/',
+            '/key:\n\s+not:\n\s+blank:/',
             file_get_contents(static::$bundlePath . '/Resources/translations/validators.en_US.yml')
         );
         $this->assertEquals(
