@@ -56,11 +56,47 @@ Command example:
         foreach ($locales as $locale) {
             $memcacheMessages = $uberMemcached->getItem($locale);
             foreach ($memcacheMessages as $domain => $messagesArray) {
+                $yamlArr = array();
+                $indent = 0;
+                foreach ($messagesArray as $key => $value) {
+                    $delimArray = explode('.', $key);
+                    $indent = count($delimArray);
+                    array_push($delimArray, $value);
+                    $expArray = $this->expand($delimArray);
+                    foreach ($expArray as $expArrayKey => $expArrayVal) {
+                        if (array_key_exists($expArrayKey, $yamlArr)) {
+                            $yamlArr[$expArrayKey] = array_replace_recursive($yamlArr[$expArrayKey], $expArrayVal);
+                        } else {
+                            $yamlArr[$expArrayKey] = $expArrayVal;
+                        }
+                    }
+                }
                 $dumper = new Dumper();
-                $yaml = $dumper->dump($messagesArray, 2);
+                $yaml = $dumper->dump($yamlArr, $indent);
                 file_put_contents($bundlePath . '/Resources/translations/' . $domain . '.' . $locale . '.yml', $yaml);
             }
         }
         $output->writeln("\033[37;42m Translations exported successfully in \"" . $bundleName . "/Resources/translations\"! \033[0m");
+    }
+
+    /**
+     * Expand array to multidimensional array
+     *
+     * @param $array
+     * @param int $level
+     * @return array
+     */
+    private function expand($array, $level = 0)
+    {
+        $result = array();
+        $next = $level + 1;
+
+        if (count($array) == $level + 2) {
+            $result[$array[$level]] = $array[$next];
+
+        } else {
+            $result[$array[$level]] = $this->expand($array, $next);
+        }
+        return $result;
     }
 }
