@@ -20,7 +20,7 @@ class MemcachedMessageCatalogue
     }
 
     /**
-     * Add new translation into array what will be displayed
+     * Add new translation into array that will be displayed
      *
      * @param $domain
      * @param $keyYml
@@ -40,7 +40,7 @@ class MemcachedMessageCatalogue
     }
 
     /**
-     * Build message catalog by domain
+     * Build message catalogue by locale
      *
      * @param $locale
      * @return array
@@ -61,7 +61,7 @@ class MemcachedMessageCatalogue
     }
 
     /**
-     * Build message catalog by domain
+     * Build message catalogue by domain
      *
      * @param $domain - domain of messages set to be found and displayed
      * @return array
@@ -84,7 +84,7 @@ class MemcachedMessageCatalogue
     }
 
     /**
-     * Build message catalog by message key
+     * Build message catalogue by message key
      *
      * @param $keyYml - key of messages to be displayed
      * @return array
