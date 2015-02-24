@@ -138,7 +138,7 @@ class MemcachedMessageCatalogue
     {
         $locales = $this->memcached->getAllKeys();
         foreach ($locales as $key => $locale) {
-            if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}/', $locale)) {
+            if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
                 $translations = $this->memcached->getItem($locale);
                 foreach ($translations as $memcacheDomain => $messages) {
                     foreach ($messages as $ymlKey => $value) {
