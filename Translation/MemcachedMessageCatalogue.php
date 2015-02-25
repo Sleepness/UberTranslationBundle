@@ -3,14 +3,193 @@
 namespace Sleepness\UberTranslationBundle\Translation;
 
 use Sleepness\UberTranslationBundle\Cache\UberMemcached;
+use Symfony\Component\Config\Resource\ResourceInterface;
+use Symfony\Component\Translation\MessageCatalogueInterface;
 
 /**
  * Prepare messages for output
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
-class MemcachedMessageCatalogue
+class MemcachedMessageCatalogue implements MessageCatalogueInterface
 {
+    /**
+     * Gets the catalogue locale.
+     *
+     * @return string The locale
+     *
+     * @api
+     */
+    public function getLocale()
+    {
+        // TODO: Implement getLocale() method.
+    }
+
+    /**
+     * Gets the domains.
+     *
+     * @return array An array of domains
+     *
+     * @api
+     */
+    public function getDomains()
+    {
+        // TODO: Implement getDomains() method.
+    }
+
+    /**
+     * Gets the messages within a given domain.
+     *
+     * If $domain is null, it returns all messages.
+     *
+     * @param string $domain The domain name
+     *
+     * @return array An array of messages
+     *
+     * @api
+     */
+    public function all($domain = null)
+    {
+        // TODO: Implement all() method.
+    }
+
+    /**
+     * Sets a message translation.
+     *
+     * @param string $id The message id
+     * @param string $translation The messages translation
+     * @param string $domain The domain name
+     *
+     * @api
+     */
+    public function set($id, $translation, $domain = 'messages')
+    {
+        // TODO: Implement set() method.
+    }
+
+    /**
+     * Checks if a message has a translation.
+     *
+     * @param string $id The message id
+     * @param string $domain The domain name
+     *
+     * @return bool true if the message has a translation, false otherwise
+     *
+     * @api
+     */
+    public function has($id, $domain = 'messages')
+    {
+        // TODO: Implement has() method.
+    }
+
+    /**
+     * Checks if a message has a translation (it does not take into account the fallback mechanism).
+     *
+     * @param string $id The message id
+     * @param string $domain The domain name
+     *
+     * @return bool true if the message has a translation, false otherwise
+     *
+     * @api
+     */
+    public function defines($id, $domain = 'messages')
+    {
+        // TODO: Implement defines() method.
+    }
+
+    /**
+     * Gets a message translation.
+     *
+     * @param string $id The message id
+     * @param string $domain The domain name
+     *
+     * @return string The message translation
+     *
+     * @api
+     */
+    public function get($id, $domain = 'messages')
+    {
+        // TODO: Implement get() method.
+    }
+
+    /**
+     * Sets translations for a given domain.
+     *
+     * @param array $messages An array of translations
+     * @param string $domain The domain name
+     *
+     * @api
+     */
+    public function replace($messages, $domain = 'messages')
+    {
+        // TODO: Implement replace() method.
+    }
+
+    /**
+     * Merges translations from the given Catalogue into the current one.
+     *
+     * The two catalogues must have the same locale.
+     *
+     * @param MessageCatalogueInterface $catalogue A MessageCatalogueInterface instance
+     *
+     * @api
+     */
+    public function addCatalogue(MessageCatalogueInterface $catalogue)
+    {
+        // TODO: Implement addCatalogue() method.
+    }
+
+    /**
+     * Merges translations from the given Catalogue into the current one
+     * only when the translation does not exist.
+     *
+     * This is used to provide default translations when they do not exist for the current locale.
+     *
+     * @param MessageCatalogueInterface $catalogue A MessageCatalogueInterface instance
+     *
+     * @api
+     */
+    public function addFallbackCatalogue(MessageCatalogueInterface $catalogue)
+    {
+        // TODO: Implement addFallbackCatalogue() method.
+    }
+
+    /**
+     * Gets the fallback catalogue.
+     *
+     * @return MessageCatalogueInterface|null A MessageCatalogueInterface instance or null when no fallback has been set
+     *
+     * @api
+     */
+    public function getFallbackCatalogue()
+    {
+        // TODO: Implement getFallbackCatalogue() method.
+    }
+
+    /**
+     * Returns an array of resources loaded to build this collection.
+     *
+     * @return ResourceInterface[] An array of resources
+     *
+     * @api
+     */
+    public function getResources()
+    {
+        // TODO: Implement getResources() method.
+    }
+
+    /**
+     * Adds a resource for this collection.
+     *
+     * @param ResourceInterface $resource A resource instance
+     *
+     * @api
+     */
+    public function addResource(ResourceInterface $resource)
+    {
+        // TODO: Implement addResource() method.
+    }
+
     private $preparedTranslations = array();
     private $memcached;
 
@@ -22,12 +201,13 @@ class MemcachedMessageCatalogue
     /**
      * Add new translation into array that will be displayed
      *
-     * @param $domain
-     * @param $keyYml
-     * @param $message
-     * @param $locale
+     * N.B.Need to be implemented with comparison of interface
      */
-    public function add($domain, $keyYml, $message, $locale)
+    public function add($messages, $domain = 'messages')
+    {
+        // TODO: Implement add() method.
+    }
+    /*public function add($domain, $keyYml, $message, $locale)
     {
         $this->preparedTranslations[] = array(
             'domain' => $domain,
@@ -37,7 +217,7 @@ class MemcachedMessageCatalogue
                 'locale' => $locale,
             ),
         );
-    }
+    }*/
 
     /**
      * Build message catalogue by locale
