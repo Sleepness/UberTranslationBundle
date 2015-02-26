@@ -13,6 +13,20 @@ use Symfony\Component\Translation\MessageCatalogueInterface;
  */
 class MemcachedMessageCatalogue implements MessageCatalogueInterface
 {
+    private $preparedTranslations = array();
+    private $memcached;
+
+    /**
+     * Constructor.
+     *
+     * @param \Sleepness\UberTranslationBundle\Cache\UberMemcached $memcached
+     *
+     */
+    public function __construct(UberMemcached $memcached)
+    {
+        $this->memcached = $memcached;
+    }
+
     /**
      * Gets the catalogue locale.
      *
@@ -190,14 +204,6 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
         // TODO: Implement addResource() method.
     }
 
-    private $preparedTranslations = array();
-    private $memcached;
-
-    public function __construct(UberMemcached $memcached)
-    {
-        $this->memcached = $memcached;
-    }
-
     /**
      * Adds translations for a given domain.
      *
@@ -210,11 +216,14 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Add new translation into array that will be displayed
+     * Prepare translations to be displayed
      *
-     * N.B.Need to be implemented with comparison of interface
+     * @param $domain
+     * @param $keyYml
+     * @param $message
+     * @param $locale
      */
-    /*public function add($domain, $keyYml, $message, $locale)
+    public function prepareTranslations($domain, $keyYml, $message, $locale)
     {
         $this->preparedTranslations[] = array(
             'domain' => $domain,
@@ -224,7 +233,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
                 'locale' => $locale,
             ),
         );
-    }*/
+    }
 
     /**
      * Build message catalogue by locale
@@ -241,7 +250,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
             }
             foreach ($translations as $memcacheDomain => $messages) {
                 foreach ($messages as $ymlKey => $value) {
-                    $this->add($memcacheDomain, $ymlKey, $value, $locale);
+                    $this->prepareTranslations($memcacheDomain, $ymlKey, $value, $locale);
                 }
             }
         }
@@ -264,7 +273,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
                 foreach ($translations as $memcacheDomain => $messages) {
                     if ($domain == $memcacheDomain) {
                         foreach ($messages as $ymlKey => $value) {
-                            $this->add($domain, $ymlKey, $value, $locale);
+                            $this->prepareTranslations($domain, $ymlKey, $value, $locale);
                         }
                     }
                 }
@@ -289,7 +298,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
                 foreach ($translations as $memcacheDomain => $messages) {
                     foreach ($messages as $ymlKey => $value) {
                         if ($ymlKey == $keyYml) {
-                            $this->add($memcacheDomain, $keyYml, $value, $locale);
+                            $this->prepareTranslations($memcacheDomain, $keyYml, $value, $locale);
                         }
                     }
                 }
@@ -314,7 +323,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
                 foreach ($translations as $memcacheDomain => $messages) {
                     foreach ($messages as $ymlKey => $value) {
                         if (stripos($value, $text) !== false) {
-                            $this->add($memcacheDomain, $ymlKey, $value, $locale);
+                            $this->prepareTranslations($memcacheDomain, $ymlKey, $value, $locale);
                         }
                     }
                 }
@@ -337,7 +346,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
                 $translations = $this->memcached->getItem($locale);
                 foreach ($translations as $memcacheDomain => $messages) {
                     foreach ($messages as $ymlKey => $value) {
-                        $this->add($memcacheDomain, $ymlKey, $value, $locale);
+                        $this->prepareTranslations($memcacheDomain, $ymlKey, $value, $locale);
                     }
                 }
             }
