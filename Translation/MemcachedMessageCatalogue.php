@@ -199,14 +199,21 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Add new translation into array that will be displayed
+     * Adds translations for a given domain.
      *
-     * N.B.Need to be implemented with comparison of interface
+     * @param array  $messages An array of translations
+     * @param string $domain   The domain name
      */
     public function add($messages, $domain = 'messages')
     {
         // TODO: Implement add() method.
     }
+
+    /**
+     * Add new translation into array that will be displayed
+     *
+     * N.B.Need to be implemented with comparison of interface
+     */
     /*public function add($domain, $keyYml, $message, $locale)
     {
         $this->preparedTranslations[] = array(
