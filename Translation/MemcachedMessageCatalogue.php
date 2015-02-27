@@ -10,17 +10,21 @@ use Symfony\Component\Translation\MessageCatalogueInterface;
  * Prepare messages for output
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
+ * @author Alexandr Zhulev
  */
 class MemcachedMessageCatalogue implements MessageCatalogueInterface
 {
     private $preparedTranslations = array();
+
+    /**
+     * @var \Sleepness\UberTranslationBundle\Cache\UberMemcached
+     */
     private $memcached;
 
     /**
      * Constructor.
      *
      * @param \Sleepness\UberTranslationBundle\Cache\UberMemcached $memcached
-     *
      */
     public function __construct(UberMemcached $memcached)
     {
@@ -28,11 +32,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Gets the catalogue locale.
-     *
-     * @return string The locale
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function getLocale()
     {
@@ -40,11 +40,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Gets the domains.
-     *
-     * @return array An array of domains
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function getDomains()
     {
@@ -52,15 +48,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Gets the messages within a given domain.
-     *
-     * If $domain is null, it returns all messages.
-     *
-     * @param string $domain The domain name
-     *
-     * @return array An array of messages
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function all($domain = null)
     {
@@ -68,13 +56,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Sets a message translation.
-     *
-     * @param string $id The message id
-     * @param string $translation The messages translation
-     * @param string $domain The domain name
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function set($id, $translation, $domain = 'messages')
     {
@@ -82,14 +64,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Checks if a message has a translation.
-     *
-     * @param string $id The message id
-     * @param string $domain The domain name
-     *
-     * @return bool true if the message has a translation, false otherwise
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function has($id, $domain = 'messages')
     {
@@ -97,14 +72,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Checks if a message has a translation (it does not take into account the fallback mechanism).
-     *
-     * @param string $id The message id
-     * @param string $domain The domain name
-     *
-     * @return bool true if the message has a translation, false otherwise
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function defines($id, $domain = 'messages')
     {
@@ -112,14 +80,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Gets a message translation.
-     *
-     * @param string $id The message id
-     * @param string $domain The domain name
-     *
-     * @return string The message translation
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function get($id, $domain = 'messages')
     {
@@ -127,12 +88,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Sets translations for a given domain.
-     *
-     * @param array $messages An array of translations
-     * @param string $domain The domain name
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function replace($messages, $domain = 'messages')
     {
@@ -140,13 +96,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Merges translations from the given Catalogue into the current one.
-     *
-     * The two catalogues must have the same locale.
-     *
-     * @param MessageCatalogueInterface $catalogue A MessageCatalogueInterface instance
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function addCatalogue(MessageCatalogueInterface $catalogue)
     {
@@ -154,14 +104,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Merges translations from the given Catalogue into the current one
-     * only when the translation does not exist.
-     *
-     * This is used to provide default translations when they do not exist for the current locale.
-     *
-     * @param MessageCatalogueInterface $catalogue A MessageCatalogueInterface instance
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function addFallbackCatalogue(MessageCatalogueInterface $catalogue)
     {
@@ -169,11 +112,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Gets the fallback catalogue.
-     *
-     * @return MessageCatalogueInterface|null A MessageCatalogueInterface instance or null when no fallback has been set
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function getFallbackCatalogue()
     {
@@ -181,11 +120,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Returns an array of resources loaded to build this collection.
-     *
-     * @return ResourceInterface[] An array of resources
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function getResources()
     {
@@ -193,11 +128,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Adds a resource for this collection.
-     *
-     * @param ResourceInterface $resource A resource instance
-     *
-     * @api
+     * {@inheritdoc}
      */
     public function addResource(ResourceInterface $resource)
     {
@@ -205,10 +136,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
     }
 
     /**
-     * Adds translations for a given domain.
-     *
-     * @param array  $messages An array of translations
-     * @param string $domain   The domain name
+     * {@inheritdoc}
      */
     public function add($messages, $domain = 'messages')
     {
