@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator as BaseTranslator;
 /**
  * Custom translator class
  *
- * @author Alexandr Zhulev
+ * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
  */
 class Translator extends BaseTranslator
 {

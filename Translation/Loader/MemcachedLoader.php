@@ -11,7 +11,7 @@ use Symfony\Component\Translation\MessageCatalogue;
  * Load messages from memcache and push them into catalogue
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
- * @author Alexandr Zhulev
+ * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
  */
 class MemcachedLoader implements LoaderInterface
 {

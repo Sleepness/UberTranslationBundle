@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  * Extension class for process bundle configuration
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
- * @author Alexandr Zhulev
+ *@author Alexandr Zhulev <alexandrzhulev@gmail.com>
  */
 class SleepnessUberTranslationExtension extends Extension
 {
