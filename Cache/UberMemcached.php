@@ -10,7 +10,7 @@ use Symfony\Component\Config\Resource\ResourceInterface;
  * which ease work with memcached
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
- * @author Alexandr Zhulev
+ * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
  */
 class UberMemcached implements ResourceInterface
 {

@@ -9,7 +9,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * Respond for building configuration of bundle
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
- * @author Alexandr Zhulev
+ * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {

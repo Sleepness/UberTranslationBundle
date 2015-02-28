@@ -11,7 +11,7 @@ use Symfony\Component\Translation\MessageCatalogue;
  * Load messages from memcache and push them into catalogue
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
- * @author Alexandr Zhulev
+ * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
  */
 class MemcachedLoader implements LoaderInterface
 {
@@ -32,10 +32,11 @@ class MemcachedLoader implements LoaderInterface
     {
         $resource = $this->memcached;
         $messagesOfDomain = $resource->getItem($locale);
-        $messages = $messagesOfDomain[$domain];
         // no messages in cache
-        if (null === $messages) {
+        if (!isset($messagesOfDomain[$domain])) {
             $messages = array();
+        } else {
+            $messages = $messagesOfDomain[$domain];
         }
         if (!is_array($messages)) {
             throw new InvalidResourceException(sprintf('The resource "%s" must contain an array.', $resource));
