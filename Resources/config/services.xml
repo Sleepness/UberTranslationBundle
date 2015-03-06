@@ -9,41 +9,42 @@
         <service id="origin.memcached" class="Memcached"/>
 
         <service id="uber.memcached" class="Sleepness\UberTranslationBundle\Cache\UberMemcached">
-            <argument type="service" id="origin.memcached" />
+            <argument type="service" id="origin.memcached"/>
             <call method="setConnection">
                 <argument>%sleepness_uber_translation.memcached.host%</argument>
                 <argument>%sleepness_uber_translation.memcached.port%</argument>
             </call>
         </service>
 
-        <service id="uber.translation.loader" class="Sleepness\UberTranslationBundle\Translation\Loader\MemcachedLoader">
+        <service id="uber.translation.loader"
+                 class="Sleepness\UberTranslationBundle\Translation\Loader\MemcachedLoader">
             <call method="setUberMemcached">
-                <argument type="service" id="uber.memcached" />
+                <argument type="service" id="uber.memcached"/>
             </call>
-            <tag name="translation.loader" alias="memcached_loader" />
+            <tag name="translation.loader" alias="memcached_loader"/>
         </service>
 
-        <service
-                id="uber.translator"
-                class="Sleepness\UberTranslationBundle\Translation\Translator"
-                parent="translator.default" />
+        <service id="uber.translator" class="Sleepness\UberTranslationBundle\Translation\Translator"
+                 parent="translator.default"/>
 
-        <service id="memcached.messages.frontend" class="Sleepness\UberTranslationBundle\Frontend\MemcachedMessagesFrontend">
-            <argument type="service" id="uber.memcached" />
+        <service id="memcached.messages.frontend"
+                 class="Sleepness\UberTranslationBundle\Frontend\MemcachedMessagesFrontend">
+            <argument type="service" id="uber.memcached"/>
         </service>
 
-        <service id="memcached.message.catalogue" class="Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue">
-            <argument type="service" id="uber.memcached" />
+        <service id="memcached.message.catalogue"
+                 class="Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue">
+            <argument type="service" id="uber.memcached"/>
         </service>
 
         <service id="twig.extension.trans" class="%twig.extension.trans.class%" public="false">
-            <argument type="service" id="uber.translator" />
+            <argument type="service" id="uber.translator"/>
         </service>
 
         <service id="translator_listener" class="Symfony\Component\HttpKernel\EventListener\TranslatorListener">
-            <argument type="service" id="uber.translator" />
-            <argument type="service" id="request_stack" />
-            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="uber.translator"/>
+            <argument type="service" id="request_stack"/>
+            <tag name="kernel.event_subscriber"/>
         </service>
 
     </services>

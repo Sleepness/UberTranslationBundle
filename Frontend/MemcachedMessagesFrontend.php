@@ -19,8 +19,6 @@ class MemcachedMessagesFrontend implements MessagesFrontendInterface
     private $memcached;
 
     /**
-     * Constructor.
-     *
      * @param \Sleepness\UberTranslationBundle\Cache\UberMemcached $memcached
      */
     public function __construct(UberMemcached $memcached)
@@ -34,11 +32,11 @@ class MemcachedMessagesFrontend implements MessagesFrontendInterface
     public function prepareTranslations($domain, $keyYml, $message, $locale)
     {
         $this->preparedTranslations[] = array(
-            'domain' => $domain,
-            'keyYml' => $keyYml,
+            'domain'       => $domain,
+            'keyYml'       => $keyYml,
             'messageProps' => array(
                 'messageText' => $message,
-                'locale' => $locale,
+                'locale'      => $locale,
             ),
         );
     }
