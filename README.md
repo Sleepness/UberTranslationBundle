@@ -23,7 +23,7 @@ This Bundle uses [Memcached](http://memcached.org/) as a storage. Please see [wi
 Documentation
 -------------
 
-The bulk of the documentation is stored in the `Resources/doc/index.md` file in this bundle.
+The bulk of the documentation is stored in the [`Resources/doc/index.md`](https://github.com/Sleepness/UberTranslationBundle/blob/develop/Resources/doc/index.md) file in this bundle.
 
 Installation
 ------------
@@ -43,4 +43,4 @@ Pull requests are welcome.
 License
 -------
 
-See the complete license in the bundle: `Resources/meta/LICENSE`
+See the complete license in the bundle: [`Resources/meta/LICENSE`](https://github.com/Sleepness/UberTranslationBundle/blob/develop/Resources/meta/LICENSE)
