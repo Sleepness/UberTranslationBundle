@@ -28,6 +28,10 @@
                 class="Sleepness\UberTranslationBundle\Translation\Translator"
                 parent="translator.default" />
 
+        <service id="memcached.messages.frontend" class="Sleepness\UberTranslationBundle\Frontend\MemcachedMessagesFrontend">
+            <argument type="service" id="uber.memcached" />
+        </service>
+
         <service id="memcached.message.catalogue" class="Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue">
             <argument type="service" id="uber.memcached" />
         </service>

@@ -23,7 +23,7 @@ class TranslationController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $messageCatalogue = $this->get('memcached.message.catalogue');
+        $messageCatalogue = $this->get('memcached.messages.frontend');
         $locale = $request->query->get('locale'); // get parameters for filtering
         $domain = $request->query->get('domain');
         $key = $request->query->get('key');
