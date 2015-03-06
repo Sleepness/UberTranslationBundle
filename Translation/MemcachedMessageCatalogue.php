@@ -7,13 +7,17 @@ use Symfony\Component\Config\Resource\ResourceInterface;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 
 /**
- * Prepare messages for output
+ * MemcachedMessageCatalogue represents a collection of memcached messages.
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
  */
 class MemcachedMessageCatalogue implements MessageCatalogueInterface
 {
+    private $locale;
+    private $messages = array();
+    private $resources = array();
+
     /**
      * @var \Sleepness\UberTranslationBundle\Cache\UberMemcached
      */
@@ -34,7 +38,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function getLocale()
     {
-        // TODO: Implement getLocale() method.
+        return $this->locale;
     }
 
     /**
@@ -42,7 +46,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function getDomains()
     {
-        // TODO: Implement getDomains() method.
+        return array_keys($this->messages);
     }
 
     /**
@@ -50,7 +54,11 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function all($domain = null)
     {
-        // TODO: Implement all() method.
+        if (null === $domain) {
+            return $this->messages;
+        }
+
+        return isset($this->messages[$domain]) ? $this->messages[$domain] : array();
     }
 
     /**
@@ -58,7 +66,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function set($id, $translation, $domain = 'messages')
     {
-        // TODO: Implement set() method.
+        $this->add(array($id => $translation), $domain);
     }
 
     /**
@@ -66,7 +74,15 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function has($id, $domain = 'messages')
     {
-        // TODO: Implement has() method.
+        if (isset($this->messages[$domain][$id])) {
+            return true;
+        }
+/*
+        if (null !== $this->fallbackCatalogue) {
+            return $this->fallbackCatalogue->has($id, $domain);
+        }
+*/
+        return false;
     }
 
     /**
@@ -74,7 +90,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function defines($id, $domain = 'messages')
     {
-        // TODO: Implement defines() method.
+        return isset($this->messages[$domain][$id]);
     }
 
     /**
@@ -82,7 +98,15 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function get($id, $domain = 'messages')
     {
-        // TODO: Implement get() method.
+        if (isset($this->messages[$domain][$id])) {
+            return $this->messages[$domain][$id];
+        }
+/*
+        if (null !== $this->fallbackCatalogue) {
+            return $this->fallbackCatalogue->get($id, $domain);
+        }
+*/
+        return $id;
     }
 
     /**
@@ -90,47 +114,9 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function replace($messages, $domain = 'messages')
     {
-        // TODO: Implement replace() method.
-    }
+        $this->messages[$domain] = array();
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addCatalogue(MessageCatalogueInterface $catalogue)
-    {
-        // TODO: Implement addCatalogue() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addFallbackCatalogue(MessageCatalogueInterface $catalogue)
-    {
-        // TODO: Implement addFallbackCatalogue() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFallbackCatalogue()
-    {
-        // TODO: Implement getFallbackCatalogue() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getResources()
-    {
-        // TODO: Implement getResources() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addResource(ResourceInterface $resource)
-    {
-        // TODO: Implement addResource() method.
+        $this->add($messages, $domain);
     }
 
     /**
@@ -138,6 +124,58 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function add($messages, $domain = 'messages')
     {
-        // TODO: Implement add() method.
+        if (!isset($this->messages[$domain])) {
+            $this->messages[$domain] = $messages;
+        } else {
+            $this->messages[$domain] = array_replace($this->messages[$domain], $messages);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addCatalogue(MessageCatalogueInterface $catalogue)
+    {
+        if ($catalogue->getLocale() !== $this->locale) {
+            throw new \LogicException(sprintf('Cannot add a catalogue for locale "%s" as the current locale for this catalogue is "%s"', $catalogue->getLocale(), $this->locale));
+        }
+
+        foreach ($catalogue->all() as $domain => $messages) {
+            $this->add($messages, $domain);
+        }
+
+        foreach ($catalogue->getResources() as $resource) {
+            $this->addResource($resource);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addFallbackCatalogue(MessageCatalogueInterface $catalogue)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFallbackCatalogue()
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getResources()
+    {
+        return array_values($this->resources);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addResource(ResourceInterface $resource)
+    {
+        $this->resources[$resource->__toString()] = $resource;
     }
 }
