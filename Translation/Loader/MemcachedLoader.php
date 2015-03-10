@@ -42,7 +42,7 @@ class MemcachedLoader implements LoaderInterface
             throw new InvalidResourceException(sprintf('The resource "%s" must contain an array.', $resource));
         }
         $catalogue = new MessageCatalogue($locale);
-        foreach($messages as $ymlKey => $translation){
+        foreach ($messages as $ymlKey => $translation) {
             $catalogue->set($ymlKey, $translation, $domain);
         }
         $catalogue->addResource($resource);
