@@ -59,6 +59,7 @@ class TranslationControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->request('GET', '/translation/delete/messages/test.key');
+        $client->followRedirects();
         $this->assertTrue($client->getResponse()->isRedirect());
     }
 }
