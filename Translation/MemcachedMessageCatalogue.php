@@ -7,14 +7,16 @@ use Symfony\Component\Config\Resource\ResourceInterface;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 
 /**
- * Prepare messages for output
+ * MemcachedMessageCatalogue represents a collection of memcached messages.
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
  */
 class MemcachedMessageCatalogue implements MessageCatalogueInterface
 {
-    private $preparedTranslations = array();
+    private $locale;
+    private $messages = array();
+    private $resources = array();
 
     /**
      * @var \Sleepness\UberTranslationBundle\Cache\UberMemcached
@@ -36,7 +38,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function getLocale()
     {
-        // TODO: Implement getLocale() method.
+        return $this->locale;
     }
 
     /**
@@ -44,7 +46,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function getDomains()
     {
-        // TODO: Implement getDomains() method.
+        return array_keys($this->messages);
     }
 
     /**
@@ -52,7 +54,11 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function all($domain = null)
     {
-        // TODO: Implement all() method.
+        if (null === $domain) {
+            return $this->messages;
+        }
+
+        return isset($this->messages[$domain]) ? $this->messages[$domain] : array();
     }
 
     /**
@@ -60,7 +66,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function set($id, $translation, $domain = 'messages')
     {
-        // TODO: Implement set() method.
+        $this->add(array($id => $translation), $domain);
     }
 
     /**
@@ -68,7 +74,15 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function has($id, $domain = 'messages')
     {
-        // TODO: Implement has() method.
+        if (isset($this->messages[$domain][$id])) {
+            return true;
+        }
+/*
+        if (null !== $this->fallbackCatalogue) {
+            return $this->fallbackCatalogue->has($id, $domain);
+        }
+*/
+        return false;
     }
 
     /**
@@ -76,7 +90,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function defines($id, $domain = 'messages')
     {
-        // TODO: Implement defines() method.
+        return isset($this->messages[$domain][$id]);
     }
 
     /**
@@ -84,7 +98,15 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function get($id, $domain = 'messages')
     {
-        // TODO: Implement get() method.
+        if (isset($this->messages[$domain][$id])) {
+            return $this->messages[$domain][$id];
+        }
+/*
+        if (null !== $this->fallbackCatalogue) {
+            return $this->fallbackCatalogue->get($id, $domain);
+        }
+*/
+        return $id;
     }
 
     /**
@@ -92,47 +114,9 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function replace($messages, $domain = 'messages')
     {
-        // TODO: Implement replace() method.
-    }
+        $this->messages[$domain] = array();
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addCatalogue(MessageCatalogueInterface $catalogue)
-    {
-        // TODO: Implement addCatalogue() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addFallbackCatalogue(MessageCatalogueInterface $catalogue)
-    {
-        // TODO: Implement addFallbackCatalogue() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFallbackCatalogue()
-    {
-        // TODO: Implement getFallbackCatalogue() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getResources()
-    {
-        // TODO: Implement getResources() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addResource(ResourceInterface $resource)
-    {
-        // TODO: Implement addResource() method.
+        $this->add($messages, $domain);
     }
 
     /**
@@ -140,146 +124,58 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
      */
     public function add($messages, $domain = 'messages')
     {
-        // TODO: Implement add() method.
+        if (!isset($this->messages[$domain])) {
+            $this->messages[$domain] = $messages;
+        } else {
+            $this->messages[$domain] = array_replace($this->messages[$domain], $messages);
+        }
     }
 
     /**
-     * Prepare translations to be displayed
-     *
-     * @param $domain
-     * @param $keyYml
-     * @param $message
-     * @param $locale
+     * {@inheritdoc}
      */
-    public function prepareTranslations($domain, $keyYml, $message, $locale)
+    public function addCatalogue(MessageCatalogueInterface $catalogue)
     {
-        $this->preparedTranslations[] = array(
-            'domain' => $domain,
-            'keyYml' => $keyYml,
-            'messageProps' => array(
-                'messageText' => $message,
-                'locale' => $locale,
-            ),
-        );
-    }
-
-    /**
-     * Build message catalogue by locale
-     *
-     * @param $locale
-     * @return array
-     */
-    public function buildByLocale($locale)
-    {
-        if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
-            $translations = $this->memcached->getItem($locale);
-            if (!$translations) {
-                return array();
-            }
-            foreach ($translations as $memcacheDomain => $messages) {
-                foreach ($messages as $ymlKey => $value) {
-                    $this->prepareTranslations($memcacheDomain, $ymlKey, $value, $locale);
-                }
-            }
+        if ($catalogue->getLocale() !== $this->locale) {
+            throw new \LogicException(sprintf('Cannot add a catalogue for locale "%s" as the current locale for this catalogue is "%s"', $catalogue->getLocale(), $this->locale));
         }
 
-        return $this->preparedTranslations;
+        foreach ($catalogue->all() as $domain => $messages) {
+            $this->add($messages, $domain);
+        }
+
+        foreach ($catalogue->getResources() as $resource) {
+            $this->addResource($resource);
+        }
     }
 
     /**
-     * Build message catalogue by domain
-     *
-     * @param $domain - domain of messages set to be found and displayed
-     * @return array
+     * {@inheritdoc}
      */
-    public function buildByDomain($domain)
+    public function addFallbackCatalogue(MessageCatalogueInterface $catalogue)
     {
-        $locales = $this->memcached->getAllKeys();
-        foreach ($locales as $key => $locale) {
-            if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
-                $translations = $this->memcached->getItem($locale);
-                foreach ($translations as $memcacheDomain => $messages) {
-                    if ($domain == $memcacheDomain) {
-                        foreach ($messages as $ymlKey => $value) {
-                            $this->prepareTranslations($domain, $ymlKey, $value, $locale);
-                        }
-                    }
-                }
-            }
-        }
-
-        return $this->preparedTranslations;
     }
 
     /**
-     * Build message catalogue by message key
-     *
-     * @param $keyYml - key of messages to be displayed
-     * @return array
+     * {@inheritdoc}
      */
-    public function buildByKey($keyYml)
+    public function getFallbackCatalogue()
     {
-        $locales = $this->memcached->getAllKeys();
-        foreach ($locales as $key => $locale) {
-            if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
-                $translations = $this->memcached->getItem($locale);
-                foreach ($translations as $memcacheDomain => $messages) {
-                    foreach ($messages as $ymlKey => $value) {
-                        if ($ymlKey == $keyYml) {
-                            $this->prepareTranslations($memcacheDomain, $keyYml, $value, $locale);
-                        }
-                    }
-                }
-            }
-        }
-
-        return $this->preparedTranslations;
     }
 
     /**
-     * Build message catalogue by given text value
-     *
-     * @param $text - text to be matched with existing values
-     * @return array
+     * {@inheritdoc}
      */
-    public function buildByText($text)
+    public function getResources()
     {
-        $locales = $this->memcached->getAllKeys();
-        foreach ($locales as $key => $locale) {
-            if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
-                $translations = $this->memcached->getItem($locale);
-                foreach ($translations as $memcacheDomain => $messages) {
-                    foreach ($messages as $ymlKey => $value) {
-                        if (stripos($value, $text) !== false) {
-                            $this->prepareTranslations($memcacheDomain, $ymlKey, $value, $locale);
-                        }
-                    }
-                }
-            }
-        }
-
-        return $this->preparedTranslations;
+        return array_values($this->resources);
     }
 
     /**
-     * Get array of translations prepared for output
-     *
-     * @return array
+     * {@inheritdoc}
      */
-    public function getAll()
+    public function addResource(ResourceInterface $resource)
     {
-        $locales = $this->memcached->getAllKeys();
-        foreach ($locales as $key => $locale) {
-            if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
-                $translations = $this->memcached->getItem($locale);
-                foreach ($translations as $memcacheDomain => $messages) {
-                    foreach ($messages as $ymlKey => $value) {
-                        $this->prepareTranslations($memcacheDomain, $ymlKey, $value, $locale);
-                    }
-                }
-            }
-        }
-
-        return $this->preparedTranslations;
+        $this->resources[$resource->__toString()] = $resource;
     }
 }
