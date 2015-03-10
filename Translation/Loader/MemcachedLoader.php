@@ -45,6 +45,7 @@ class MemcachedLoader implements LoaderInterface
         foreach($messages as $ymlKey => $translation){
             $catalogue->set($ymlKey, $translation, $domain);
         }
+        $catalogue->addResource($resource);
 
         return $catalogue;
     }
