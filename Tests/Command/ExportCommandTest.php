@@ -27,7 +27,12 @@ class ExportCommandTest extends KernelTestCase
     /**
      * @var String;
      */
-    private static $bundlePath;
+    private $formattedDateTime;
+
+    /**
+     * @var String;
+     */
+    private static $exportResource;
 
     /**
      * Test command success execution
@@ -41,13 +46,14 @@ class ExportCommandTest extends KernelTestCase
             )
         );
         $this->assertTrue(is_string($commandTester->getDisplay()));
-        $this->assertFileExists(static::$bundlePath . '/Resources/translations/messages.en_US.yml');
+        $this->assertFileExists(static::$exportResource . '/messages.en_US.yml');
         $this->assertRegExp(
             '/key:\n\s+not:\n\s+blank:/',
-            file_get_contents(static::$bundlePath . '/Resources/translations/validators.en_US.yml')
+            file_get_contents(static::$exportResource . '/validators.en_US.yml')
         );
         $this->assertEquals(
-            "\033[37;42m Translations exported successfully in \"TestBundle/Resources/translations\"! \033[0m",
+            "\033[37;42m Translations exported successfully in \"TestBundle/Resources/translations/"
+            . $this->formattedDateTime . "\"! \033[0m",
             trim($commandTester->getDisplay())
         );
     }
@@ -83,7 +89,11 @@ class ExportCommandTest extends KernelTestCase
         $container = $kernel->getContainer();
         $this->uberMemcached = $container->get('uber.memcached');
         $this->uberMemcached->addItem('en_US', $values);
-        static::$bundlePath = $kernel->getBundle('TestBundle')->getPath();
+        $bundlePath = $kernel->getBundle('TestBundle')->getPath();
+        $dateTime = new \DateTime();
+        $formattedDateTime = $dateTime->format('Y-m-d_H-i');
+        $this->formattedDateTime = $formattedDateTime;
+        static::$exportResource = $bundlePath . '/Resources/translations/' . $formattedDateTime;
     }
 
     /**
@@ -118,7 +128,10 @@ class ExportCommandTest extends KernelTestCase
      */
     public static function tearDownAfterClass()
     {
-        unlink(static::$bundlePath . '/Resources/translations/messages.en_US.yml');
-        unlink(static::$bundlePath . '/Resources/translations/validators.en_US.yml');
+        $files = array_diff(scandir(static::$exportResource . '/'), array('.','..'));
+        foreach ($files as $file) {
+            unlink(static::$exportResource . '/' . $file);
+        }
+        rmdir(static::$exportResource . '/');
     }
 }
