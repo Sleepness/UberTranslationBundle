@@ -25,9 +25,12 @@ class Translator extends BaseTranslator
     protected function initializeCatalogue($locale)
     {
         $memcached = $this->container->get('uber.memcached');
-        $domains = array_keys($memcached->getItem($locale));
-        foreach ($domains as $domain) {
-            $this->addResource('memcached_loader', $memcached, $locale, $domain);
+        $memcacheMessages = $memcached->getItem($locale);
+        if ($memcacheMessages) {
+            $domains = array_keys($memcacheMessages);
+            foreach ($domains as $domain) {
+                $this->addResource('memcached_loader', $memcached, $locale, $domain);
+            }
         }
 
         parent::initializeCatalogue($locale);
