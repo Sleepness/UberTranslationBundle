@@ -44,7 +44,7 @@ class ImportCommandTest extends KernelTestCase
             )
         );
         $this->assertTrue(is_string($commandTester->getDisplay()));
-        $this->assertEquals("\033[37;41m Make sure you define all locales properly \033[0m", trim($commandTester->getDisplay()));
+        $this->assertEquals("\033[37;43m Make sure you define all locales properly \033[0m", trim($commandTester->getDisplay()));
     }
 
     /**

@@ -52,12 +52,12 @@ Command example:
         $catalogues = array(); // prepare array for catalogues
         foreach ($parsedLocales as $key => $locale) { // run through locales
             if (!preg_match('/^[a-z]{2}$/', $locale)) {
-                $output->writeln("\033[37;41m Make sure you define all locales properly \033[0m   \n");
+                $output->writeln("\033[37;43m Make sure you define all locales properly \033[0m   \n");
                 return;
             }
             $currentCatalogue = new MessageCatalogue($locale); // Load defined messages for given locale
             if (!is_dir($bundle->getPath() . '/Resources/translations')) {
-                $output->writeln("\033[37;41m There is no folder with translations in " . $input->getArgument('bundle') . " \033[0m   \n");
+                $output->writeln("\033[37;43m There is no folder with translations in " . $input->getArgument('bundle') . " \033[0m   \n");
                 return;
             }
             $loader->loadMessages($bundle->getPath() . '/Resources/translations', $currentCatalogue); // load messages from catalogue

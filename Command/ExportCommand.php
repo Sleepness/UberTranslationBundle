@@ -86,10 +86,10 @@ Command example:
                 $output->writeln("\033[37;42m Translations exported successfully in \""
                     . $bundleName . '/Resources/translations/' . $formattedDateTime . "\"! \033[0m");
             } else {
-                $output->writeln("\033[37;42m No translations in Memcache! \033[0m");
+                $output->writeln("\033[37;43m No translations in Memcache! \033[0m");
             }
         } else {
-            $output->writeln("\033[37;42m Memcache is empty! \033[0m");
+            $output->writeln("\033[37;43m Memcache is empty! \033[0m");
         }
     }
 

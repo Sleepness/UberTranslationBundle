@@ -40,7 +40,7 @@ Command example:
         $memcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
         if ($memcached->dropCache()) {
             $output->writeln("\033[37;42m All translations deleted from Memcache! \033[0m");
-        } else{
+        } else {
            $output->writeln("\033[37;41m Error occur when try to delete translations! \033[0m \n");
         }
     }
