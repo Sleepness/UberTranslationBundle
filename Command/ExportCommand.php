@@ -45,11 +45,13 @@ Command example:
     {
         $bundleName = $input->getArgument('bundle');
         $bundlePath = $this->getContainer()->get('kernel')->getBundle($bundleName)->getPath();
+        $dateTime = new \DateTime();
+        $formattedDateTime = $dateTime->format('Y-m-d_H-i');
+        $exportResource = $bundlePath . '/Resources/translations/' . $formattedDateTime;
 
-        if (!file_exists($bundlePath . '/Resources/translations')) {
-            mkdir($bundlePath . '/Resources/translations', 0777, true);
+        if (!file_exists($exportResource)) {
+            mkdir($exportResource, 0777, true);
         }
-
         $uberMemcached = $this->getContainer()->get('uber.memcached');
         $locales = $uberMemcached->getAllKeys();
 
@@ -73,10 +75,11 @@ Command example:
                 }
                 $dumper = new Dumper();
                 $yaml = $dumper->dump($yamlArr, $indent);
-                file_put_contents($bundlePath . '/Resources/translations/' . $domain . '.' . $locale . '.yml', $yaml);
+                file_put_contents($exportResource . '/' . $domain . '.' . $locale . '.yml', $yaml);
             }
         }
-        $output->writeln("\033[37;42m Translations exported successfully in \"" . $bundleName . "/Resources/translations\"! \033[0m");
+        $output->writeln("\033[37;42m Translations exported successfully in \""
+            . $bundleName . '/Resources/translations/' . $formattedDateTime . "\"! \033[0m");
     }
 
     /**
@@ -90,13 +93,12 @@ Command example:
     {
         $result = array();
         $next = $level + 1;
-
         if (count($array) == $level + 2) {
             $result[$array[$level]] = $array[$next];
-
         } else {
             $result[$array[$level]] = $this->expand($array, $next);
         }
+
         return $result;
     }
 }
