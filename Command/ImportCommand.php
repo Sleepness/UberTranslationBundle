@@ -23,7 +23,7 @@ class ImportCommand extends ContainerAwareCommand
         $this
             ->setName('uber:translations:import')
             ->setDefinition(array(
-                new InputArgument('locales', InputArgument::REQUIRED, 'Locales of translations (e.g. en,fr,uk)'),
+                new InputArgument('locales', InputArgument::REQUIRED, 'Locales of translations (e.g. en,fr,uk_UA)'),
                 new InputArgument('bundle', InputArgument::REQUIRED, 'Name of the bundle'),
             ))
             ->setDescription('Import translations into memcached')
@@ -50,8 +50,8 @@ Command example:
         $loader = $this->getContainer()->get('translation.loader'); // get translator loader
         $uberMemcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
         $catalogues = array(); // prepare array for catalogues
-        foreach ($parsedLocales as $key => $locale) { // run through locales
-            if (!preg_match('/^[a-z]{2}$/', $locale)) {
+        foreach ($parsedLocales as $locale) { // run through locales
+            if (!preg_match('/^[a-z]{2}$/', $locale) && !preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
                 $output->writeln("\033[37;43m Make sure you define all locales properly \033[0m   \n");
                 return;
             }
