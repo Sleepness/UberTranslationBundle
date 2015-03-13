@@ -48,38 +48,46 @@ Command example:
         $dateTime = new \DateTime();
         $formattedDateTime = $dateTime->format('Y-m-d_H-i');
         $exportResource = $bundlePath . '/Resources/translations/' . $formattedDateTime;
-
-        if (!file_exists($exportResource)) {
-            mkdir($exportResource, 0777, true);
-        }
         $uberMemcached = $this->getContainer()->get('uber.memcached');
         $locales = $uberMemcached->getAllKeys();
+
         if ($locales) {
+            $numberOfLocales = null;
             foreach ($locales as $locale) {
-                $memcacheMessages = $uberMemcached->getItem($locale);
-                foreach ($memcacheMessages as $domain => $messagesArray) {
-                    $yamlArr = array();
-                    $indent = 0;
-                    foreach ($messagesArray as $key => $value) {
-                        $delimArray = explode('.', $key);
-                        $indent = count($delimArray);
-                        array_push($delimArray, $value);
-                        $expArray = $this->expand($delimArray);
-                        foreach ($expArray as $expArrayKey => $expArrayVal) {
-                            if (array_key_exists($expArrayKey, $yamlArr)) {
-                                $yamlArr[$expArrayKey] = array_replace_recursive($yamlArr[$expArrayKey], $expArrayVal);
-                            } else {
-                                $yamlArr[$expArrayKey] = $expArrayVal;
+                if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
+                    if (!file_exists($exportResource)) {
+                        mkdir($exportResource, 0777, true);
+                    }
+                    $numberOfLocales++;
+                    $memcacheMessages = $uberMemcached->getItem($locale);
+                    foreach ($memcacheMessages as $domain => $messagesArray) {
+                        $yamlArr = array();
+                        $indent = 0;
+                        foreach ($messagesArray as $key => $value) {
+                            $delimArray = explode('.', $key);
+                            $indent = count($delimArray);
+                            array_push($delimArray, $value);
+                            $expArray = $this->expand($delimArray);
+                            foreach ($expArray as $expArrayKey => $expArrayVal) {
+                                if (array_key_exists($expArrayKey, $yamlArr)) {
+                                    $yamlArr[$expArrayKey] = array_replace_recursive($yamlArr[$expArrayKey], $expArrayVal);
+                                } else {
+                                    $yamlArr[$expArrayKey] = $expArrayVal;
+                                }
                             }
                         }
+                        $dumper = new Dumper();
+                        $yaml = $dumper->dump($yamlArr, $indent);
+                        file_put_contents($exportResource . '/' . $domain . '.' . $locale . '.yml', $yaml);
                     }
-                    $dumper = new Dumper();
-                    $yaml = $dumper->dump($yamlArr, $indent);
-                    file_put_contents($exportResource . '/' . $domain . '.' . $locale . '.yml', $yaml);
                 }
             }
-            $output->writeln("\033[37;42m Translations exported successfully in \""
-                . $bundleName . '/Resources/translations/' . $formattedDateTime . "\"! \033[0m");
+            if ($numberOfLocales) {
+                $output->writeln("\033[37;42m Translations exported successfully in \""
+                    . $bundleName . '/Resources/translations/' . $formattedDateTime . "\"! \033[0m");
+            } else {
+                $output->writeln("\033[37;42m No translations in Memcache! \033[0m");
+            }
         } else {
             $output->writeln("\033[37;42m Memcache is empty! \033[0m");
         }
