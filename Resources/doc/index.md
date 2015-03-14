@@ -44,23 +44,10 @@ sleepness_uber_translation:
   supported_locales: [en, uk]
 ```
 
-### Step 4: Routing configuration
-
-In `app/config/routing.yml` you must to include bundle routes:
-
-``` yml
-uber:
-    resource: "@SleepnessUberTranslationBundle/Resources/config/routing.yml"
-```
-
-### Step 5: Import translations into memcached by console command `uber:translations:import locale BundleName`
+### Step 4: Import translations into memcached by console command `uber:translations:import locale BundleName`
 
 Example:
 
 ``` bash
 $ php app/console uber:translations:import
 ```
-
-### Step 6: Go to translation dashboard panel, you URL may look like:
-
- `www.examle.com/tanslations`
