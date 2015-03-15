@@ -46,10 +46,10 @@ class ExportCommandTest extends KernelTestCase
             )
         );
         $this->assertTrue(is_string($commandTester->getDisplay()));
-        $this->assertFileExists(static::$exportResource . '/messages.en_US.yml');
+        $this->assertFileExists(static::$exportResource . '/messages.en_XX.yml');
         $this->assertRegExp(
             '/key:\n\s+not:\n\s+blank:/',
-            file_get_contents(static::$exportResource . '/validators.en_US.yml')
+            file_get_contents(static::$exportResource . '/validators.en_XX.yml')
         );
         $this->assertEquals(
             "\033[37;42m Translations exported successfully in \"TestBundle/Resources/translations/"
@@ -88,7 +88,7 @@ class ExportCommandTest extends KernelTestCase
         $values = $this->getMessagesArray();
         $container = $kernel->getContainer();
         $this->uberMemcached = $container->get('uber.memcached');
-        $this->uberMemcached->addItem('en_US', $values);
+        $this->uberMemcached->addItem('en_XX', $values);
         $bundlePath = $kernel->getBundle('TestBundle')->getPath();
         $dateTime = new \DateTime();
         $formattedDateTime = $dateTime->format('Y-m-d_H-i');
@@ -120,7 +120,7 @@ class ExportCommandTest extends KernelTestCase
      */
     public function tearDown()
     {
-        $this->uberMemcached->deleteItem('en_US');
+        $this->uberMemcached->deleteItem('en_XX');
     }
 
     /**
