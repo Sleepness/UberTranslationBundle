@@ -25,7 +25,8 @@
         "symfony/framework-bundle": "~2.3",
         "symfony/twig-bundle": "~2.3"
     },
+
     "autoload" : {
-        "psr-0" : { "Sleepness\\UberTranslationBundle" : "" }
+        "psr-4" : { "Sleepness\\UberTranslationBundle" : "" }
     }
 }
