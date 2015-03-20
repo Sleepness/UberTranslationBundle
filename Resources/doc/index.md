@@ -33,10 +33,14 @@ public function registerBundles()
 
 ### Step 3: Bundle configuration
 
-In `app/config/config.yml` you must to add some configuration for make bundle works as expected.
-Here is how you config might look:
+In `app/config/config.yml` enable translator and add bundle configuration:
 
-``` yml
+``` yaml
+# app/config/config.yml
+
+framework:
+    translator: ~
+
 sleepness_uber_translation:
   memcached:
       host: localhost
@@ -44,10 +48,34 @@ sleepness_uber_translation:
   supported_locales: [en, uk]
 ```
 
-### Step 4: Import translations into memcached by console command `uber:translations:import locale BundleName`
+## Usage
+
+### Import translations
+
+Import translations into memcached by running console command `uber:translations:import locale BundleName`
 
 Example:
 
 ``` bash
-$ php app/console uber:translations:import
+$ php app/console uber:translations:import en,uk AcmeDemoBundle
+```
+
+### Export translations
+
+Export translations from memcached by running console command `uber:translations:export BundleName`
+
+Example:
+
+``` bash
+$ php app/console uber:translations:export AcmeDemoBundle
+```
+
+### Delete translations
+
+Delete all translations from memcached by running console command `uber:translations:purge`
+
+Example:
+
+``` bash
+$ php app/console uber:translations:purge
 ```
