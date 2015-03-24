@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Sleepness/UberTranslationBundle.svg?branch=develop)](https://travis-ci.org/Sleepness/UberTranslationBundle)
+
 SleepnessUberTranslationBundle
 =====================
 
