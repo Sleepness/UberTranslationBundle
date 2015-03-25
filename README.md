@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Sleepness/UberTranslationBundle.svg?branch=develop)](https://travis-ci.org/Sleepness/UberTranslationBundle)
+[![Build Status](https://travis-ci.org/Sleepness/UberTranslationBundle.svg?branch=develop)](https://travis-ci.org/Sleepness/UberTranslationBundle)  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Sleepness/UberTranslationBundle/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/Sleepness/UberTranslationBundle/?branch=develop)
 
 SleepnessUberTranslationBundle
 =====================
