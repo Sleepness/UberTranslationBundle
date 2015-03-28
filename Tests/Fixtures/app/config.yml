@@ -1,0 +1,11 @@
+framework:
+    secret:          secret
+    test: ~
+    router:          { resource: "%kernel.root_dir%/routing.yml" }
+    templating:      { engines: ['twig'] }
+
+sleepness_uber_translation:
+    memcached:
+        host: localhost
+        port: 11211
+    supported_locales: [en, uk]
