@@ -11,6 +11,7 @@ services:
   - memcached
 
 before_script:
+  - phpenv config-add .travis-config.ini
   - composer self-update
   - composer install
 
