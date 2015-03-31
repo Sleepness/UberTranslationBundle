@@ -31,7 +31,7 @@ class PurgeCommandTest extends KernelTestCase
     }
 
     /**
-     * Boot application for testing import command
+     * Boot application for testing purge memcache command
      */
     public function setUp()
     {
