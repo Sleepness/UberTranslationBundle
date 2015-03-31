@@ -48,7 +48,7 @@ abstract class CommandTestCase extends KernelTestCase
     /**
      * Boot command before run tests
      */
-    public function setUp()
+    protected function setUp()
     {
         $application = new Application($this->getKernel());
         $application->add($this->getCommandInstance());
