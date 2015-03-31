@@ -32,7 +32,7 @@ class ExportCommandTest extends KernelTestCase
     /**
      * @var String;
      */
-    protected static $exportResource;
+    private static $exportResource;
 
     /**
      * Test command success execution
