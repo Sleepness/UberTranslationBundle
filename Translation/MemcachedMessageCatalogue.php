@@ -77,11 +77,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
         if (isset($this->messages[$domain][$id])) {
             return true;
         }
-/*
-        if (null !== $this->fallbackCatalogue) {
-            return $this->fallbackCatalogue->has($id, $domain);
-        }
-*/
+
         return false;
     }
 
@@ -101,11 +97,7 @@ class MemcachedMessageCatalogue implements MessageCatalogueInterface
         if (isset($this->messages[$domain][$id])) {
             return $this->messages[$domain][$id];
         }
-/*
-        if (null !== $this->fallbackCatalogue) {
-            return $this->fallbackCatalogue->get($id, $domain);
-        }
-*/
+
         return $id;
     }
 
