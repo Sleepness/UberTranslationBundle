@@ -2,9 +2,9 @@
 
 namespace Sleepness\UberTranslationBundle\Tests\Command;
 
-use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+//use Symfony\Component\Console\Tester\CommandTester;
+//use Symfony\Bundle\FrameworkBundle\Console\Application;
+//use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Sleepness\UberTranslationBundle\Command\ExportCommand;
 
 /**
@@ -12,12 +12,12 @@ use Sleepness\UberTranslationBundle\Command\ExportCommand;
  *
  * @author Alexandr Zhulev
  */
-class ExportCommandTest extends KernelTestCase
+class ExportCommandTest extends CommandTestCase
 {
     /**
      * @var \Symfony\Component\Console\Tester\CommandTester;
      */
-    private $commandTester;
+    protected $commandTester;
 
     /**
      * @var \Sleepness\UberTranslationBundle\Cache\UberMemcached;
@@ -79,17 +79,12 @@ class ExportCommandTest extends KernelTestCase
      */
     public function setUp()
     {
-        $kernel = $this->createKernel();
-        $kernel->boot();
-        $application = new Application($kernel);
-        $application->add(new ExportCommand());
-        $command = $application->find('uber:translations:export');
-        $this->commandTester = new CommandTester($command);
+        parent::setUp();
         $values = $this->getMessagesArray();
-        $container = $kernel->getContainer();
+        $container = $this->getKernel()->getContainer();
         $this->uberMemcached = $container->get('uber.memcached');
         $this->uberMemcached->addItem('en_XX', $values);
-        $bundlePath = $kernel->getBundle('TestBundle')->getPath();
+        $bundlePath = $this->getKernel()->getBundle('TestBundle')->getPath();
         $dateTime = new \DateTime();
         $formattedDateTime = $dateTime->format('Y-m-d_H-i');
         $this->formattedDateTime = $formattedDateTime;
@@ -133,5 +128,25 @@ class ExportCommandTest extends KernelTestCase
             unlink(static::$exportResource . '/' . $file);
         }
         rmdir(static::$exportResource . '/');
+    }
+
+    /**
+     * Get instance of console command
+     *
+     * @return mixed
+     */
+    protected function getCommandInstance()
+    {
+        return new ExportCommand();
+    }
+
+    /**
+     * Get command text
+     *
+     * @return mixed
+     */
+    protected function getCommand()
+    {
+       return 'uber:translations:export';
     }
 }

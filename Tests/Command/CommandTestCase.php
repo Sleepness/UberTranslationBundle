@@ -33,13 +33,24 @@ abstract class CommandTestCase extends KernelTestCase
     abstract protected function getCommand();
 
     /**
+     * Return booted kernel
+     *
+     * @return \Symfony\Component\HttpKernel\KernelInterface
+     */
+    protected function getKernel()
+    {
+        $kernel = $this->createKernel();
+        $kernel->boot();
+
+        return $kernel;
+    }
+
+    /**
      * Boot command before run tests
      */
     public function setUp()
     {
-        $kernel = $this->createKernel();
-        $kernel->boot();
-        $application = new Application($kernel);
+        $application = new Application($this->getKernel());
         $application->add($this->getCommandInstance());
         $command = $application->find($this->getCommand());
         $this->commandTester = new CommandTester($command);
