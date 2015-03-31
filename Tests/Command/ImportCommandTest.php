@@ -33,14 +33,13 @@ class ImportCommandTest extends CommandTestCase
      */
     public function testSuccessExecute()
     {
-        $this->commandTester->execute(
+        $this->execution(
             array(
                 'locales' => 'en,uk',
                 'bundle' => 'TestBundle',
-            )
+            ),
+            "\033[37;42m Translations from TestBundle imported successfully! \033[0m"
         );
-        $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertEquals("\033[37;42m Translations from TestBundle imported successfully! \033[0m", trim($this->commandTester->getDisplay()));
     }
 
     /**
@@ -48,13 +47,25 @@ class ImportCommandTest extends CommandTestCase
      */
     public function testFailureExecute()
     {
-        $this->commandTester->execute(
+        $this->execution(
             array(
                 'locales' => 'eqwewqeqwe12341241',
                 'bundle' => 'TestBundle',
-            )
+            ),
+            "\033[37;43m Make sure you define all locales properly \033[0m"
         );
+    }
+
+    /**
+     * Common operations for import command tests
+     *
+     * @param $arguments - array of arguments for command
+     * @param $output - expected output
+     */
+    private function execution($arguments, $output)
+    {
+        $this->commandTester->execute($arguments);
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertEquals("\033[37;43m Make sure you define all locales properly \033[0m", trim($this->commandTester->getDisplay()));
+        $this->assertEquals($output, trim($this->commandTester->getDisplay()));
     }
 }
