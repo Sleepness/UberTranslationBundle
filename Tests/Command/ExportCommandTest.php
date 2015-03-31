@@ -2,9 +2,6 @@
 
 namespace Sleepness\UberTranslationBundle\Tests\Command;
 
-//use Symfony\Component\Console\Tester\CommandTester;
-//use Symfony\Bundle\FrameworkBundle\Console\Application;
-//use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Sleepness\UberTranslationBundle\Command\ExportCommand;
 
 /**
