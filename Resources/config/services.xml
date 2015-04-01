@@ -27,11 +27,6 @@
         <service id="uber.translator" class="Sleepness\UberTranslationBundle\Translation\Translator"
                  parent="translator.default"/>
 
-        <service id="memcached.message.catalogue"
-                 class="Sleepness\UberTranslationBundle\Translation\MemcachedMessageCatalogue">
-            <argument type="service" id="uber.memcached"/>
-        </service>
-
         <service id="twig.extension.trans" class="%twig.extension.trans.class%" public="false">
             <argument type="service" id="uber.translator"/>
         </service>
