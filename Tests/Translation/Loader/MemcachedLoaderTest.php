@@ -29,7 +29,8 @@ class MemcachedLoaderTest extends WebTestCase
         $this->assertTrue(is_object($catalogue));
         $this->assertTrue($catalogue instanceof MessageCatalogue);
         $this->assertEquals('en_US', $catalogue->getLocale());
-        $this->assertEquals('messages', $catalogue->getDomains()[0]);
+        $domains = $catalogue->getDomains();
+        $this->assertEquals('messages', $domains[0]);
     }
 
     /**
