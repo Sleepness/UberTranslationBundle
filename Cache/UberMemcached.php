@@ -60,7 +60,7 @@ class UberMemcached implements ResourceInterface
      */
     public function addItem($key, $value, $expiration = null)
     {
-        if ($expiration == null) {
+        if ($expiration === null) {
             $expiration = 60 * 60 * 24 * 30; // default expires after 30 days
         }
         return $this->getMemcached()->set($key, $value, $expiration);
