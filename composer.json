@@ -19,19 +19,16 @@
             "name" : "Alexandr Zhulev"
         }
     ],
-
     "require" : {
         "php": ">=5.3",
         "symfony/framework-bundle": "~2.3",
         "symfony/twig-bundle": "~2.3"
     },
-
     "require-dev": {
         "symfony/finder": "~2.6",
         "symfony/console": "~2.6",
         "phpunit/phpunit": "~4.5"
     },
-
     "autoload" : {
         "psr-4" : { "Sleepness\\UberTranslationBundle\\" : "" }
     }
