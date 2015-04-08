@@ -31,5 +31,10 @@
     },
     "autoload" : {
         "psr-4" : { "Sleepness\\UberTranslationBundle\\" : "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "1.0.x-dev"
+        }
     }
 }
