@@ -8,7 +8,7 @@ This Bundle provides a tool to use [Memcached](http://memcached.org/) translatio
 Introduction
 ------------
 
-This Bundle uses [Memcached](http://memcached.org/) as a recourse of your translations. Translation mechanisms allow your client/customer to edit and override any translations directly from the website.
+This Bundle uses [Memcached](http://memcached.org/) as a recourse of your translations. By using [SleepnessUberTranslationAdminBundle](https://github.com/Sleepness/UberTranslationAdminBundle) translation mechanism allows your client/customer to edit and override any translations directly from the website.
 
 ### Separation of concern
 
@@ -25,17 +25,7 @@ This Bundle uses [Memcached](http://memcached.org/) as a storage. Please see [wi
 Documentation
 -------------
 
-The bulk of the documentation is stored in the [`Resources/doc/index.md`](https://github.com/Sleepness/UberTranslationBundle/blob/develop/Resources/doc/index.md) file in this bundle.
-
-Installation
-------------
-
-The installation of Bundle instructions are located in the documentation.
-
-Configuration
--------------
-
-All the configuration instructions are located in the documentation.
+The bulk of the documentation for installation and configuration is stored in the [`Resources/doc/index.md`](https://github.com/Sleepness/UberTranslationBundle/blob/develop/Resources/doc/index.md) file in this bundle.
 
 Contributing
 ------------
@@ -45,4 +35,4 @@ Pull requests are welcome.
 License
 -------
 
-See the complete license in the bundle: [`Resources/meta/LICENSE`](https://github.com/Sleepness/UberTranslationBundle/blob/develop/Resources/meta/LICENSE)
+See the complete license in the bundle: [`Resources/meta/LICENSE`](https://github.com/Sleepness/UberTranslationBundle/blob/develop/Resources/meta/LICENSE).
