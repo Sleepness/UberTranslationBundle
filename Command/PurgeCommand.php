@@ -38,10 +38,15 @@ Command example:
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $memcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
-        if ($memcached->dropCache()) {
-            $output->writeln("\033[37;42m All translations deleted from Memcache! \033[0m");
-        } else {
-           $output->writeln("\033[37;41m Error occur when try to delete translations! \033[0m \n");
+        $keys = $memcached->getAllKeys();
+        foreach ($keys as $index => $locale) {
+            if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
+                if ($memcached->deleteItem($locale)) {
+                    $output->writeln("\033[37;42m Translations for " . $locale ." locale deleted from Memcache! \033[0m");
+                }
+            } else {
+                $output->writeln("\033[37;43m Data with " . $locale . " key has not been deleted from Memcache ! \033[0m");
+            }
         }
     }
 }
