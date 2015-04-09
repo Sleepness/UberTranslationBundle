@@ -12,6 +12,8 @@ use Sleepness\UberTranslationBundle\Command\PurgeCommand;
  */
 class PurgeCommandTest extends CommandTestCase
 {
+    private $uberMemcached;
+
     /**
      * {@inheritdoc}
      */
@@ -35,6 +37,5 @@ class PurgeCommandTest extends CommandTestCase
     {
         $this->commandTester->execute(array());
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertEquals("\033[37;42m All translations deleted from Memcache! \033[0m", trim($this->commandTester->getDisplay()));
     }
 }
