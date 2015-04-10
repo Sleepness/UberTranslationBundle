@@ -12,8 +12,6 @@ use Sleepness\UberTranslationBundle\Command\PurgeCommand;
  */
 class PurgeCommandTest extends CommandTestCase
 {
-    private $uberMemcached;
-
     /**
      * {@inheritdoc}
      */
