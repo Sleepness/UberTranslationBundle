@@ -1,7 +1,7 @@
 {
     "name" : "sleepness/uber-translation-bundle",
     "type" : "symfony-bundle",
-    "description" : "Symfony UberTranslationBundle (Sleepness Team)",
+    "description" : "Extends Symfony2 Translation Component by storing all your translations in fast Memcached",
     "keywords" : [
         "translation",
         "i18n",
