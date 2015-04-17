@@ -4,7 +4,11 @@
     "description" : "Symfony UberTranslationBundle (Sleepness Team)",
     "keywords" : [
         "translation",
-        "memcached"
+        "i18n",
+        "Symfony2",
+        "memcached",
+        "multilanguage",
+        "locale"
     ],
     "homepage": "http://sleepness.github.io/",
     "license": "MIT",
