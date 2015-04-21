@@ -35,24 +35,9 @@ class ImportCommandTest extends CommandTestCase
     {
         $this->execution(
             array(
-                'locales' => 'en,uk',
                 'bundle' => 'TestBundle',
             ),
             "\033[37;42m Translations from TestBundle imported successfully! \033[0m"
-        );
-    }
-
-    /**
-     * Test failure of the command
-     */
-    public function testFailureExecute()
-    {
-        $this->execution(
-            array(
-                'locales' => 'eqwewqeqwe12341241',
-                'bundle' => 'TestBundle',
-            ),
-            "\033[37;43m Make sure you define all locales properly \033[0m"
         );
     }
 
