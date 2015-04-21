@@ -23,18 +23,17 @@ class ImportCommand extends ContainerAwareCommand
         $this
             ->setName('uber:translations:import')
             ->setDefinition(array(
-                new InputArgument('locales', InputArgument::REQUIRED, 'Locales of translations (e.g. en,fr,uk_UA)'),
                 new InputArgument('bundle', InputArgument::REQUIRED, 'Name of the bundle'),
             ))
             ->setDescription('Import translations into memcached')
             ->setHelp("
 The <info>uber:translations:import</info> command imports translations of given bundle into memcache:
 
-  <info>./app/console uber:translations:import locales VendorNameYourBundle</info>
+  <info>./app/console uber:translations:import VendorNameYourBundle</info>
 
 Command example:
 
-  <info>./app/console uber:translations:import en,uk AcmeDemoBundle</info>
+  <info>./app/console uber:translations:import AcmeDemoBundle</info>
 
             ");
     }
@@ -44,13 +43,12 @@ Command example:
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $locales = $input->getArgument('locales');
-        $parsedLocales = explode(',', $locales); // prepare locales from parameters
+        $locales = $this->getContainer()->getParameter('sleepness_uber_translation.supported_locales'); // prepare locales from parameters
         $bundle = $this->getContainer()->get('kernel')->getBundle($input->getArgument('bundle')); // get bundle props
         $loader = $this->getContainer()->get('translation.loader'); // get translator loader
         $uberMemcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
         $catalogues = array(); // prepare array for catalogues
-        foreach ($parsedLocales as $locale) { // run through locales
+        foreach ($locales as $locale) { // run through locales
             if (!preg_match('/^[a-z]{2}$/', $locale) && !preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
                 $output->writeln("\033[37;43m Make sure you define all locales properly \033[0m   \n");
                 return;

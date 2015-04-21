@@ -38,14 +38,14 @@ Command example:
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $memcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
-        $keys = $memcached->getAllKeys();
+        $keys = $this->getContainer()->getParameter('sleepness_uber_translation.supported_locales');
         foreach ($keys as $index => $locale) {
             if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
                 if ($memcached->deleteItem($locale)) {
                     $output->writeln("\033[37;42m Translations for " . $locale ." locale deleted from Memcache! \033[0m");
+                } else {
+                    $output->writeln("\033[37;43m Data with " . $locale . " locale has not been deleted from Memcache! \033[0m");
                 }
-            } else {
-                $output->writeln("\033[37;43m Data with " . $locale . " key has not been deleted from Memcache ! \033[0m");
             }
         }
     }
