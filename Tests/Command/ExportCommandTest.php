@@ -7,7 +7,7 @@ use Sleepness\UberTranslationBundle\Command\ExportCommand;
 /**
  * Test ExportCommand executing cases
  *
- * @author Alexandr Zhulev
+ * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
  */
 class ExportCommandTest extends CommandTestCase
 {
