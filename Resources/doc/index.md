@@ -52,12 +52,12 @@ sleepness_uber_translation:
 
 ### Import translations
 
-Import translations into memcached by running console command `uber:translations:import locale BundleName`
+Import translations into memcached by running console command `uber:translations:import BundleName`
 
 Example:
 
 ``` bash
-$ php app/console uber:translations:import en,uk AcmeDemoBundle
+$ php app/console uber:translations:import AcmeDemoBundle
 ```
 
 ### Export translations
