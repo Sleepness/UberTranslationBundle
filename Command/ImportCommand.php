@@ -45,6 +45,10 @@ Command example:
     {
         $locales = $this->getContainer()->getParameter('sleepness_uber_translation.supported_locales'); // prepare locales from parameters
         $bundle = $this->getContainer()->get('kernel')->getBundle($input->getArgument('bundle')); // get bundle props
+        if (!is_dir($bundle->getPath() . '/Resources/translations')) {
+            $output->writeln("\033[37;43m There is no folder with translations in " . $input->getArgument('bundle') . " \033[0m");
+            return;
+        }
         $loader = $this->getContainer()->get('translation.loader'); // get translator loader
         $uberMemcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
         $catalogues = array(); // prepare array for catalogues
@@ -54,10 +58,6 @@ Command example:
                 return;
             }
             $currentCatalogue = new MessageCatalogue($locale); // Load defined messages for given locale
-            if (!is_dir($bundle->getPath() . '/Resources/translations')) {
-                $output->writeln("\033[37;43m There is no folder with translations in " . $input->getArgument('bundle') . " \033[0m   \n");
-                return;
-            }
             $loader->loadMessages($bundle->getPath() . '/Resources/translations', $currentCatalogue); // load messages from catalogue
             $catalogues[$locale] = $currentCatalogue; // pass MessageCatalogue instance into $catalogues array
         }

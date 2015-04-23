@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Purge memcached
+ * Remove all translation of application from memcache
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
