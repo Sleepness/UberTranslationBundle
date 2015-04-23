@@ -45,9 +45,7 @@ Command example:
     {
         $bundleName = $input->getArgument('bundle');
         $bundlePath = $this->getContainer()->get('kernel')->getBundle($bundleName)->getPath();
-        $dateTime = new \DateTime();
-        $formattedDateTime = $dateTime->format('Y-m-d_H-i');
-        $exportResource = $bundlePath . '/Resources/translations/' . $formattedDateTime;
+        $translationDirPath = $bundlePath . '/Resources/translations/';
         $uberMemcached = $this->getContainer()->get('uber.memcached');
         $locales = $uberMemcached->getAllKeys();
 
@@ -55,8 +53,8 @@ Command example:
             $numberOfLocales = null;
             foreach ($locales as $locale) {
                 if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
-                    if (!file_exists($exportResource)) {
-                        mkdir($exportResource, 0777, true);
+                    if (!file_exists($translationDirPath)) {
+                        mkdir($translationDirPath, 0777, true);
                     }
                     $numberOfLocales++;
                     $memcacheMessages = $uberMemcached->getItem($locale);
@@ -78,13 +76,12 @@ Command example:
                         }
                         $dumper = new Dumper();
                         $yaml = $dumper->dump($yamlArr, $indent);
-                        file_put_contents($exportResource . '/' . $domain . '.' . $locale . '.yml', $yaml);
+                        file_put_contents($translationDirPath . '/' . $domain . '.' . $locale . '.yml', $yaml);
                     }
                 }
             }
             if ($numberOfLocales) {
-                $output->writeln("\033[37;42m Translations exported successfully in \""
-                    . $bundleName . '/Resources/translations/' . $formattedDateTime . "\"! \033[0m");
+                $output->writeln("\033[37;42m Translations exported successfully into " . $bundleName . "/Resources/translations/ ! \033[0m");
             } else {
                 $output->writeln("\033[37;43m No translations in Memcache! \033[0m");
             }
