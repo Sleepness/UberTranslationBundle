@@ -8,6 +8,7 @@ use Sleepness\UberTranslationBundle\Command\ExportCommand;
  * Test ExportCommand executing cases
  *
  * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
 class ExportCommandTest extends CommandTestCase
 {
@@ -20,11 +21,6 @@ class ExportCommandTest extends CommandTestCase
      * @var \Sleepness\UberTranslationBundle\Cache\UberMemcached;
      */
     private $uberMemcached;
-
-    /**
-     * @var String;
-     */
-    private $formattedDateTime;
 
     /**
      * @var String;
@@ -49,8 +45,7 @@ class ExportCommandTest extends CommandTestCase
             file_get_contents(static::$exportResource . '/validators.en_XX.yml')
         );
         $this->assertEquals(
-            "\033[37;42m Translations exported successfully in \"TestBundle/Resources/translations/"
-            . $this->formattedDateTime . "\"! \033[0m",
+            "\033[37;42m Translations exported successfully into TestBundle/Resources/translations/ ! \033[0m",
             trim($commandTester->getDisplay())
         );
     }
@@ -82,10 +77,7 @@ class ExportCommandTest extends CommandTestCase
         $this->uberMemcached = $container->get('uber.memcached');
         $this->uberMemcached->addItem('en_XX', $values);
         $bundlePath = $this->getKernel()->getBundle('TestBundle')->getPath();
-        $dateTime = new \DateTime();
-        $formattedDateTime = $dateTime->format('Y-m-d_H-i');
-        $this->formattedDateTime = $formattedDateTime;
-        static::$exportResource = $bundlePath . '/Resources/translations/' . $formattedDateTime;
+        static::$exportResource = $bundlePath . '/Resources/translations/';
     }
 
     /**
@@ -122,9 +114,10 @@ class ExportCommandTest extends CommandTestCase
     {
         $files = array_diff(scandir(static::$exportResource . '/'), array('.','..'));
         foreach ($files as $file) {
-            unlink(static::$exportResource . '/' . $file);
+            if (strstr($file, '_XX') !== false) {
+                unlink(static::$exportResource . '/' . $file);
+            }
         }
-        rmdir(static::$exportResource . '/');
     }
 
     /**
