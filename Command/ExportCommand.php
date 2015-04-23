@@ -12,6 +12,7 @@ use Symfony\Component\Yaml\Dumper;
  * Export all translations from memcache into YAML files of given bundle
  *
  * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
 class ExportCommand extends ContainerAwareCommand
 {
@@ -48,9 +49,8 @@ Command example:
         $translationDirPath = $bundlePath . '/Resources/translations/';
         $uberMemcached = $this->getContainer()->get('uber.memcached');
         $locales = $uberMemcached->getAllKeys();
-
         if ($locales) {
-            $numberOfLocales = null;
+            $numberOfLocales = 0;
             foreach ($locales as $locale) {
                 if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
                     if (!file_exists($translationDirPath)) {
