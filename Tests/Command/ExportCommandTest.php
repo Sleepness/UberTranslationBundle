@@ -39,10 +39,10 @@ class ExportCommandTest extends CommandTestCase
             )
         );
         $this->assertTrue(is_string($commandTester->getDisplay()));
-        $this->assertFileExists(static::$exportResource . '/messages.en_XX.yml');
+        $this->assertFileExists(static::$exportResource . 'messages.en_XX.yml');
         $this->assertRegExp(
             '/key:\n\s+not:\n\s+blank:/',
-            file_get_contents(static::$exportResource . '/validators.en_XX.yml')
+            file_get_contents(static::$exportResource . 'validators.en_XX.yml')
         );
         $this->assertEquals(
             "\033[37;42m Translations exported successfully into TestBundle/Resources/translations/ ! \033[0m",

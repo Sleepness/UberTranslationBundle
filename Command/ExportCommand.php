@@ -47,15 +47,15 @@ Command example:
         $bundleName = $input->getArgument('bundle');
         $bundlePath = $this->getContainer()->get('kernel')->getBundle($bundleName)->getPath();
         $translationDirPath = $bundlePath . '/Resources/translations/';
+        if (!file_exists($translationDirPath)) {
+            mkdir($translationDirPath, 0777);
+        }
         $uberMemcached = $this->getContainer()->get('uber.memcached');
-        $locales = $this->getContainer()->getParameter('sleepness_uber_translation.supported_locales');
+        $locales = $uberMemcached->getAllKeys();
         $response = "\033[37;43m No translations in Memcache! \033[0m";
         $numberOfLocales = 0;
         foreach ($locales as $locale) {
             if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
-                if (!file_exists($translationDirPath)) {
-                    mkdir($translationDirPath, 0777, true);
-                }
                 $numberOfLocales++;
                 $memcacheMessages = $uberMemcached->getItem($locale);
                 foreach ($memcacheMessages as $domain => $messagesArray) {
