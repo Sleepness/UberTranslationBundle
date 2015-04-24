@@ -83,7 +83,6 @@ Command example:
         if (!empty($numberOfLocales)) {
             $response = "\033[37;42m Translations exported successfully into " . $bundleName . "/Resources/translations/ ! \033[0m";
         }
-
         $output->writeln($response);
     }
 
