@@ -30,7 +30,7 @@ class UberMemcached implements ResourceInterface
     }
 
     /**
-     * @return Memcached|null
+     * @return Memcached
      */
     public function getMemcached()
     {
