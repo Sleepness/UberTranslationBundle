@@ -8,11 +8,21 @@
 
         <service id="origin.memcached" class="Memcached"/>
 
+        <service id="origin.redis" class="Redis"/>
+
         <service id="uber.memcached" class="Sleepness\UberTranslationBundle\Cache\UberMemcached">
             <argument type="service" id="origin.memcached"/>
             <call method="setConnection">
                 <argument>%sleepness_uber_translation.memcached.host%</argument>
                 <argument>%sleepness_uber_translation.memcached.port%</argument>
+            </call>
+        </service>
+
+        <service id="uber.redis" class="Sleepness\UberTranslationBundle\Cache\UberRedis">
+            <argument type="service" id="origin.redis"/>
+            <call method="setConnection">
+                <argument>%sleepness_uber_translation.redis.host%</argument>
+                <argument>%sleepness_uber_translation.redis.port%</argument>
             </call>
         </service>
 
