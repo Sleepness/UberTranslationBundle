@@ -5,7 +5,6 @@ namespace Sleepness\UberTranslationBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Translation\MessageCatalogue;
 
 /**
  * Dump all translations stored in memcache
@@ -50,6 +49,6 @@ Command example:
             $catalogues[] = $uberMemcached->getItem($key);
         }
         $output->writeln("\033[37;43m Translations from memcache: \033[0m \n\n");
-        $output->writeln(var_dump($catalogues));
+        $output->writeln(print_r($catalogues));
     }
 }
