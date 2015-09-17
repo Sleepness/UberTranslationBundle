@@ -49,6 +49,6 @@ Command example:
             $catalogues[] = $uberMemcached->getItem($key);
         }
         $output->writeln("\033[37;43m Translations from memcache: \033[0m \n\n");
-        $output->writeln(print_r($catalogues));
+        $output->writeln(json_encode($catalogues));
     }
 }
