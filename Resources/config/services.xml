@@ -47,6 +47,11 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service id="data_collector.uber_translations_collector" class="Sleepness\UberTranslationBundle\DataCollector\UberTranslationsDataCollector">
+            <argument type="service" id="uber.memcached"/>
+            <tag name="data_collector" template="SleepnessUberTranslationBundle:DataCollector:translations" id="uber_translations_collector"/>
+        </service>
+
     </services>
 
 </container>
