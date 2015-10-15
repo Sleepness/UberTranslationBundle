@@ -40,11 +40,12 @@ Command example:
         $memcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
         $keys = $this->getContainer()->getParameter('sleepness_uber_translation.supported_locales');
         foreach ($keys as $index => $locale) {
-            if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
-                $response = $memcached->deleteItem($locale) ? "\033[37;42m Translations for " . $locale . " locale deleted from Memcache! \033[0m"
-                :"\033[37;43m Data with " . $locale . " locale has not been deleted from Memcache! \033[0m";
-                $output->writeln($response);
+            if (!preg_match('/^[a-z]{2}_[a-zA-Z]{2}$|[a-z]{2}/', $locale)) {
+                continue;
             }
+            $response = $memcached->deleteItem($locale) ? "\033[37;42m Translations for " . $locale . " locale deleted from Memcache! \033[0m"
+                : "\033[37;43m Data with " . $locale . " locale has not been deleted from Memcache! \033[0m";
+            $output->writeln($response);
         }
     }
 }
