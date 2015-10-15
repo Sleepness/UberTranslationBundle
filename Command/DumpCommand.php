@@ -43,9 +43,6 @@ Command example:
         $memcachedKeys = $uberMemcached->getAllKeys();
         $output->writeln("\033[37;43m Translations from memcache: \033[0m \n\n");
         foreach ($memcachedKeys as $key) { // run through locales
-            if (!preg_match('/^[a-z]{2}_[a-zA-Z]{2}$|[a-z]{2}/', $key)) {
-                continue;
-            }
             echo "\033[94mLocale: $key \033[0m \n\n";
             $translations = $uberMemcached->getItem($key);
             foreach ($translations as $domain => $messages) {

@@ -25,11 +25,11 @@ class MemcachedLoaderTest extends WebTestCase
     public function testLoad()
     {
         $catalogue = $this->loader->load($this->uberMemcached, 'en_US');
+        $domains = $catalogue->getDomains();
 
         $this->assertTrue(is_object($catalogue));
         $this->assertTrue($catalogue instanceof MessageCatalogue);
         $this->assertEquals('en_US', $catalogue->getLocale());
-        $domains = $catalogue->getDomains();
         $this->assertEquals('messages', $domains[0]);
     }
 
@@ -64,7 +64,7 @@ class MemcachedLoaderTest extends WebTestCase
         return array(
             'messages' => array(
                 'key.hello' => 'value.Hello',
-                'key.foo' => 'value.Foo',
+                'key.foo'   => 'value.Foo',
             ),
         );
     }

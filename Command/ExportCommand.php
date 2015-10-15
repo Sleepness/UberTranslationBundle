@@ -55,29 +55,27 @@ Command example:
         $response = "\033[37;43m No translations in Memcache! \033[0m";
         $numberOfLocales = 0;
         foreach ($locales as $locale) {
-            if (preg_match('/^[a-z]{2}_[a-zA-Z]{2}$|[a-z]{2}/', $key)) {
-                $numberOfLocales++;
-                $memcacheMessages = $uberMemcached->getItem($locale);
-                foreach ($memcacheMessages as $domain => $messagesArray) {
-                    $yamlArr = array();
-                    $indent = 0;
-                    foreach ($messagesArray as $key => $value) {
-                        $delimArray = explode('.', $key);
-                        $indent = count($delimArray);
-                        array_push($delimArray, $value);
-                        $expArray = $this->expand($delimArray);
-                        foreach ($expArray as $expArrayKey => $expArrayVal) {
-                            if (array_key_exists($expArrayKey, $yamlArr)) {
-                                $yamlArr[$expArrayKey] = array_replace_recursive($yamlArr[$expArrayKey], $expArrayVal);
-                            } else {
-                                $yamlArr[$expArrayKey] = $expArrayVal;
-                            }
+            $numberOfLocales++;
+            $memcacheMessages = $uberMemcached->getItem($locale);
+            foreach ($memcacheMessages as $domain => $messagesArray) {
+                $yamlArr = array();
+                $indent = 0;
+                foreach ($messagesArray as $key => $value) {
+                    $delimArray = explode('.', $key);
+                    $indent = count($delimArray);
+                    array_push($delimArray, $value);
+                    $expArray = $this->expand($delimArray);
+                    foreach ($expArray as $expArrayKey => $expArrayVal) {
+                        if (array_key_exists($expArrayKey, $yamlArr)) {
+                            $yamlArr[$expArrayKey] = array_replace_recursive($yamlArr[$expArrayKey], $expArrayVal);
+                        } else {
+                            $yamlArr[$expArrayKey] = $expArrayVal;
                         }
                     }
-                    $dumper = new Dumper();
-                    $yaml = $dumper->dump($yamlArr, $indent);
-                    file_put_contents($translationDirPath . '/' . $domain . '.' . $locale . '.yml', $yaml);
                 }
+                $dumper = new Dumper();
+                $yaml = $dumper->dump($yamlArr, $indent);
+                file_put_contents($translationDirPath . '/' . $domain . '.' . $locale . '.yml', $yaml);
             }
         }
         if (!empty($numberOfLocales)) {
@@ -97,11 +95,8 @@ Command example:
     {
         $result = array();
         $next = $level + 1;
-        if (count($array) == $level + 2) {
-            $result[$array[$level]] = $array[$next];
-        } else {
-            $result[$array[$level]] = $this->expand($array, $next);
-        }
+        $value = (count($array) == $level + 2) ? $array[$next] : $this->expand($array, $next);
+        $result[$array[$level]] = $value;
 
         return $result;
     }

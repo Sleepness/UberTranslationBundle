@@ -63,6 +63,7 @@ class UberMemcached implements ResourceInterface
         if ($expiration === null) {
             $expiration = 60 * 60 * 24 * 30; // default expires after 30 days
         }
+
         return $this->getMemcached()->set($key, $value, $expiration);
     }
 
@@ -84,7 +85,16 @@ class UberMemcached implements ResourceInterface
      */
     public function getAllKeys()
     {
-        return $this->getMemcached()->getAllKeys();
+        $allKeys = $this->getMemcached()->getAllKeys();
+        $locales = array();
+        foreach ($allKeys as $key) {
+            if (!preg_match('/^[a-z]{2}_[a-zA-Z]{2}$|[a-z]{2}/', $key)) {
+                continue;
+            }
+            $locales[] = $key;
+        }
+
+        return $locales;
     }
 
     /**

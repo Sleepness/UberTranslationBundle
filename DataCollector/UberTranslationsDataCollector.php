@@ -29,12 +29,8 @@ class UberTranslationsDataCollector extends DataCollector
         $memcachedKeys = $this->uberMemcached->getAllKeys();
         $catalogues = array(); // prepare array for catalogues
         foreach ($memcachedKeys as $key) { // run through locales
-            if (!preg_match('/^[a-z]{2}_[a-zA-Z]{2}$|[a-z]{2}/', $key)) {
-                continue;
-            }
             $catalogues[$key] = $this->uberMemcached->getItem($key);
         }
-
         $this->data = array(
             'memcached_translations' => $catalogues,
         );
