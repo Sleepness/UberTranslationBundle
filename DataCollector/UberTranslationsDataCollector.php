@@ -33,7 +33,6 @@ class UberTranslationsDataCollector extends DataCollector
                 continue;
             }
             $catalogues[$key] = $this->uberMemcached->getItem($key);
-//            $catalogues[$key] = $key;
         }
 
         $this->data = array(
@@ -42,6 +41,9 @@ class UberTranslationsDataCollector extends DataCollector
     }
 
     /**
+     * Allow fetch memcached translation in data collector template
+     *
+     * @return array
      */
     public function getTranslations()
     {
@@ -49,13 +51,19 @@ class UberTranslationsDataCollector extends DataCollector
     }
 
     /**
+     * Allow get count of available locales in collector template
+     *
+     * @return number
      */
-    public function getAvailableLocales()
+    public function countAvailableLocales()
     {
         return count($this->data['memcached_translations']);
     }
 
     /**
+     * Return collector name
+     *
+     * @return string
      */
     public function getName()
     {
