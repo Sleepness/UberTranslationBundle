@@ -55,7 +55,7 @@ Command example:
         $response = "\033[37;43m No translations in Memcache! \033[0m";
         $numberOfLocales = 0;
         foreach ($locales as $locale) {
-            if (preg_match('/^[a-z]{2}$/', $locale) || preg_match('/^[a-z]{2}_[A-Z]{2}$/', $locale)) {
+            if (preg_match('/^[a-z]{2}_[a-zA-Z]{2}$|[a-z]{2}/', $key)) {
                 $numberOfLocales++;
                 $memcacheMessages = $uberMemcached->getItem($locale);
                 foreach ($memcacheMessages as $domain => $messagesArray) {
