@@ -4,13 +4,23 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="sleepness.uber.cache.memcached.class">Sleepness\UberTranslationBundle\Cache\UberMemcached</parameter>
+        <parameter key="sleepness.uber.cache.redis.class">Sleepness\UberTranslationBundle\Cache\UberRedis</parameter>
+        <parameter key="sleepness.uber.translation.loader.class">Sleepness\UberTranslationBundle\Translation\Loader\MemcachedLoader</parameter>
+        <parameter key="sleepness.uber.translation.translator.class">Sleepness\UberTranslationBundle\Translation\Translator</parameter>
+        <parameter key="sleepness.uber.http.listener.translator_listener.class">Symfony\Component\HttpKernel\EventListener\TranslatorListener</parameter>
+        <parameter key="sleepness.uber.http.listener.translator_listener.class">Symfony\Component\HttpKernel\EventListener\TranslatorListener</parameter>
+        <parameter key="sleepness.uber.data_collector.class">Sleepness\UberTranslationBundle\DataCollector\UberTranslationsDataCollector</parameter>
+    </parameters>
+
     <services>
 
         <service id="origin.memcached" class="Memcached"/>
 
         <service id="origin.redis" class="Redis"/>
 
-        <service id="uber.memcached" class="Sleepness\UberTranslationBundle\Cache\UberMemcached">
+        <service id="uber.memcached" class="%sleepness.uber.cache.memcached.class%">
             <argument type="service" id="origin.memcached"/>
             <call method="setConnection">
                 <argument>%sleepness_uber_translation.memcached.host%</argument>
@@ -18,38 +28,37 @@
             </call>
         </service>
 
-       <!-- <service id="uber.redis" class="Sleepness\UberTranslationBundle\Cache\UberRedis">
-            <argument type="service" id="origin.redis"/>
-            <call method="setConnection">
-                <argument>%sleepness_uber_translation.redis.host%</argument>
-                <argument>%sleepness_uber_translation.redis.port%</argument>
-            </call>
-        </service>-->
+        <!-- <service id="uber.redis" class="%sleepness.uber.cache.redis.class%">
+             <argument type="service" id="origin.redis"/>
+             <call method="setConnection">
+                 <argument>%sleepness_uber_translation.redis.host%</argument>
+                 <argument>%sleepness_uber_translation.redis.port%</argument>
+             </call>
+         </service>-->
 
-        <service id="uber.translation.loader"
-                 class="Sleepness\UberTranslationBundle\Translation\Loader\MemcachedLoader">
+        <service id="uber.translation.loader" class="%sleepness.uber.translation.loader.class%">
             <call method="setUberMemcached">
                 <argument type="service" id="uber.memcached"/>
             </call>
             <tag name="translation.loader" alias="memcached_loader"/>
         </service>
 
-        <service id="uber.translator" class="Sleepness\UberTranslationBundle\Translation\Translator"
-                 parent="translator.default"/>
+        <service id="uber.translator" class="%sleepness.uber.translation.translator.class%" parent="translator.default"/>
 
         <service id="twig.extension.trans" class="%twig.extension.trans.class%" public="false">
             <argument type="service" id="uber.translator"/>
         </service>
 
-        <service id="translator_listener" class="Symfony\Component\HttpKernel\EventListener\TranslatorListener">
+        <service id="translator_listener" class="%sleepness.uber.http.listener.translator_listener.class%">
             <argument type="service" id="uber.translator"/>
             <argument type="service" id="request_stack"/>
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="data_collector.uber_translations_collector" class="Sleepness\UberTranslationBundle\DataCollector\UberTranslationsDataCollector">
+        <service id="data_collector.uber_translations_collector" class="%sleepness.uber.data_collector.class%">
             <argument type="service" id="uber.memcached"/>
-            <tag name="data_collector" template="SleepnessUberTranslationBundle:DataCollector:translations" id="uber_translations_collector"/>
+            <tag name="data_collector" template="SleepnessUberTranslationBundle:DataCollector:translations"
+                 id="uber_translations_collector"/>
         </service>
 
     </services>
