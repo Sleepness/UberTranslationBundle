@@ -86,6 +86,29 @@ class UberRedis implements ResourceInterface
     }
 
     /**
+     * Delete item from memcached
+     *
+     * @param $key
+     * @return bool
+     */
+    public function deleteItem($key)
+    {
+        $this->getRedis()->delete($key);
+
+        return true;
+    }
+
+    /**
+     * Remove all items from redis
+     *
+     * @return bool
+     */
+    public function dropCache()
+    {
+        return $this->getRedis()->flushAll();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __toString()
