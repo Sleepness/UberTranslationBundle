@@ -12,7 +12,7 @@ use Symfony\Component\Config\Resource\ResourceInterface;
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  * @author Alexandr Zhulev <alexandrzhulev@gmail.com>
  */
-class UberMemcached implements ResourceInterface, UberCacheStorageInterface
+class UberMemcached implements ResourceInterface, UberStorageInterface
 {
     private $memcached;
 

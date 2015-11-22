@@ -9,7 +9,7 @@ use Symfony\Component\Config\Resource\ResourceInterface;
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
-class UberMongo implements ResourceInterface, UberCacheStorageInterface
+class UberMongo implements ResourceInterface, UberStorageInterface
 {
     public function __toString()
     {

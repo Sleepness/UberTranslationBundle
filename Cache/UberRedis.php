@@ -11,7 +11,7 @@ use Symfony\Component\Config\Resource\ResourceInterface;
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
-class UberRedis implements ResourceInterface, UberCacheStorageInterface
+class UberRedis implements ResourceInterface, UberStorageInterface
 {
     /**
      * @var \Redis

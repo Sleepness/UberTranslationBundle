@@ -7,7 +7,7 @@ namespace Sleepness\UberTranslationBundle\Cache;
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
-interface UberCacheStorageInterface
+interface UberStorageInterface
 {
     /**
      * Set the connection with storage server
