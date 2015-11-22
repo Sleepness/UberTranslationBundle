@@ -13,7 +13,7 @@ use Symfony\Component\Translation\MessageCatalogue;
 class MemcachedLoaderTest extends WebTestCase
 {
     /**
-     * @var \Sleepness\UberTranslationBundle\Cache\UberMemcached;
+     * @var \Sleepness\UberTranslationBundle\Storage\UberMemcached;
      */
     private $uberMemcached;
 

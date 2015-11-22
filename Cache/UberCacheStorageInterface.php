@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleepness\UberTranslationBundle\Cache;
+namespace Sleepness\UberTranslationBundle\Storage;
 
 /**
  * Interface for all storage classes

@@ -18,7 +18,7 @@ class ExportCommandTest extends CommandTestCase
     protected $commandTester;
 
     /**
-     * @var \Sleepness\UberTranslationBundle\Cache\UberMemcached;
+     * @var \Sleepness\UberTranslationBundle\Storage\UberMemcached;
      */
     private $uberMemcached;
 

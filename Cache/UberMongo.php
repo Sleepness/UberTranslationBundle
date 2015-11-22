@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleepness\UberTranslationBundle\Cache;
+namespace Sleepness\UberTranslationBundle\Storage;
 
 use Symfony\Component\Config\Resource\ResourceInterface;
 

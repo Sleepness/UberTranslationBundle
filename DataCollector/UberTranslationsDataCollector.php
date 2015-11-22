@@ -5,7 +5,7 @@ namespace Sleepness\UberTranslationBundle\DataCollector;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sleepness\UberTranslationBundle\Cache\UberMemcached;
+use Sleepness\UberTranslationBundle\Storage\UberMemcached;
 
 /**
  * Collect translations from Memcache to Symfony profiler

@@ -2,7 +2,7 @@
 
 namespace Sleepness\UberTranslationBundle\Translation\Loader;
 
-use Sleepness\UberTranslationBundle\Cache\UberMemcached;
+use Sleepness\UberTranslationBundle\Storage\UberMemcached;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 use Symfony\Component\Translation\MessageCatalogue;
