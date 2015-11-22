@@ -38,11 +38,7 @@ class UberMemcached implements ResourceInterface, UberCacheStorageInterface
     }
 
     /**
-     * Set the connection with memcached server
-     *
-     * @param string $host
-     * @param int $port
-     * @return bool TRUE on success or FALSE failure.
+     * {@inheritdoc}
      */
     public function setConnection($host, $port)
     {
@@ -50,13 +46,7 @@ class UberMemcached implements ResourceInterface, UberCacheStorageInterface
     }
 
     /**
-     * Add the item into memcached. If value with given keys exist,
-     * it will only replace the value.
-     *
-     * @param $key
-     * @param $value
-     * @param null $expiration
-     * @return bool
+     * {@inheritdoc}
      */
     public function addItem($key, $value, $expiration = null)
     {
@@ -68,10 +58,7 @@ class UberMemcached implements ResourceInterface, UberCacheStorageInterface
     }
 
     /**
-     * Get item from memcached
-     *
-     * @param $key
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getItem($key)
     {
@@ -79,9 +66,7 @@ class UberMemcached implements ResourceInterface, UberCacheStorageInterface
     }
 
     /**
-     * Get all keys(locales identifiers) stored on all the memcached storages
-     *
-     * @return array - locales identifiers
+     * {@inheritdoc}
      */
     public function getAllKeys()
     {
@@ -98,10 +83,7 @@ class UberMemcached implements ResourceInterface, UberCacheStorageInterface
     }
 
     /**
-     * Delete item from memcached
-     *
-     * @param $key
-     * @return bool
+     * {@inheritdoc}
      */
     public function deleteItem($key)
     {
@@ -109,14 +91,11 @@ class UberMemcached implements ResourceInterface, UberCacheStorageInterface
     }
 
     /**
-     * Remove all items from memcached (invalidate)
-     *
-     * @param int $delay
-     * @return bool
+     * {@inheritdoc}
      */
-    public function dropCache($delay = 0)
+    public function dropCache()
     {
-        return $this->getMemcached()->flush($delay);
+        return $this->getMemcached()->flush(0);
     }
 
     /**

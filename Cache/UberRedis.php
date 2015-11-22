@@ -11,7 +11,7 @@ use Symfony\Component\Config\Resource\ResourceInterface;
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
-class UberRedis implements ResourceInterface
+class UberRedis implements ResourceInterface, UberCacheStorageInterface
 {
     /**
      * @var \Redis
@@ -24,11 +24,7 @@ class UberRedis implements ResourceInterface
     }
 
     /**
-     * Set the connection with Redis server
-     *
-     * @param string $host
-     * @param int $port
-     * @return bool TRUE on success or FALSE failure.
+     * {@inheritdoc}
      */
     public function setConnection($host, $port)
     {
@@ -44,13 +40,7 @@ class UberRedis implements ResourceInterface
     }
 
     /**
-     * Add the item into Redis. If value with given keys exist,
-     * it will only replace the value.
-     *
-     * @param $key
-     * @param $value
-     * @param null $expiration
-     * @return bool
+     * {@inheritdoc}
      */
     public function addItem($key, $value, $expiration = null)
     {
@@ -63,10 +53,7 @@ class UberRedis implements ResourceInterface
     }
 
     /**
-     * Get item from Redis
-     *
-     * @param $key
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getItem($key)
     {
@@ -76,9 +63,7 @@ class UberRedis implements ResourceInterface
     }
 
     /**
-     * Get all keys(locales identifiers) stored on all the Redis storage
-     *
-     * @return array - locales identifiers
+     * {@inheritdoc}
      */
     public function getAllKeys()
     {
@@ -86,10 +71,7 @@ class UberRedis implements ResourceInterface
     }
 
     /**
-     * Delete item from memcached
-     *
-     * @param $key
-     * @return bool
+     * {@inheritdoc}
      */
     public function deleteItem($key)
     {
@@ -99,9 +81,7 @@ class UberRedis implements ResourceInterface
     }
 
     /**
-     * Remove all items from redis
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function dropCache()
     {

@@ -2,11 +2,15 @@
 
 namespace Sleepness\UberTranslationBundle\Cache;
 
-
+/**
+ * Interface for all storage classes
+ *
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
+ */
 interface UberCacheStorageInterface
 {
     /**
-     * Set the connection with memcached server
+     * Set the connection with storage server
      *
      * @param string $host
      * @param int $port
@@ -15,7 +19,7 @@ interface UberCacheStorageInterface
     public function setConnection($host, $port);
 
     /**
-     * Add the item into memcached. If value with given keys exist,
+     * Add the item into storage. If value with given keys exist,
      * it will only replace the value.
      *
      * @param $key
@@ -26,7 +30,7 @@ interface UberCacheStorageInterface
     public function addItem($key, $value, $expiration = null);
 
     /**
-     * Get item from memcached
+     * Get item from storage by key
      *
      * @param $key
      * @return mixed
@@ -34,14 +38,14 @@ interface UberCacheStorageInterface
     public function getItem($key);
 
     /**
-     * Get all keys(locales identifiers) stored on all the memcached storages
+     * Get all keys(locales identifiers) from storage
      *
      * @return array - locales identifiers
      */
     public function getAllKeys();
 
     /**
-     * Delete item from memcached
+     * Delete item from storage
      *
      * @param $key
      * @return bool
@@ -49,10 +53,9 @@ interface UberCacheStorageInterface
     public function deleteItem($key);
 
     /**
-     * Remove all items from memcached (invalidate)
+     * Remove all items from storage (invalidate)
      *
-     * @param int $delay
      * @return bool
      */
-    public function dropCache($delay = 0);
+    public function dropCache();
 } 

@@ -9,11 +9,59 @@ use Symfony\Component\Config\Resource\ResourceInterface;
  *
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  */
-class UberMongo implements ResourceInterface
+class UberMongo implements ResourceInterface, UberCacheStorageInterface
 {
     public function __toString()
     {
         return 'uberMongo';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setConnection($host, $port)
+    {
+        // TODO: Implement setConnection() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addItem($key, $value, $expiration = null)
+    {
+        // TODO: Implement addItem() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getItem($key)
+    {
+        // TODO: Implement getItem() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAllKeys()
+    {
+        // TODO: Implement getAllKeys() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteItem($key)
+    {
+        // TODO: Implement deleteItem() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function dropCache()
+    {
+        // TODO: Implement dropCache() method.
     }
 
     /**
