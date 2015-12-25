@@ -11,11 +11,6 @@ use Symfony\Component\Config\Resource\ResourceInterface;
  */
 class UberMongo implements ResourceInterface, UberStorageInterface
 {
-    public function __toString()
-    {
-        return 'uberMongo';
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -79,4 +74,13 @@ class UberMongo implements ResourceInterface, UberStorageInterface
     {
         // TODO: Implement getResource() method.
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __toString()
+    {
+        return 'uberMongo';
+    }
+
 }

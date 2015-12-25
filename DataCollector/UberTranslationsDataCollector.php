@@ -14,8 +14,14 @@ use Sleepness\UberTranslationBundle\Storage\UberMemcached;
  */
 class UberTranslationsDataCollector extends DataCollector
 {
+    /**
+     * @var UberMemcached $uberMemcached
+     */
     private $uberMemcached;
 
+    /**
+     * @param UberMemcached $uberMemcached
+     */
     public function __construct(UberMemcached $uberMemcached)
     {
         $this->uberMemcached = $uberMemcached;

@@ -14,11 +14,14 @@ use Symfony\Component\Config\Resource\ResourceInterface;
 class UberRedis implements ResourceInterface, UberStorageInterface
 {
     /**
-     * @var \Redis
+     * @var Redis
      */
     private $redis;
 
-    public function __construct(\Redis $redis)
+    /**
+     * @param Redis $redis
+     */
+    public function __construct(Redis $redis)
     {
         $this->redis = $redis;
     }

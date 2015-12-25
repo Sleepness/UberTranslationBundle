@@ -13,9 +13,15 @@ use Symfony\Component\Config\Resource\ResourceInterface;
  */
 class UberMemcached implements ResourceInterface, UberStorageInterface
 {
+    /**
+     * @var Memcached $memcached
+     */
     private $memcached;
 
-    public function __construct(\Memcached $memcached)
+    /**
+     * @param Memcached $memcached
+     */
+    public function __construct(Memcached $memcached)
     {
         $this->memcached = $memcached;
     }
