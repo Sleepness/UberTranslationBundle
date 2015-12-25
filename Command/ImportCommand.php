@@ -43,16 +43,17 @@ Command example:
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $locales = $this->getContainer()->getParameter('sleepness_uber_translation.supported_locales'); // prepare locales from parameters
-        $bundle = $this->getContainer()->get('kernel')->getBundle($input->getArgument('bundle')); // get bundle props
+        $container = $this->getContainer();
+        $locales = $container->getParameter('sleepness_uber_translation.supported_locales'); // prepare locales from parameters
+        $bundle = $container->get('kernel')->getBundle($input->getArgument('bundle')); // get bundle props
 
         if (!is_dir($bundle->getPath() . '/Resources/translations')) {
             $output->writeln("\033[37;43m There is no folder with translations in " . $input->getArgument('bundle') . " \033[0m");
             return;
         }
 
-        $loader = $this->getContainer()->get('translation.loader'); // get translator loader
-        $uberMemcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
+        $loader = $container->get('translation.loader'); // get translator loader
+        $uberMemcached = $container->get('uber.memcached'); // get uber memcached
         $catalogues = array(); // prepare array for catalogues
 
         foreach ($locales as $locale) { // run through locales

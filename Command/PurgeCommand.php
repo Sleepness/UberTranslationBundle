@@ -37,8 +37,9 @@ Command example:
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $memcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
-        $keys = $this->getContainer()->getParameter('sleepness_uber_translation.supported_locales');
+        $container = $this->getContainer();
+        $memcached = $container->get('uber.memcached'); // get uber memcached
+        $keys = $container->getParameter('sleepness_uber_translation.supported_locales');
         foreach ($keys as $index => $locale) {
             if (!preg_match('/^[a-z]{2}_[a-zA-Z]{2}$|[a-z]{2}/', $locale)) {
                 continue;

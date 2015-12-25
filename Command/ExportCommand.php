@@ -44,13 +44,14 @@ Command example:
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $container = $this->getContainer();
         $bundleName = $input->getArgument('bundle');
-        $bundlePath = $this->getContainer()->get('kernel')->getBundle($bundleName)->getPath();
+        $bundlePath = $container->get('kernel')->getBundle($bundleName)->getPath();
         $translationDirPath = $bundlePath . '/Resources/translations/';
         if (!file_exists($translationDirPath)) {
             mkdir($translationDirPath, 0777);
         }
-        $uberMemcached = $this->getContainer()->get('uber.memcached');
+        $uberMemcached = $container->get('uber.memcached');
         $locales = $uberMemcached->getAllKeys();
         $response = "\033[37;43m No translations in Memcache! \033[0m";
         $numberOfLocales = 0;
