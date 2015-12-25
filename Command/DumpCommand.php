@@ -41,17 +41,17 @@ Command example:
     {
         $uberMemcached = $this->getContainer()->get('uber.memcached'); // get uber memcached
         $memcachedKeys = $uberMemcached->getAllKeys();
-        $output->writeln("\033[37;43m Translations from memcache: \033[0m \n\n");
+        $output->writeln("\033[37;43m Translations from memcache: \033[0m");
         foreach ($memcachedKeys as $key) { // run through locales
-            echo "\033[94mLocale: $key \033[0m \n\n";
+            $output->writeln("\033[94mLocale: $key \033[0m");
             $translations = $uberMemcached->getItem($key);
             foreach ($translations as $domain => $messages) {
-                echo "-------------------------\n\n";
-                echo "\033[96mDomain: $domain \033[0m \n\n";
-                echo "-------------------------\n\n";
-                echo "\033[92m| Key | Value | \033[0m \n\n";
+                $output->writeln("-------------------------");
+                $output->writeln("\033[96mDomain: $domain \033[0m");
+                $output->writeln("-------------------------");
+                $output->writeln("\033[92m| Key | Value | \033[0m");
                 foreach ($messages as $key => $value) {
-                    echo "| $key | $value | \n\n";
+                    $output->writeln("| $key | $value |");
                 }
             }
         }
