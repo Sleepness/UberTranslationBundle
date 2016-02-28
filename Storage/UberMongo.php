@@ -12,11 +12,23 @@ use Symfony\Component\Config\Resource\ResourceInterface;
 class UberMongo implements ResourceInterface, UberStorageInterface
 {
     /**
+     * @var \MongoDB|null
+     */
+    private $mongoDB = null;
+
+    /**
      * {@inheritdoc}
      */
-    public function setConnection($host, $port)
+    public function setConnection($host = 'localhost', $port = '27017')
     {
-        // TODO: Implement setConnection() method.
+        try {
+            $client = new \MongoClient("mongodb://$host:$port");
+            $this->mongoDB = new \MongoDB($client, 'uber_translations');
+
+            return true;
+        } catch (\Exception $exception) {
+            return false;
+        }
     }
 
     /**
@@ -82,5 +94,4 @@ class UberMongo implements ResourceInterface, UberStorageInterface
     {
         return 'uberMongo';
     }
-
 }
